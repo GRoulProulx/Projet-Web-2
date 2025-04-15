@@ -1,8 +1,7 @@
-# Projet-Web-2
-# 🧾 Document Technologique – Projet Web2
+# 🧾 Document Technologique – Projet Web-2
 
-**Collaborateurs :** Sylviane Paré, Guillaume Rouleau-Proulx, Fataki Nsimba
-**Nom du projet :** Maison des vins 
+**Collaborateurs :** Sylviane Paré, Guillaume Rouleau-Proulx, Fataki Nsimba  
+**Nom du projet :** Maison des vins   
 **Description :** Application web permettant aux utilisateurs de rechercher, filtrer et sauvegarder des vins provenant de la SAQ.
 
 ---
