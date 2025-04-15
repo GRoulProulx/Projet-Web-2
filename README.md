@@ -1,5 +1,4 @@
-# Projet-Web-2
-# 🧾 Document Technologique – Projet Web2
+# 🧾 Document Technologique – Projet Web-2
 
 **Collaborateurs :** Sylviane Paré, Guillaume Rouleau-Proulx, Fataki Nsimba  
 **Nom du projet :** Maison des vins   
