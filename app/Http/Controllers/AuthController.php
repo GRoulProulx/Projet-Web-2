@@ -40,12 +40,11 @@ class AuthController extends Controller
         // Authentification réussie et la connexion de l'utilisateur
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
         Auth::login($user);
-        TODO: // Définir la session de l'utilisateur (administrateur ou utilisateur) ICI ???
+        //TODO: Définir la session de l'utilisateur (administrateur ou utilisateur) ICI ???
 
+        return redirect()->intended(route('welcome'))->with('success', 'Vous êtes connecté');
 
-        return redirect()->intended(route('accueil'))->with('success', 'Vous êtes connecté');
-    }
-    /**
+    }    /**
      * Display the specified resource.
      */
     public function show(string $id)
