@@ -1,25 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat:wght@100..900&display=swap');
 @import "tailwindcss";
 @source "../views/";
 
 /* 
+MOBILE FIRST
+    - 320px : mobile
+    - 768px : tablette
+    - 1024px : desktop
 
-Rythme de base
-    15px
-
-Rythme serré
-    5px
-
-Rythme espacé
-    20px
-
-
+RYTHME
+    - 5px : serré
+    - 15px : normal
+    - 20px : espacé
 */
 
 @theme {
+    /* TYPOGRAPHIE */
+    --font-family: 'Montserrat', sans-serif;
+    --font-family-title: 'Cinzel', serif;
+
     /* COULEURS DU THÈME */
     --color-blue-magenta: #524b56;
     --color-gold: #a78753;
     --color-white: #edecee;
     --color-taupe: #866260;
     --color-light-gray: #9b9b9d;
+
+    /* TAILLES DE POLICE */
+    --text-xs: 0.8125rem; /* 13px */
+    --text-sm: 0.875rem; /* 14px */
+    --text-base: 1rem; /* 16px */
+    --text-lg: 1.5rem; /* 24px */
+    --text-xl: 2rem; /* 32px */
+
+    /* FONT-WEIGHT */
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+
+    /* PADDING */
+    --spacing-xxs: 0.3125rem; /* 5px */
+    --spacing-xs: 0.625rem; /* 10px */
+    --spacing-sm: 0.9375rem; /* 15px */
+    --spacing-md: 1.25rem; /* 20px */
+
+    /* BORDER-RADIUS */
+    --radius-md: 0.3125rem; /* 5px */
+
 }
