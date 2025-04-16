@@ -34,8 +34,7 @@ Route::get('/edit/bottle/{bottle}', [BottleController::class, 'edit'])->name('bo
 Route::put('/edit/bottle/{bottle}', [BottleController::class, 'update'])->name('bottle.update');
 Route::delete('/bottle/{bottle}', [BottleController::class, 'destroy'])->name('bottle.destroy');
 
-// ROUTES POUR GÉRER LE SCRAPING
-
+// Routes pour les utilisateurs
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
@@ -46,6 +45,5 @@ Route::post('/login', [AuthController::class, 'store'])->name('login.store');
 Route::get('/logout', [AuthController::class, 'destroy'])->name('logout');
 
 // Route pour le scraper
-
 Route::get('/test-scraper', [ScraperController::class, 'test']);
 
