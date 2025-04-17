@@ -47,3 +47,37 @@ RYTHME
     --radius-md: 0.3125rem; /* 5px */
 
 }
+
+@layer components{
+    .bouton{
+        padding-top: var(--spacing-xs);
+        padding-bottom: var(--spacing-xs);
+        padding-left: var(--spacing-md);
+        padding-right: var(--spacing-md);
+        background-color: var(--color-gold);
+        border-radius: var(--radius-md);
+        color: var(--color-white);
+        font-weight: var(--font-weight-regular);
+        font-size: var(--text-sm);
+
+        &:hover{
+            background-color: #856c42 ;
+            transition: background-color 0.5s ease-in;
+        }
+    }
+    .bouton.taupe{
+        background-color: var(--color-taupe);
+        &:hover{
+            background-color: #6b4e4c ;
+        }
+    }
+    .bouton.blue-magenta{
+        background-color: var(--color-blue-magenta);
+        &:hover{
+            background-color: #413c44 ;
+        }
+    }
+
+
+    
+}
