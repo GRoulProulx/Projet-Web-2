@@ -27,16 +27,16 @@
         </div>
     </section>
 
-    <button class="bg-blue-magenta text-white font-regular text-sm py-xxs px-md rounded-md mt-md">
-        <span>Cliquez ici</span>
+    <button class="bouton">
+        <span>Classe bouton</span>
     </button>
 
-    <button class="bg-taupe text-white font-regular text-sm py-xs px-md rounded-md mt-md">
-        <span>Cliquez ici</span>
+    <button class="bouton taupe">
+        <span>Classe bouton</span>
     </button>
 
-    <button class="bg-gold text-white font-regular text-sm py-xs px-md rounded-md mt-md">
-        <span>Cliquez ici</span>
+    <button class="bouton blue-magenta">
+        <span>Classe bouton</span>
     </button>
 </body>
 
