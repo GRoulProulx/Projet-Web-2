@@ -18,11 +18,4 @@ class Bottle extends Model
         'code_saq',
         'url',
     ];
-
-    // Définit la relation entre le modèle Bottle et Type
-    // Une bouteille appartient à un Type
-    public function type()
-    {
-        return $this->belongsTo(Type::class);
-    }
 }
