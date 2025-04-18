@@ -7,12 +7,16 @@ use Illuminate\Http\Request;
 
 class BottleController extends Controller
 {
+
+    // TODO: Ajouter les permissions pour que seul l'admin puisse accéder à ces routes ??
+
     /**
-     * Display a listing of the resource.
+     * Afficher la liste des bouteilles.
      */
     public function index()
     {
-        return view('bottle.index');
+        $bottles = Bottle::all();
+        return view('bottle.index', compact('bottles'));
     }
 
     /**
@@ -28,7 +32,33 @@ class BottleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Valider les données du formulaire
+        $request->validate(
+            [
+                'name' => 'required|string|max:191',
+                'image' => 'required|string|max:191',
+                'price' => 'required|string|max:191',
+                'type' => 'required|string|max:191',
+                'format' => 'required|string|max:191',
+                'country' => 'required|string|max:191',
+                'code_saq' => 'required|string|max:191',
+                'url' => 'required|string|max:191'
+            ]
+        );
+
+        //Créer la bouteille
+        $bottle = Bottle::create([
+            'name' => $request->name,
+            'image' => $request->image,
+            'price' => $request->price,
+            'type' => $request->type,
+            'format' => $request->format,
+            'country' => $request->country,
+            'code_saq' => $request->code_saq,
+            'url' => $request->url
+        ]);
+
+        return redirect()->route('bottle.show', $bottle->id)->with('success', 'La bouteille a été créé avec succès.');
     }
 
     /**
@@ -36,7 +66,7 @@ class BottleController extends Controller
      */
     public function show(Bottle $bottle)
     {
-        //
+        return view('bottle.show', ['bottle' => $bottle]);
     }
 
     /**
@@ -44,7 +74,7 @@ class BottleController extends Controller
      */
     public function edit(Bottle $bottle)
     {
-        
+        return view('bottle.edit', ['bottle' => $bottle]);
     }
 
     /**
@@ -52,7 +82,33 @@ class BottleController extends Controller
      */
     public function update(Request $request, Bottle $bottle)
     {
-        //
+        // Valider les données du formulaire
+        $request->validate(
+            [
+                'name' => 'required|string|max:191',
+                'image' => 'required|string|max:191',
+                'price' => 'required|string|max:191',
+                'type' => 'required|string|max:191',
+                'format' => 'required|string|max:191',
+                'country' => 'required|string|max:191',
+                'code_saq' => 'required|string|max:191',
+                'url' => 'required|string|max:191'
+            ]
+        );
+
+        //Mise à jour de la bouteille
+        $bottle->update([
+            'name' => $request->name,
+            'image' => $request->image,
+            'price' => $request->price,
+            'type' => $request->type,
+            'format' => $request->format,
+            'country' => $request->country,
+            'code_saq' => $request->code_saq,
+            'url' => $request->url
+        ]);
+
+        return redirect()->route('bottle.show', $bottle->id)->with('success', 'La bouteille a été modifié avec succès.');
     }
 
     /**
