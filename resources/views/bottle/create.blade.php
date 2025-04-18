@@ -1,3 +1,6 @@
+@extends('layouts.app')
+@section('title', trans('Ajouter une bouteille'))
+@section('content')
 <section>
     <header>
         <h1>Ajouter une bouteille</h1>
@@ -80,3 +83,4 @@
         <button type="submit">Ajouter</button>
         <a href="{{ route('bottle.index') }}">Annuler</a>
 </section>
+@endsection
