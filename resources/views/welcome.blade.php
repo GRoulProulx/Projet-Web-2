@@ -1,43 +1,36 @@
-<!doctype html>
-<html lang="fr">
+@extends('layouts.app')
+@section('title', trans('Accueil'))
+@section('content')
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    @vite('resources/css/app.css')
-</head>
+<section>
+    <h1 class="font-family-title text-lg text-blue-magenta font-bold">
+        Hello world!
+    </h1>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos nemo quidem obcaecati optio provident a architecto omnis! Nesciunt, excepturi? Assumenda quia similique ratione quasi optio consequatur doloribus libero hic expedita!</p>
+</section>
 
-<body class="bg-white font-family font-light m-md">
-    <section>
-        <h1 class="font-family-title text-lg text-blue-magenta font-bold">
+<section class="mt-md">
+    <header class="mb-xs">
+        <h1 class="font-family-title text-lg text-taupe font-bold">
             Hello world!
         </h1>
+    </header>
+    <div class="flex flex-col gap-xxs">
+        <h2 class="font-regular uppercase">Un sous-titre</h2>
         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos nemo quidem obcaecati optio provident a architecto omnis! Nesciunt, excepturi? Assumenda quia similique ratione quasi optio consequatur doloribus libero hic expedita!</p>
-    </section>
+    </div>
+</section>
 
-    <section class="mt-md">
-        <header class="mb-xs">
-            <h1 class="font-family-title text-lg text-taupe font-bold">
-                Hello world!
-            </h1>
-        </header>
-        <div class="flex flex-col gap-xxs">
-            <h2 class="font-regular uppercase">Un sous-titre</h2>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos nemo quidem obcaecati optio provident a architecto omnis! Nesciunt, excepturi? Assumenda quia similique ratione quasi optio consequatur doloribus libero hic expedita!</p>
-        </div>
-    </section>
+<button class="bouton">
+    <span>Classe bouton</span>
+</button>
 
-    <button class="bouton">
-        <span>Classe bouton</span>
-    </button>
+<button class="bouton bouton-taupe">
+    <span>Classe bouton</span>
+</button>
 
-    <button class="bouton taupe">
-        <span>Classe bouton</span>
-    </button>
+<button class="bouton bouton-blue-magenta">
+    <span>Classe bouton</span>
+</button>
 
-    <button class="bouton blue-magenta">
-        <span>Classe bouton</span>
-    </button>
-</body>
-
-</html>
+@endsection
