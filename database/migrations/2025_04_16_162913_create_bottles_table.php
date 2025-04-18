@@ -21,10 +21,12 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('code_saq')->unique();
             $table->string('url')->nullable();
-            $table->unsignedBigInteger('type_id');
+            
+            $table->index('type');
+            $table->index('country');
+    
             $table->timestamps();
 
-            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
         });
     }
 
