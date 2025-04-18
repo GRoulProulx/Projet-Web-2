@@ -1,7 +1,12 @@
+@extends('layouts.app')
+@section('title', trans('Afficher une bouteille'))
+@section('content')
+
 <div>
     <header>
         <h1>Détails d'une bouteille</h1>
     </header>
+    
     <table>
         <tr>
             <th>Identifiant</th>
@@ -20,8 +25,9 @@
             <th>Prix</th>
             <td>{{ $bottle->price }}</td>
         </tr>
-        <th>Type</th>
-        <td>{{ $bottle->type }}</td>
+        <tr>
+            <th>Type</th>
+            <td>{{ $bottle->type }}</td>
         </tr>
         <tr>
             <th>Format</th>
@@ -45,3 +51,5 @@
         <a href="{{ route('bottle.index') }}">Retour à la liste</a>
     </div>
 </div>
+
+@endsection

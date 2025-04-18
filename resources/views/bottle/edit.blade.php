@@ -1,3 +1,6 @@
+@extends('layouts.app')
+@section('title', trans('Modifier une bouteille'))
+@section('content')
 <section>
     <header>
         <h1>
@@ -84,3 +87,4 @@
         <a href="{{route('bottle.show', $bottle->id)}}">Annuler</a>
     </form>
 </section>
+@endsection
