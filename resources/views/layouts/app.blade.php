@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr" class="bg-white font-family font-light m-md">
+<html lang="fr" class="bg-white font-family font-light text-blue-magenta m-md">
 
 <head>
     <meta charset="utf-8" />
