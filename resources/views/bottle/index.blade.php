@@ -1,43 +1,44 @@
 @extends('layouts.app')
-@section('title', trans('Liste des bouteilles'))
+@section('title', trans('Catalogue des vins'))
 @section('content')
 
 <section>
     <div class="py-md sm:py-md">
         <div class="mx-auto">
-            <div class="mx-auto">
-                <h1 class="font-family-title text-xl">Catalogue des bouteilles</h1>
-                <p class="text-lg text-gray-600">Trouvez la bouteille qui vous fait rêver</p>
-            </div>
+            <!-- Grand titre -->
+            <header class="max-w-5xl">
+                <h1 class="font-family-title text-xl">Catalogue des vins</h1>
+                <p>Explorez une vaste sélection de vins directement issus de la SAQ. Recherchez, filtrez selon vos préférences et ajoutez vos découvertes à votre cellier en toute simplicité.</p>
+            </header>
 
-            <div class="mx-auto grid max-w-2xl grid-cols-1 gap-sm gap-y-md mt-md lg:mx-0 lg:max-w-none lg:grid-cols-3">
+            <!-- Grille de produits -->
+            <div class="mx-auto grid max-w-2xl grid-cols-1 gap-sm gap-y-sm mt-md md:mx-0 md:max-w-none md:grid-cols-2 xl:grid-cols-3 ">
                 @foreach($bottles as $bottle)
                 <a href="{{ route('bottle.show', $bottle->id) }}">
                     <article class="flex max-w-xl min-h-full flex-col items-start justify-between border border-light-gray/30 rounded-md p-sm hover:border-light-gray/60 transition duration-300 ease-in-out">
-                        <div class="flex items-center gap-x-4 text-xs">
+                        <figure class="flex items-center gap-x-4 text-xs">
                             <img src="{{ $bottle->image }}" alt="{{ $bottle->name }}" class="object-cover">
-                            <div class="flex flex-col gap-xxs">
+                            <figcaption class="flex flex-col gap-xxs flex-wrap">
                                 <header>
                                     <h2 class="text-lg uppercase">{{ $bottle->name }}</h2>
                                 </header>
-                                <div class="flex gap-xs">
+                                <div class="flex gap-xs flex-wrap">
                                     <p>{{ $bottle->type }}</p>
                                     <div class="border-2 border-l border-light-gray"></div>
                                     <p>{{ $bottle->format }}</p>
                                     <div class="border-2 border-l border-light-gray"></div>
                                     <p>{{ $bottle->country }}</p>
                                 </div>
-                            </div>
-
-                        </div>
+                            </figcaption>
+                        </figure>
                     </article>
                 </a>
                 @endforeach
             </div>
         </div>
     </div>
-    <a href="{{ route('bottle.create') }}" class="bouton">Ajouter une bouteille</a>
-    </div>
+
+    <a href="{{ route('bottle.create') }}" class="bouton mt-md">Ajouter une bouteille</a>
 </section>
 
 @endsection
