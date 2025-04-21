@@ -27,6 +27,7 @@ RYTHME
     --color-white: #edecee;
     --color-taupe: #866260;
     --color-light-gray: #9b9b9d;
+    --color-alert: #7d3531;
 
     /* TAILLES DE POLICE */
     --text-xxs: 0.75rem; /* 12px */
@@ -90,6 +91,12 @@ RYTHME
         &:hover {
             background-color: var(--color-blue-magenta);
             color: var(--color-white);
+        }
+    }
+    .bouton.alert {
+        background-color: var(--color-alert);
+        &:hover {
+            background-color: #632926;
         }
     }
 }
