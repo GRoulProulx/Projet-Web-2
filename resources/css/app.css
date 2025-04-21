@@ -15,6 +15,8 @@ RYTHME
 */
 
 @theme {
+    /* BREAKPOINT */
+    --breakpoint-xs: 25rem; /* 400px */
     /* TYPOGRAPHIE */
     --font-family: "Montserrat", sans-serif;
     --font-family-title: "Cinzel", serif;
@@ -31,6 +33,7 @@ RYTHME
     --text-xs: 0.8125rem; /* 13px */
     --text-sm: 0.875rem; /* 14px */
     --text-base: 1rem; /* 16px */
+    --text-md: 1.125rem; /* 18px */
     --text-lg: 1.5rem; /* 24px */
     --text-xl: 2rem; /* 32px */
 
