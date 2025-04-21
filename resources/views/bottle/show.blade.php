@@ -6,10 +6,10 @@
     <article class="mx-auto relative max-w-3xl border border-light-gray/30 rounded-md p-sm">
         <i class="fa-regular fa-heart absolute top-sm left-sm text-lg text-taupe"></i>
         <div class="flex gap-sm flex-wrap">
-            <img src="{{ $bottle->image }}" alt="{{ $bottle->name }}" class="object-cover mx-auto">
+            <img src="{{ $bottle->image }}" alt="{{ $bottle->name }}" class="max-w-[111px] max-h-[166px] object-cover mx-auto">
             <div class="flex flex-col gap-xxs">
                 <header>
-                    <h2 class="text-lg uppercase max-w-lg">{{ $bottle->name }}</h2>
+                    <h2 class="xs:text-base sm:text-md md:text-lg uppercase">{{ $bottle->name }}</h2>
                 </header>
                 <div class="flex gap-xs flex-wrap">
                     <p>{{ $bottle->type }}</p>
@@ -29,10 +29,19 @@
                 </div>
             </div>
         </div>
+        <div class="mt-md flex justify-between gap-md flex-wrap align-center justify-items-center">
+            <a href="{{ route('bottle.index') }}" class="bouton white mt-0">Retour à la liste</a>
+            <div class="flex gap-sm flex-wrap ">
+                <a href="{{ route('bottle.edit', $bottle->id) }}" class="bouton blue-magenta mt-0">Modifier</a>
+                <form action="" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bouton alert mt-0">Supprimer</button>
+                </form>
+            </div>
+        </div>
     </article>
-    <div class="mt-md text-center">
-        <a href="{{ route('bottle.index') }}" class="bouton white">Retour à la liste</a>
-    </div>
+
 </section>
 
 @endsection
