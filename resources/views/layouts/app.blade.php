@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr" class="bg-white font-family font-light text-blue-magenta m-md">
+<html lang="fr" class="bg-white font-family font-light text-blue-magenta">
 
 <head>
     <meta charset="utf-8" />
@@ -10,17 +10,17 @@
     @vite('resources/js/app.js')
 </head>
 
-<body>
-    <header class="flex justify-between items-center mb-8">
+<body class="flex flex-col min-h-[100vh]">
+    <header class="flex justify-between items-center mb-8 text-md m-md">
         <i class="fas fa-bars "></i>
         <h1 class="font-title text-center">MAISON DES VINS</h1>
         <i class="fas fa-search "></i>
     </header>
-    <main>
+    <main class="grow m-md">
         @yield('content')
     </main>
-    <footer class="">
-        <div class="container mx-auto max-w-md">
+    <footer>
+        <div class="mx-auto text-md p-md">
             <div class="flex justify-around">
                 <i class="fas fa-home"></i>
                 <i class="fas fa-book-open"></i>
