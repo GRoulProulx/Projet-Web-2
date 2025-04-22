@@ -19,7 +19,7 @@
                     <p>{{ $bottle->country }}</p>
                 </div>
                 <div class="flex flex-col gap-y-xs">
-                    <p>{{ $bottle->price}}</p>
+                    <p>{{ number_format($bottle->price, 2, ',', ' ') }}&nbsp;$</p>
                     <form action="" class="flex">
                         <input aria-label="Ajouter à mon cellier" type="number" name="quantity" id="quantity" value="1" min="1" class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
                         <button type="submit" class="bouton py-1 px-3  text-sm rounded-r-md rounded-l-none w- sm:w-auto mt-0 sm:mt-0">Ajouter à mon cellier</button>
