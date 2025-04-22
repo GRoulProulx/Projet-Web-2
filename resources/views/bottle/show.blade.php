@@ -20,18 +20,18 @@
                 </div>
                 <div class="flex flex-col gap-y-xs">
                     <p>{{ $bottle->price}}</p>
-                    <form action="">
-                        <input aria-label="Ajouter à mon cellier" type="number" name="quantity" id="quantity" value="1" min="1" class="border border-light-gray rounded-md py-xxs px-xxs w-20">
-                        <button type="submit" class="bouton mt-xs">Ajouter à mon cellier</button>
+                    <form action="" class="flex">
+                        <input aria-label="Ajouter à mon cellier" type="number" name="quantity" id="quantity" value="1" min="1" class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
+                        <button type="submit" class="bouton py-1 px-3  text-sm rounded-r-md rounded-l-none w- sm:w-auto mt-0 sm:mt-0">Ajouter à mon cellier</button>
                     </form>
                     <p>Code: {{ $bottle->code_saq}}</p>
                     <a href="{{ $bottle->url}}">Commander à la SAQ <i class="fa-solid fa-arrow-up-right-from-square text-taupe"></i></a>
                 </div>
             </div>
         </div>
-        <div class="mt-md flex justify-between gap-md flex-wrap align-center justify-items-center">
-            <a href="{{ route('bottle.index') }}" class="bouton white mt-0">Retour à la liste</a>
-            <div class="flex gap-sm flex-wrap ">
+        <div class="mt-md flex  gap-md flex-col align-center justify-items-center">
+            <a href="{{ route('bottle.index') }}" class="bouton white mt-0 w-auto">Retour à la liste</a>
+            <div class="flex gap-sm justify-between flex-wrap ">
                 <a href="{{ route('bottle.edit', $bottle->id) }}" class="bouton blue-magenta mt-0">Modifier</a>
                 <form action="" method="POST">
                     @csrf

@@ -7,8 +7,11 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
-     */
+    * Run the migrations.
+    * Création de la table 'bottles' avec details provenants de la SAQ et ajout des index
+    * @return void
+    */
+
     public function up(): void
     {
         Schema::create('bottles', function (Blueprint $table) {
@@ -21,7 +24,8 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('code_saq')->unique();
             $table->string('url')->nullable();
-            
+
+            // Index pour optimisations des filtres 
             $table->index('type');
             $table->index('country');
     
@@ -33,6 +37,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
+    
     public function down(): void
     {
         Schema::dropIfExists('bottles');

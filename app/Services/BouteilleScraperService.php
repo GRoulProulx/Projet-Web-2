@@ -7,20 +7,38 @@ use Symfony\Component\HttpClient\HttpClient;
 use App\Models\Bottle; // Utilisation du modèle Bottle
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Service de scraping des bouteilles de la SAQ.
+ */
+
 class BouteilleScraperService
 {
     protected Client $client;
 
-    // Initialisation du client HTTP avec un time-out de 60 secondes
+    /**
+     * BouteilleScraperService constructor.
+     * Initialise le client HTTP avec un timeout configuré.
+     */
+
     public function __construct()
     {
         $this->client = new Client(HttpClient::create(['timeout' => 60]));
     }
 
-    // Scrape les bouteilles selon l'URL fournie
+    /**
+     * fonction qui scrape les bouteilles selon l'URL fournie
+     */
     public function scraper(string $url): array
     {
-        $crawler = $this->client->request('GET', $url);
+        try 
+        {
+            $crawler = $this->client->request('GET', $url);
+        } 
+        catch (\Exception $e) 
+        {
+            Log::error('Erreur HTTP lors du scraping SAQ', ['url' => $url, 'error' => $e->getMessage()]);
+            throw new \RuntimeException("Impossible de récupérer les données depuis SAQ : {$e->getMessage()}", 0, $e);
+        }
 
         $bottles = [];
 
@@ -69,8 +87,15 @@ class BouteilleScraperService
             }
         });
 
-        // Sauvegarde dans un fichier JSON pour test/local backup
-        Storage::disk('local')->put('saq_bouteilles.json', json_encode($bottles, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        // Backup JSON local
+        try {
+            Storage::disk('local')->put(
+                'saq_bouteilles.json',
+                json_encode($collected, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
+            );
+        } catch (\Exception $e) {
+            Log::warning('Impossible de sauvegarder le backup JSON SAQ', ['error' => $e->getMessage()]);
+        }
 
         return $bottles;
     }
