@@ -21,8 +21,6 @@ use App\Http\Controllers\AuthController;
 Route::get('/', function () {
     return view('welcome');
 });
-// Routes UTILISATEURS
-// TODO: Le reste des routes pour l'oublie du mot de passe, la modification du mot de passe, etc.
 
 
 // ROUTES POUR GÉRER LES BOUTEILLES
@@ -35,9 +33,10 @@ Route::put('/edit/bottle/{bottle}', [BottleController::class, 'update'])->name('
 Route::delete('/bottle/{bottle}', [BottleController::class, 'destroy'])->name('bottle.destroy');
 
 // Routes pour les utilisateurs
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-Route::post('/users', [UserController::class, 'store'])->name('users.store');
+Route::get('/users', [UserController::class, 'index'])->name('user.index');
+Route::get('/register', [UserController::class, 'create'])->name('user.create');
+Route::post('/register', [UserController::class, 'store'])->name('user.store');
+// TODO: Le reste des routes pour l'oublie du mot de passe, la modification du mot de passe, etc.
 
 // Routes AUTHENTIFICATION
 Route::get('/login', [AuthController::class, 'create'])->name('login');

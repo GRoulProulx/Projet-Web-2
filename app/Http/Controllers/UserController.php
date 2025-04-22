@@ -17,7 +17,7 @@ class UserController extends Controller
        // TODO:  Géré les permissions d'accès ici
         
         $users = User::all();        
-        return view('users.index', ['users' => $users]);
+        return view('user.index', ['users' => $users]);
     }
 
     /**
@@ -25,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('user.create');
     }
 
     /**
