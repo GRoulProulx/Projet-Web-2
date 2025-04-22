@@ -1,14 +1,21 @@
 @extends('layouts.app')
 @section('content')
 
-<!-- Page de Connexion -->
+<!-- Page de d'inscription -->
 
 <div class="border border-light-gray/30 p-md rounded-sm">
     <div>
-        <h2 class="font-regular font-family-title mx-2">Connectez-vous</h2>
-        <form method="post" action="{{ route('login.store') }}">
+        <h2 class="font-regular font-family-title mx-2">S'inscrire</h2>
+        <form method="post">
             @csrf
-            <div class=" p-xxs">
+            <div class="p-xxs">
+                <input type="text" name="name" placeholder="Nom"
+                    class="border border-light-gray/30 w-full p-xxs my-2 rounded-md focus:outline-none focus:light-gray bg-white" value="{{old('name')}}" required />
+                @if($errors->has('name'))
+                <div>
+                    {{$errors->first('name')}}
+                </div>
+                @endif
                 <input type="email" name="email" placeholder="Courriel"
                     class="border border-light-gray/30 w-full p-xxs my-2 rounded-md focus:outline-none focus:light-gray bg-white" value="{{old('email')}}" required />
                 @if($errors->has('email'))
@@ -17,7 +24,7 @@
                 </div>
                 @endif
                 <input type="password" name="password" placeholder="Mot de passe"
-                    class="border border-light-gray/30 w-full p-xxs my-2 rounded-md focus:outline-none focus:light-gray " required />
+                    class="border border-light-gray/30 w-full p-xxs my-2 rounded-md focus:outline-none focus:light-gray bg-white" required />
                 @if($errors->has('password'))
                 <div>
                     {{$errors->first('password')}}
@@ -37,7 +44,7 @@
 
             <div class="relative flex items-center py-5">
                 <div class="flex-grow border-t border-gray-300"></div>
-                <span class="flex-shrink mx-4 text-xxs text-light-gray">Continuer avec</span>
+                <span class="flex-shrink mx-4 text-xxs text-gray-500">Continuer avec</span>
                 <div class="flex-grow border-t border-gray-300"></div>
             </div>
 
@@ -53,11 +60,11 @@
                 </button>
             </div>
 
-            <button type="submit" class="bouton w-full">Connexion</button>
+            <button type="submit" class="bouton w-full">S'inscrire</button>
         </form>
 
         <p class="text-xxs flex justify-center p-xxs">
-            Pas membre? <a href="{{ route('user.create') }}" class="px-xxs underline"> S'inscrire</a>
+            Déjà membre? <a href="{{ route('login') }}" class="px-xxs underline"> Connectez-vous</a>
         </p>
     </div>
 </div>
