@@ -3,7 +3,7 @@
 
 <!-- Page de Connexion -->
 
-<div class="bg-light-gray p-md rounded-sm">
+<div class=" p-md rounded-sm">
     <div class="">
         <h2 class="font-regular font-family-title mx-2">Connectez-vous</h2>
 
