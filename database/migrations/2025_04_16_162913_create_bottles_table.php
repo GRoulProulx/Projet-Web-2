@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('image')->nullable();
-            $table->string('price')->nullable();
+            $table->decimal('price', 8, 2)->nullable();
             $table->string('type')->nullable();
             $table->string('format')->nullable();
             $table->string('country')->nullable();
