@@ -7,10 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
+
 class AuthController extends Controller
 {
-    
-
     /**
      * Show the form for creating a new resource.
      */
@@ -27,24 +26,25 @@ class AuthController extends Controller
     {
         // Validations des données du formulaire
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|exists:users',
-            'password' => 'required',
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:6|max:25',
         ]);
+
         // Authentification de l'utilisateur
         $credentials = $request->only('email', 'password');
-        if(!Auth::validate($credentials)) {
-            return redirect(route('connexion'))->withErrors(['email' => 'Courriel ou mot de passe incorrects'])->withInput();
-        }
 
+        if (!Auth::validate($credentials)):
+            return redirect(route('login'))->withErrors('email ou mot de passe invalide');
+        endif;
         // Authentification réussie et la connexion de l'utilisateur
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
         Auth::login($user);
-        //TODO: Définir la session de l'utilisateur (administrateur ou utilisateur) ICI ???
+        
+        //TODO: Rediriger l'utilisateur vers la future page d'accueil???
+        return redirect()->intended('/bottles')->withSuccess('Connecté avec succès!');
+    }
 
-        return redirect()->intended(route('welcome'))->with('success', 'Vous êtes connecté');
-
-    }    /**
+    /**
      * Display the specified resource.
      */
     public function show(string $id)
@@ -71,11 +71,11 @@ class AuthController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
         // Géré la déconnexion de l'utilisateur
         Session::flush();
         Auth::logout();
-        return redirect(route('connexion'));
+        return redirect(route('login'));
     }
 }

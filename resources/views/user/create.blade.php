@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Inscription')
 @section('content')
 
 <!-- Page de d'inscription -->
@@ -6,7 +7,7 @@
 <div class="border border-light-gray/30 p-md rounded-sm">
     <div>
         <h2 class="font-regular font-family-title mx-2">S'inscrire</h2>
-        <form method="post">
+        <form method="post" action="{{ route('user.store') }}">
             @csrf
             <div class="p-xxs">
                 <input type="text" name="name" placeholder="Nom"
