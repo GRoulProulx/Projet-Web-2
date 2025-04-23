@@ -45,7 +45,7 @@ class UserController extends Controller
         $user->fill($request->all());
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'Utilisateur créé avec succès.');
+        return redirect()->route('login')->with('success', 'Inscription réussie! Veuillez vous connecter.');
     }
 
     /**
