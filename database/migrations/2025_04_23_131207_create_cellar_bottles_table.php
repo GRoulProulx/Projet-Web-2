@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cellar_bottle', function (Blueprint $table) {
+        Schema::create('cellar_bottles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('cellar_id');
+            $table->date('purchase_date')->nullable();
+            $table->date('storage_until')->nullable();
+            $table->string('notes')->nullable();
+            $table->float('price')->nullable();
+            $table->integer('quantity')->nullable();
+            $table->integer('vintage')->nullable();
             $table->unsignedBigInteger('bottle_id');
             $table->timestamps();
 
-            $table->foreign('cellar_id')->references('id')->on('cellars')->onDelete('cascade');
             $table->foreign('bottle_id')->references('id')->on('bottles')->onDelete('cascade');
-            
         });
     }
 
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cellar_bottle');
+        Schema::dropIfExists('cellar_bottles');
     }
-}; 
+};

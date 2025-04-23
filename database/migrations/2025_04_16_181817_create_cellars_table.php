@@ -13,12 +13,7 @@ return new class extends Migration
     {
         Schema::create('cellars', function (Blueprint $table) {
             $table->id();
-            $table->date('purchase_date')->nullable();
-            $table->string('storage_until')->nullable();
-            $table->string('notes')->nullable();
-            $table->float('price')->nullable();
-            $table->integer('quantity')->nullable();
-            $table->integer('vintage')->nullable();
+            $table->string('name');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
