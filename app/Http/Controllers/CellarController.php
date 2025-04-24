@@ -14,8 +14,9 @@ class CellarController extends Controller
      */
     public function index()
     {
-        //TODO: Récupérer les celliers de l'utilisateur connecté
-        return view('cellar.index');
+        $cellars = Cellar::where('user_id', auth()->id())->get();
+        return view('cellar.index', compact('cellars'));
+        /* return view('cellar.index'); */
     }
 
     /**
