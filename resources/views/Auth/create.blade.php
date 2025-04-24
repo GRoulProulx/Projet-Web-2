@@ -6,14 +6,14 @@
 <!-- Page de Connexion -->
 
 <!-- Test de la connexion TODO: À enlever  après les tests-->
-<div class="p-md mb-4 bg-gray-300 rounded-sm">
+<!-- <div class="p-md mb-4 bg-gray-300 rounded-sm">
     @auth
     <h1>Bienvenue, {{ auth()->user()->name }}</h1>
     <p>Authentifié avec succès!</p>
     @else
     <p>Non authentifié. Veuillez vous connecter.</p>
     @endauth
-</div>
+</div> -->
 <!-- Fin du test de la connexion -->
 
 
@@ -39,7 +39,7 @@
                 @endif
             </div>
 
-            <div class="flex p-xs">
+            <div class="hidden flex p-xs">
                 <input type="checkbox" name="terms" class="mr-3" />
                 <p class="text-xxs font-light">J'accepte les <span class="font-regular text-">Termes & Politiques de confidentialité</span></p>
                 @if($errors->has('terms'))
@@ -49,13 +49,13 @@
                 @endif
             </div>
 
-            <div class="relative flex items-center py-5">
+            <div class="hidden relative flex items-center py-5">
                 <div class="flex-grow border-t border-gray-300"></div>
                 <span class="flex-shrink mx-4 text-xxs text-light-gray">Continuer avec</span>
                 <div class="flex-grow border-t border-gray-300"></div>
             </div>
 
-            <div class="p-xxs flex-col justify-between">
+            <div class="hidden p-xxs flex-col justify-between">
                 <button type="button" class="text-xxs w-full p-xs my-2 border border-light-gray/30 rounded-md focus:outline-none focus:light-gray bg-white cursor-pointer flex items-center justify-center">
                     <i class="fab fa-facebook mr-2"></i> Facebook
                 </button>
