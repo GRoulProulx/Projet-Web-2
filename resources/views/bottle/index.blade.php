@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', trans('Catalogue des vins'))
+@section('title', 'Catalogue des vins')
 @section('content')
 
 <section>
@@ -36,10 +36,6 @@
                 @endforeach
             </div>
         </div>
-    </div>
-
-    <div class="mt-md">
-        <a href="{{ route('bottle.create') }}" class="bouton">Ajouter une bouteille</a>
     </div>
 </section>
 
