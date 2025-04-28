@@ -37,7 +37,7 @@ class BottleController extends Controller
             [
                 'name' => 'required|string|max:191',
                 'image' => 'required|string|max:191',
-                'price' => 'required|string|max:191',
+                'price' => 'required|decimal:2',
                 'type' => 'required|string|max:191',
                 'format' => 'required|string|max:191',
                 'country' => 'required|string|max:191',
@@ -87,7 +87,7 @@ class BottleController extends Controller
             [
                 'name' => 'required|string|max:191',
                 'image' => 'required|string|max:191',
-                'price' => 'required|string|max:191',
+                'price' => 'required|decimal:2',
                 'type' => 'required|string|max:191',
                 'format' => 'required|string|max:191',
                 'country' => 'required|string|max:191',

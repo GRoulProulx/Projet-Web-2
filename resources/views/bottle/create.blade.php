@@ -22,7 +22,7 @@
         </div>
         @endif
 
-        <input type="text" id="price" name="price" value="{{ old('price') }}" placeholder="Prix" aria-label="Prix" class="border border-light-gray/30 rounded-md p-xs" required>
+        <input type="number" id="price" step="0.01" name="price" value="{{ old('price') }}" placeholder="Prix" aria-label="Prix" class="border border-light-gray/30 rounded-md p-xs" required>
         @if($errors->has('price'))
         <div>
             {{$errors->first('price')}}
