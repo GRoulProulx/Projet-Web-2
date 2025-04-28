@@ -32,7 +32,7 @@
 
         <div class="flex flex-col gap-xxs">
             <label for="price">Prix</label>
-            <input type="text" id="price" name="price" value="{{ old('price', $bottle->price) }}$" placeholder="Prix" aria-label="Prix" class="border border-light-gray/30 rounded-md p-xs" required>
+            <input type="number" id="price" name="price" step="0.01" value="{{ old('price', $bottle->price) }}" placeholder="Prix" aria-label="Prix" class="border border-light-gray/30 rounded-md p-xs" required>
             @if($errors->has('price'))
             <div>
                 {{$errors->first('price')}}
