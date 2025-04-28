@@ -39,7 +39,7 @@
                 @endif
             </div>
 
-            <div class="hidden flex p-xs">
+            <div class="hidden p-xs">
                 <input type="checkbox" name="terms" class="mr-3" />
                 <p class="text-xxs font-light">J'accepte les <span class="font-regular text-">Termes & Politiques de confidentialité</span></p>
                 @if($errors->has('terms'))
@@ -66,13 +66,20 @@
                     <i class="fab fa-apple mr-2"></i> Apple
                 </button>
             </div>
-
+            @guest
             <button type="submit" class="bouton w-full">Connexion</button>
+            @endguest
         </form>
-
-        <p class="text-xxs flex justify-center p-xxs">
-            Pas membre? <a href="{{ route('user.create') }}" class="px-xxs underline"> S'inscrire</a>
-        </p>
+        @auth
+        <div class="mt-2">
+            <a href="{{ route('logout') }}" class="bouton w-full block text-center">Déconnexion</a>
+        </div>
+        @endauth
     </div>
+    <p class="text-xxs flex justify-center p-xxs">
+        Pas membre? <a href="{{ route('user.create') }}" class="px-xxs underline"> S'inscrire</a>
+    </p>
+
+</div>
 </div>
 @endsection
