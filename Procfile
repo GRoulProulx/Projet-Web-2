@@ -1,1 +1,1 @@
-web: php artisan serve --host=https://projet-web-2-production-abfa.up.railway.app/ --port=$PORT
+web: php artisan serve --host=0.0.0.0 --port=$PORT
