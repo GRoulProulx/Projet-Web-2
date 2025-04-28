@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cellar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CellarController extends Controller
 {
@@ -24,7 +25,6 @@ class CellarController extends Controller
      */
     public function create()
     {
-        //TODO: Créer un cellier et le lier à l'utilisateur connecté
         return view('cellar.create');
     }
 
@@ -43,8 +43,7 @@ class CellarController extends Controller
         // Créer le cellier
         $cellar = Cellar::create([
             'name' => $request->name,
-            'user_id' => 1 // TODO: Remplacer par l'ID de l'utilisateur connecté
-            // 'user_id' => Auth::user()->id;
+            'user_id' => Auth::user()->id
         ]);
 
         // Rediriger vers la page du cellier créé
@@ -85,7 +84,7 @@ class CellarController extends Controller
         ]);
 
         // Rediriger vers la page du cellier modifié
-        return redirect()->route('cellar.show', $cellar->id)->with('success', 'Cellier modifié avec succès !'); 
+        return redirect()->route('cellar.show', $cellar->id)->with('success', 'Cellier modifié avec succès !');
     }
 
     /**
