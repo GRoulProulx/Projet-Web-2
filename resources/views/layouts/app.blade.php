@@ -20,7 +20,7 @@
         @yield('content')
     </main>
     <footer>
-        <div class="mx-auto text-md p-md">
+        <div class="hidden mx-auto text-md p-md">
             <div class="flex justify-around">
                 <i class="fas fa-home"></i>
                 <i class="fas fa-book-open"></i>
