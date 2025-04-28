@@ -4,7 +4,7 @@
 
 <section>
     <article class="mx-auto relative max-w-3xl border border-light-gray/30 rounded-md p-sm">
-        <i class="fa-regular fa-heart absolute top-sm left-sm text-lg text-taupe"></i>
+        <!-- <i class="fa-regular fa-heart absolute top-sm left-sm text-lg text-taupe"></i> -->
         <div class="flex gap-sm flex-wrap">
             <img src="{{ $bottle->image }}" alt="{{ $bottle->name }}" class="max-w-[111px] max-h-[166px] object-cover mx-auto">
             <div class="flex flex-col gap-xxs">
@@ -20,17 +20,17 @@
                 </div>
                 <div class="flex flex-col gap-y-xs">
                     <p>{{ number_format($bottle->price, 2, ',', ' ') }}&nbsp;$</p>
-                    <form action="" class="flex">
+                    <form action="" class="hidden flex">
                         <input aria-label="Ajouter à mon cellier" type="number" name="quantity" id="quantity" value="1" min="1" class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
                         <button type="submit" class="bouton py-1 px-3  text-sm rounded-r-md rounded-l-none w- sm:w-auto mt-0 sm:mt-0">Ajouter à mon cellier</button>
                     </form>
                     <p>Code: {{ $bottle->code_saq}}</p>
-                    <a href="{{ $bottle->url}}">Commander à la SAQ <i class="fa-solid fa-arrow-up-right-from-square text-taupe"></i></a>
+                    <a href="{{ $bottle->url}}" target="_blank" class="link-underline-hover max-w-fit">Commander à la SAQ <i class="fa-solid fa-arrow-up-right-from-square text-taupe"></i></a>
                 </div>
             </div>
         </div>
         <div class="mt-md flex  gap-md flex-col align-center justify-items-center">
-            <a href="{{ route('bottle.index') }}" class="bouton white mt-0 w-auto">Retour à la liste</a>
+
             <div class="flex gap-sm justify-between flex-wrap ">
                 <a href="{{ route('bottle.edit', $bottle->id) }}" class="bouton blue-magenta mt-0">Modifier</a>
                 <form action="" method="POST">
@@ -41,6 +41,9 @@
             </div>
         </div>
     </article>
+    <div class="text-center mt-md">
+        <a href="{{ route('bottle.index') }}" class="link-underline-hover">Retour au catalogue des vins</a>
+    </div>
 
 </section>
 
