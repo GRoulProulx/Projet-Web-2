@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers; 
 
 use App\Models\CellarBottle;
 use Illuminate\Http\Request;
+use App\Models\Cellar;
 
 class CellarBottleController extends Controller
 {
@@ -12,8 +13,14 @@ class CellarBottleController extends Controller
      */
     public function index()
     {
-        $cellarBottles = CellarBottle::all();
-        return view('cellar_bottle.index', compact('cellarBottles'));
+        $cellars = Cellar::where('user_id', auth()->id())->with('cellarBottles')->get();
+        $cellarBottles = $cellars->flatMap(function ($cellar) {
+            return $cellar->cellarBottles;
+        });
+        return view('cellar_bottle.index', [
+            'cellarBottles' => $cellarBottles,
+            'cellars' => $cellars
+        ]);
     }
 
     /**
