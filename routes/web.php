@@ -6,6 +6,7 @@ use App\Http\Controllers\BottleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CellarController;
+use App\Http\Controllers\CellarBottleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ Route::get('/', function () {
 }); 
 
 
-// ROUTES POUR GÉRER LES BOUTEILLES
+// Route pour gérer les bouteilles du catalogue provenant de la SAQ
 Route::get('/bottles', [BottleController::class, 'index'])->name('bottle.index');
 Route::get('/bottle/{bottle}', [BottleController::class, 'show'])->name('bottle.show');
 Route::get('/create/bottle', [BottleController::class, 'create'])->name('bottle.create');
@@ -40,6 +41,15 @@ Route::post('/create/cellar', [CellarController::class, 'store'])->name('cellar.
 Route::get('/edit/cellar/{cellar}', [CellarController::class, 'edit'])->name('cellar.edit');
 Route::put('/edit/cellar/{cellar}', [CellarController::class, 'update'])->name('cellar.update');
 Route::delete('/cellar/{cellar}', [CellarController::class, 'destroy'])->name('cellar.destroy');
+
+// Route pour gérer les bouteilles dans le cellier
+Route::get('/cellar-bottles', [CellarBottleController::class, 'index'])->name('cellar_bottle.index');
+Route::get('/cellar-bottle/{cellar-bottle}', [CellarBottleController::class, 'show'])->name('cellar_bottle.show');
+Route::get('/create/cellar-bottle', [CellarBottleController::class, 'create'])->name('cellar_bottle.create');
+Route::post('/create/cellar-bottle', [CellarBottleController::class, 'store'])->name('cellar_bottle.store');
+Route::get('/edit/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'edit'])->name('cellar_bottle.edit');
+Route::put('/edit/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'update'])->name('cellar_bottle.update');
+Route::delete('/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'destroy'])->name('cellar_bottle.destroy');
 
 // Routes pour les utilisateurs
 Route::get('/users', [UserController::class, 'index'])->name('user.index');
