@@ -20,17 +20,15 @@
                 </div>
                 <div class="flex flex-col gap-y-xs">
                     <p>{{ number_format($bottle->price, 2, ',', ' ') }}&nbsp;$</p>
-                    <form action="" class="hidden flex">
-                        <input aria-label="Ajouter à mon cellier" type="number" name="quantity" id="quantity" value="1" min="1" class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
-                        <button type="submit" class="bouton py-1 px-3  text-sm rounded-r-md rounded-l-none w- sm:w-auto mt-0 sm:mt-0">Ajouter à mon cellier</button>
-                    </form>
+                    <a href="{{ route('cellar_bottle.create') }}" class="bouton gold mt-0">Ajouter à mon cellier</a>
                     <p>Code: {{ $bottle->code_saq}}</p>
                     <a href="{{ $bottle->url}}" target="_blank" class="link-underline-hover max-w-fit">Commander à la SAQ <i class="fa-solid fa-arrow-up-right-from-square text-taupe"></i></a>
                 </div>
             </div>
         </div>
-        <div class="mt-md flex  gap-md flex-col align-center justify-items-center">
-
+        @auth
+        @if(auth()->user()->role_id == 1)
+        <div class="mt-md flex gap-md flex-col align-center justify-items-center">
             <div class="flex gap-sm justify-between flex-wrap ">
                 <a href="{{ route('bottle.edit', $bottle->id) }}" class="bouton blue-magenta mt-0">Modifier</a>
                 <form action="" method="POST">
@@ -40,6 +38,8 @@
                 </form>
             </div>
         </div>
+        @endif
+        @endauth
     </article>
     <div class="text-center mt-md">
         <a href="{{ route('bottle.index') }}" class="link-underline-hover">Retour au catalogue des vins</a>
