@@ -19,7 +19,7 @@
 
 <div class="border border-light-gray/30 p-md rounded-sm">
     <div>
-        <h2 class="font-regular font-family-title mx-2">Connectez-vous</h2>
+        <h1 class="font-family-title mx-2 text-lg">Connectez-vous</h1>
         <form method="post" action="{{ route('login.store') }}">
             @csrf
             <div class=" p-xxs">
