@@ -4,7 +4,7 @@
 @section('content')
 <div class="container mx-auto px-4 py-6">
 
-    <h1 class="text-xl font-family-title font-weight-regular mb-6">Mes Celliers</h1>
+    <h1 class="text-xl text-center font-family-title font-weight-regular mb-6">Mes Celliers</h1>
 
     @if ($cellars->isEmpty())
         <div class="text-center mt-4">

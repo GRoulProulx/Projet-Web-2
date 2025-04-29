@@ -1,46 +1,53 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Services\BouteilleScraperService;
 
 class ScraperController extends Controller
 {
-    // Déclaration variable de scraping
     protected BouteilleScraperService $scraper;
 
-     /**
-     * Constructeur du service
+    /**
+     * Constructeur du scraper 
      */
-
     public function __construct(BouteilleScraperService $scraper)
     {
         $this->scraper = $scraper;
     }
 
-     /**
-     * Scraper une page de la SAQ .
-     * Appelle le service et retourne les bouteilles scrapées au format JSON.
+    /**
+     * Scraper toutes les bouteilles de vin de la SAQ.
      */
-
     public function index()
     {
-        $url = 'https://www.saq.com/fr/produits/vin/vin-rouge?p=".$page."&product_list_limit=".$nombre."&product_list_order=name_asc'; 
+        // URL de base pour toutes les bouteilles de vin
+        $urlBase = 'https://www.saq.com/fr/produits/vin';
+        // Appelle scraperAllPages avec un max de 200 pages
+        $bouteilles = $this->scraper->scraperAllPages($urlBase, 200);
 
-        $bouteilles = $this->scraper->scraper($url);
-
-        return response()->json($bouteilles);
+        return response()->json([
+            'message' => 'Scraping terminé',
+            'nombre_bouteilles' => count($bouteilles),
+            'bouteilles' => $bouteilles
+        ]);
     }
-    
 
     /**
-     * Méthodes de test 
+     * Teste une seule page.
      */
-    public function test(BouteilleScraperService $scraper)
+    public function test()
     {
-        $url = 'https://www.saq.com/fr/produits/vin/?p=".$page."&product_list_limit=".$nombre."&product_list_order=name_asc';
-        $resultats = $scraper->scraper($url);
-        return response()->json($resultats);
-    }
+        // URL d'une seule page
+        $url = 'https://www.saq.com/fr/produits/vin';
+        
+        $bouteilles = $this->scraper->scraper($url);
 
+        return response()->json([
+            'message' => 'Test d\'une seule page terminé',
+            'nombre_bouteilles' => count($bouteilles),
+            'bouteilles' => $bouteilles
+        ]);
+    }
 }

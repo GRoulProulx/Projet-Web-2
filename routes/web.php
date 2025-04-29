@@ -53,5 +53,5 @@ Route::post('/login', [AuthController::class, 'store'])->name('login.store');
 Route::get('/logout', [AuthController::class, 'destroy'])->name('logout');
 
 // Route pour le scraper
-Route::get('/test-scraper', [ScraperController::class, 'test']);
+Route::get('/test-scraper', [ScraperController::class, 'index']);
 
