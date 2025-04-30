@@ -17,7 +17,7 @@
 <!-- Fin du test de la connexion -->
 
 
-<div class="border border-light-gray/30 p-md rounded-sm">
+<div class="border border-light-gray/30 p-md rounded-sm flex flex-col gap-sm md:max-w-3xl mx-auto ">
     <div>
         <h1 class="font-family-title mx-2 text-lg">Connectez-vous</h1>
         <form method="post" action="{{ route('login.store') }}">

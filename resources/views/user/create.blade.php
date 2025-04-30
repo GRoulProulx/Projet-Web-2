@@ -4,7 +4,7 @@
 
 <!-- Page de d'inscription -->
 
-<div class="border border-light-gray/30 p-md rounded-sm">
+<div class="border border-light-gray/30 p-md rounded-sm flex flex-col gap-sm md:max-w-3xl mx-auto">
     <div>
         <h2 class="font-family-title mx-2 text-lg">S'inscrire</h2>
         <form method="post" action="{{ route('user.store') }}">
