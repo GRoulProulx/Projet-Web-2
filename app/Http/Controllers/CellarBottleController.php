@@ -11,16 +11,20 @@ class CellarBottleController extends Controller
     /**
      * Afficher la liste des bouteilles dans un cellier.
      */
-    public function index()
+    public function index($cellarId)
     {
+        // $cellarId = request()->segment(2);
+        // return $cellarId;
         $cellars = Cellar::where('user_id', auth()->id())->with('cellarBottles')->get();
+        $cellar = $cellars->find($cellarId);
         $cellarBottles = $cellars->flatMap(function ($cellar) {
             return $cellar->cellarBottles;
         });
         return view('cellar_bottle.index', [
             'cellarBottles' => $cellarBottles,
-            'cellars' => $cellars
-        ]);
+            'cellars' => $cellars,
+            'cellar' => $cellar
+        ]);  
     }
 
     /**
@@ -61,7 +65,7 @@ class CellarBottleController extends Controller
         ]);
 
         //Rediriger vers la liste des bouteilles dans le cellier
-        return redirect()->route('cellar_bottle.index')->with('success', 'Bouteille ajoutée au cellier avec succès.');
+        return redirect()->route('cellar_bottle.show', $cellarBottle->id)->with('success', 'Bouteille mise à jour avec succès.');
     }
 
     /**
@@ -69,7 +73,8 @@ class CellarBottleController extends Controller
      */
     public function show(CellarBottle $cellarBottle)
     {
-        return view('cellar_bottle.show', ['cellarBottle' => $cellarBottle]);
+        $cellars = Cellar::where('user_id', auth()->id())->with('cellarBottles')->get();
+        return view('cellar_bottle.show', ['cellarBottle' => $cellarBottle, 'cellar' => $cellars]);
     }
 
     /**
@@ -77,7 +82,8 @@ class CellarBottleController extends Controller
      */
     public function edit(CellarBottle $cellarBottle)
     {
-        return view('cellar_bottle.edit', ['cellarBottle' => $cellarBottle]);
+        $cellars = Cellar::where('user_id', auth()->id())->with('cellarBottles')->get();
+        return view('cellar_bottle.edit', ['cellarBottle' => $cellarBottle, 'cellars' => $cellars]);
     }
 
     /**
@@ -98,6 +104,11 @@ class CellarBottleController extends Controller
             ]
         );
 
+        //Mettre à jour le cellier de la bouteille dans la table cellar_bottles_has_cellars
+        $cellarBottle->cellars()->update([
+            'cellar_id' => $request->cellar_id
+        ]);        
+
         //Mettre à jour la bouteille dans le cellier
         $cellarBottle->update([
             'purchase_date' => $request->purchase_date,
@@ -110,7 +121,7 @@ class CellarBottleController extends Controller
         ]);
 
         //Rediriger vers la liste des bouteilles dans le cellier
-        return redirect()->route('cellar_bottle.index')->with('success', 'Bouteille mise à jour avec succès.');
+        return redirect()->route('cellar_bottle.show', $cellarBottle->id)->with('success', 'Bouteille mise à jour avec succès.');
     }
 
     /**
@@ -120,5 +131,14 @@ class CellarBottleController extends Controller
     {
         $cellarBottle->delete();
         return redirect()->route('cellar_bottle.index')->with('success', 'Bouteille supprimée du cellier avec succès.');
+    }
+
+    /**
+     * Marquer une bouteille comme bue.
+     */
+    public function drink(CellarBottle $cellarBottle)
+    {
+        $cellarBottle->update(['quantity' => $cellarBottle->quantity - 1]);
+        return redirect()->route('cellar_bottle.show', $cellarBottle->id)->with('success', 'Bouteille marquée comme bue.');
     }
 }
