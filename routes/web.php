@@ -43,8 +43,9 @@ Route::put('/edit/cellar/{cellar}', [CellarController::class, 'update'])->name('
 Route::delete('/cellar/{cellar}', [CellarController::class, 'destroy'])->name('cellar.destroy');
 
 // Route pour gérer les bouteilles dans le cellier
-Route::get('/cellar-bottles', [CellarBottleController::class, 'index'])->name('cellar_bottle.index');
-Route::get('/cellar-bottle/{cellar-bottle}', [CellarBottleController::class, 'show'])->name('cellar_bottle.show');
+Route::get('/cellar-bottles/{cellarId}', [CellarBottleController::class, 'index'])->name('cellar_bottle.index');
+Route::get('/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'show'])->name('cellar_bottle.show');
+Route::put('/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'drink'])->name('cellar_bottle.drink');
 Route::get('/create/cellar-bottle', [CellarBottleController::class, 'create'])->name('cellar_bottle.create');
 Route::post('/create/cellar-bottle', [CellarBottleController::class, 'store'])->name('cellar_bottle.store');
 Route::get('/edit/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'edit'])->name('cellar_bottle.edit');
