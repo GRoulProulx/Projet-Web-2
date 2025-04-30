@@ -4,9 +4,9 @@
 
 <!-- Page de d'inscription -->
 
-<div class="border border-light-gray/30 p-md rounded-sm">
+<div class="border border-light-gray/30 p-md rounded-sm flex flex-col gap-sm md:max-w-3xl mx-auto">
     <div>
-        <h2 class="font-regular font-family-title mx-2">S'inscrire</h2>
+        <h2 class="font-family-title mx-2 text-lg">S'inscrire</h2>
         <form method="post" action="{{ route('user.store') }}">
             @csrf
             <div class="p-xxs">
@@ -33,7 +33,7 @@
                 @endif
             </div>
 
-            <div class="hidden flex p-xs">
+            <div class=" flex p-xs">
                 <input type="checkbox" name="terms" class="mr-3" />
                 <p class="text-xxs font-light">J'accepte les <span class="font-regular text-">Termes & Politiques de confidentialité</span></p>
                 @if($errors->has('terms'))
@@ -43,13 +43,13 @@
                 @endif
             </div>
 
-            <div class="hidden relative flex items-center py-5">
+            <div class="relative flex items-center py-5">
                 <div class="flex-grow border-t border-gray-300"></div>
                 <span class="flex-shrink mx-4 text-xxs text-gray-500">Continuer avec</span>
                 <div class="flex-grow border-t border-gray-300"></div>
             </div>
 
-            <div class="hidden p-xxs flex-col justify-between">
+            <div class=" p-xxs flex-col justify-between">
                 <button type="button" class="text-xxs w-full p-xs my-2 border border-light-gray/30 rounded-md focus:outline-none focus:light-gray bg-white cursor-pointer flex items-center justify-center">
                     <i class="fab fa-facebook mr-2"></i> Facebook
                 </button>

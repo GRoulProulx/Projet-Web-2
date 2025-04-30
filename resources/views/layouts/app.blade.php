@@ -13,7 +13,8 @@
 <body class="flex flex-col min-h-[100vh]">
     <header class=" flex justify-between items-center mb-8 text-md m-md">
         <i class="fas fa-bars "></i>
-        <h1 class="font-title text-center">MAISON DES VINS</h1>
+        <h1 class="font-title text-center text-lg text-transparent bg-clip-text bg-gradient-to-b from-black via-gray-500 to-gray-100">MAISON DES VINS</h1>
+
         <i class="fas fa-search "></i>
     </header>
     <main class="grow m-md">
