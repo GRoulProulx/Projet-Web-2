@@ -7,9 +7,9 @@
         <!-- <i class="fa-regular fa-heart absolute top-sm left-sm text-lg text-taupe"></i> -->
         <div class="flex gap-sm flex-wrap">
             <img src="{{$cellarBottle->bottle->image}}" alt="{{$cellarBottle->bottle->image}}" class="max-w-[111px] max-h-[166px] object-cover mx-auto">
-            <div class="flex flex-col gap-xs">
+            <div class="flex flex-col gap-sm">
                 <header>
-                    <h2 class="xs:text-base sm:text-md md:text-lg uppercase">{{$cellarBottle->bottle->name}}</h2>
+                    <h2 class="xs:text-base sm:text-md md:text-lg uppercase font-regular">{{$cellarBottle->bottle->name}}</h2>
                 </header>
                 <div class="flex gap-xs flex-wrap ">
                     <p>{{$cellarBottle->bottle->type}}</p>
@@ -18,29 +18,30 @@
                     <div class="border-2 border-l border-light-gray"></div>
                     <p>{{$cellarBottle->bottle->country}}</p>
                 </div>
-                <div class="flex flex-col gap-y-xs">
-                    <p>Date d'achat: {{$cellarBottle->purchase_date}}</p>
-                    <p>Garder jusqu'à: {{$cellarBottle->storage_until}}</p>
+                <div class="flex flex-col">
+                    <p><span class="font-regular">Date d'achat:</span> {{$cellarBottle->purchase_date}}</p>
+                    <p><span class="font-regular">Garder jusqu'à:</span> {{$cellarBottle->storage_until}}</p>
                 </div>
-                <div class="flex gap-y-xs">
-                    <!-- <p>Quantité: {{$cellarBottle->quantity}}</p> -->
-                    <form action="" method="post">
-                        @csrf
-                        @method('PUT')
-                        <label for="quantity" class="">Quantité</label>
-                        <input type="number" id="quantity" name="quantity" min="1" max="{{$cellarBottle->quantity}}" value="{{$cellarBottle->quantity}}" class="border border-light-gray rounded-md p-xs w-20">
-                        <input type="submit" value="Boire" class="bouton blue-magenta mt-0">
-                    </form>
+                <form action="" method="post">
+                    @csrf
+                    @method('PUT')
+                    <div class="flex flex-col">
+                        <label for="quantity" class="font-regular">Quantité: </label>
+                        <div class="flex">
+                            <input type="number" id="quantity" name="quantity" min="1" max="{{$cellarBottle->quantity}}" value="{{$cellarBottle->quantity}}" class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
+                            <button type="submit" class="bouton py-1 px-3  text-sm rounded-r-md rounded-l-none w- sm:w-auto mt-0 sm:mt-0">Boire</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="flex flex-col">
+
+                    <p><span class="font-regular">Prix d'achat:</span> {{$cellarBottle->price}} $</p>
+                    <p><span class="font-regular">Note:</span> {{$cellarBottle->notes}}</p>
+
                 </div>
-                <div class="flex flex-col gap-y-xs">
 
-                    <p>Prix d'achat: {{$cellarBottle->price}} $</p>
-                    <p>Note (1: mauvais - 5: excellent): {{$cellarBottle->notes}}</p>
-                    <p>Code SAQ: {{$cellarBottle->bottle->code_saq}}</p>
-                    <a href="{{$cellarBottle->bottle->url}}" target="_blank" class="link-underline-hover max-w-fit">Commander à la SAQ <i class="fa-solid fa-arrow-up-right-from-square text-taupe"></i></a>
-                </div>
-
-
+                <a href="{{$cellarBottle->bottle->url}}" target="_blank" class="link-underline-hover max-w-fit">Commander à la SAQ <i class="fa-solid fa-arrow-up-right-from-square text-taupe"></i></a>
             </div>
         </div>
         <div class="mt-md flex gap-md flex-col align-center justify-items-center">
