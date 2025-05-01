@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CellarBottle;
 use Illuminate\Http\Request;
 use App\Models\Cellar;
+use App\Models\Bottle;
 
 class CellarBottleController extends Controller
 {
@@ -31,8 +32,10 @@ class CellarBottleController extends Controller
      * Afficher le formulaire pour ajouter une nouvelle bouteille au cellier.
      */
     public function create()
-    {
-        return view('cellar_bottle.create');
+    {  
+        $bottles = Bottle::all();
+        // Afficher le formulaire pour ajouter une nouvelle bouteille au cellier
+        return view('cellar_bottle.create', compact('bottles'));
     }
 
     /**
