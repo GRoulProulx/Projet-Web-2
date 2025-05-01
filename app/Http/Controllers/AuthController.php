@@ -16,7 +16,7 @@ class AuthController extends Controller
     public function create()
     {
         // Afficher le formulaire de connexion
-        return view('auth.create');
+        return view('Auth.create');
     }
 
     /**
