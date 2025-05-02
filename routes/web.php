@@ -27,6 +27,7 @@ Route::get('/', function () {
 // Route pour gérer les bouteilles du catalogue provenant de la SAQ
 Route::get('/bottles', [BottleController::class, 'index'])->name('bottle.index');
 Route::get('/bottle/{bottle}', [BottleController::class, 'show'])->name('bottle.show');
+Route::post('/bottle/{bottle}', [BottleController::class, 'addToCellar'])->name('bottle.add_to_cellar');
 Route::get('/create/bottle', [BottleController::class, 'create'])->name('bottle.create');
 Route::post('/create/bottle', [BottleController::class, 'store'])->name('bottle.store');
 Route::get('/edit/bottle/{bottle}', [BottleController::class, 'edit'])->name('bottle.edit');

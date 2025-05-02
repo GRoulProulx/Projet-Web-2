@@ -22,4 +22,11 @@ class Bottle extends Model
         'code_saq',
         'url',
     ];
+
+    //Définit la relation avec le modèle CellarBottle
+    //Une bouteille peut appartenir à plusieurs cellarBottles
+    public function cellarBottles()
+    {
+        return $this->hasMany(CellarBottle::class, 'bottle_id');
+    }
 }

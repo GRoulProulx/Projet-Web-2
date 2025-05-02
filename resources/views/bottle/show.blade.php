@@ -20,9 +20,30 @@
                 </div>
                 <div class="flex flex-col gap-y-xs">
                     <p>{{ number_format($bottle->price, 2, ',', ' ') }}&nbsp;$</p>
-                    <a href="{{ route('cellar_bottle.create') }}" class="bouton gold mt-0">Ajouter à mon cellier</a>
                     <p>Code: {{ $bottle->code_saq}}</p>
                     <a href="{{ $bottle->url}}" target="_blank" class="link-underline-hover max-w-fit">Commander à la SAQ <i class="fa-solid fa-arrow-up-right-from-square text-taupe"></i></a>
+                    @auth
+                    @if(auth()->user()->role_id == null)
+                    <div class="flex flex-col pt-md">
+
+                        <form action="" class="flex flex-col gap-xxs" method="POST">
+                            @csrf
+                            <div class="flex flex-col gap-xs">
+                                <label for="quantity">Quantité</label>
+                                <input aria-label="Ajouter à mon cellier" type="number" name="quantity" id="quantity" value="1" min="1" required class="border p-xs rounded-md">
+                                <select name="cellar_id" id="cellar_name" class="border p-xs rounded-md">
+                                    <option value="">Choisir un cellier</option>
+                                    @foreach ($cellars as $cellar)
+                                    <option value="{{$cellar->id}}">{{$cellar->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button type="submit" class="bouton">Ajouter à mon cellier</button>
+                        </form>
+                        </fieldset>
+                    </div>
+                    @endif
+                    @endauth
                 </div>
             </div>
         </div>

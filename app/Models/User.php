@@ -43,4 +43,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Définit la relation entre le modèle User et le modèle Cellar
+     * Un User peut avoir plusieurs Cellar
+     */
+    public function cellars()
+    {
+        return $this->hasMany(Cellar::class);
+    }
+    
 }
