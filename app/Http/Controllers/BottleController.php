@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bottle;
+use App\Models\Cellar;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\CellarBottle;
 
 class BottleController extends Controller
 {
-
-    // TODO: Ajouter les permissions pour que seul l'admin puisse accéder à ces routes ??
-
     /**
      * Afficher la liste des bouteilles.
      */
@@ -120,5 +120,30 @@ class BottleController extends Controller
     {
         $bottle->delete();
         return redirect()->route('bottle.index')->with('success', 'Bouteille supprimée avec succès.');
+    }
+
+    /**
+     * Ajouter une bouteille au cellier.
+     */
+    public function addToCellar(Request $request, Bottle $bottle){
+
+        //TODO: Vérifier si la bouteille existe déjà dans le cellier
+        // Sinon, on l'ajoute à la table cellar_bottle
+        // Augmenter la quantité de bouteilles dans le cellier sélectionné
+        // La quantité est ajoutée à la table cellar_bottle
+        $request->validate([
+            'cellar_id' => 'required|exists:cellars,id',
+            'quantity' => 'required|integer|min:1'
+        ]);
+        $bottleInCellar = CellarBottle::create([
+            'quantity' => $request->quantity,
+            'bottle_id' => $bottle->id,
+        ]);
+
+        $cellarId = $request->cellar_id;
+        //Ajouter le cellier sélectionné à la table cellar_bottles_has_cellars
+        $bottleInCellar->cellars()->attach($cellarId);
+
+        return redirect()->route('cellar.show', $cellarId)->with('success', 'La bouteille a été ajouté au cellier avec succès.');       
     }
 }
