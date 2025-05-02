@@ -55,7 +55,7 @@ class CellarController extends Controller
      */
     public function show(Cellar $cellar)
     {
-        return view('cellar_bottle.show', compact('cellar'));
+        return view('cellar.show', compact('cellar'));
     }
 
     /**
