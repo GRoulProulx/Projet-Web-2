@@ -8,6 +8,24 @@
     </header>
     <form method="POST" action="{{ route('cellar_bottle.store') }}" class="flex flex-col gap-sm md:max-w-3xl mx-auto">
         @csrf
+
+        <div class="flex flex-col gap-xxs">
+            <label for="bottle_id">Sélectionner une bouteille</label>
+            <select id="bottle_id" name="bottle_id" class="border border-light-gray/30 rounded-md p-xs" required>
+                <option value="">Sélectionner une bouteille</option>
+                @foreach($bottles as $bottle)
+                <option value="{{ $bottle->id }}" {{ old('bottle_id') == $bottle->id ? 'selected' : '' }}>
+                    {{ $bottle->name }}
+                </option>
+                @endforeach
+            </select>
+            @if($errors->has('bottle_id'))
+            <div class="text-red-500 text-xs">
+                {{$errors->first('bottle_id')}}
+            </div>
+            @endif
+        </div>
+
         <div class="flex flex-col gap-xxs">
             <label for="purchase_date">Date d'achat</label>
             <input type="date" id="purchase_date" name="purchase_date" value="{{ old('purchase_date') }}" class="border border-light-gray/30 rounded-md p-xs" required>
