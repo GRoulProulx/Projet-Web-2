@@ -105,7 +105,7 @@
             @endif
         </div>
 
-        <!-- Hidden field to maintain the bottle_id relationship -->
+        <!-- Champ caché pour maintenir la relation bottle_id -->
         <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle_id }}">
 
         <button type="submit" class="bouton mt-0">Sauvegarder</button>
