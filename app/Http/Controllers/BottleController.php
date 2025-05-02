@@ -65,8 +65,10 @@ class BottleController extends Controller
      * Afficher les détails d'une bouteille.
      */
     public function show(Bottle $bottle)
-    {
-        return view('bottle.show', ['bottle' => $bottle]);
+    { 
+        // Récupérer le nom des celliers associés à l'utlisateur connecté
+        $cellars = auth()->user()->cellars;
+        return view('bottle.show', ['bottle' => $bottle, 'cellars' => $cellars]);   
     }
 
     /**
