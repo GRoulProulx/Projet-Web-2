@@ -23,8 +23,8 @@
     <footer>
         <div class="mx-auto text-md p-md">
             <div class="flex justify-around">
-                <i class="fas fa-home"></i>
-                <i class="fas fa-book-open"></i>
+                <a href="{{ route('cellar.index') }}" ><i class="fas fa-home"></i></a>
+                <a href="{{ route('bottle.index') }}" ><i class="fas fa-book-open"></i></a>
                 <i class="fas fa-user"></i>
                 <i class="fas fa-search"></i>
             </div>
