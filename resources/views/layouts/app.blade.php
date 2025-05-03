@@ -20,9 +20,9 @@
     <main class="grow m-md">
         @yield('content')
     </main>
-    <footer>
-        <div class="mx-auto text-md p-md">
-            <div class="flex justify-around">
+    <footer class="fixed bottom-0 w-full left-0 z-50 bg-white shadow-md ">
+        <div class="  mx-auto text-md p-md  ">
+            <div class="flex justify-around items-center">
                 <a href="{{ route('cellar.index') }}" ><i class="fas fa-home"></i></a>
                 <a href="{{ route('bottle.index') }}" ><i class="fas fa-book-open"></i></a>
                 <i class="fas fa-user"></i>
@@ -31,5 +31,4 @@
         </div>
     </footer>
 </body>
-
 </html>
