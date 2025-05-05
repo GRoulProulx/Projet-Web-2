@@ -20,7 +20,7 @@ use App\Http\Controllers\CellarBottleController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('Auth.create');
 }); 
 
 
