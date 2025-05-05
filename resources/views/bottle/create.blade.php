@@ -8,58 +8,58 @@
     </header>
     <form method="POST" action="{{ route('bottle.store') }}" class="flex flex-col gap-sm md:max-w-3xl mx-auto">
         @csrf
-        <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="Nom" aria-label="Nom" class="border border-light-gray/30 rounded-md p-xs" required>
+        <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="Nom" aria-label="Nom" class="border border-light-gray/30 rounded-md p-xs" >
         @if($errors->has('name'))
-        <div class="bg-alert/70 text-white rounded-md p-xs">
+        <div class="border border-alert text-alert rounded-md p-xxs">
             {{ $errors->first('name') }}
         </div>
         @endif
 
-        <input type="text" id="image" name="image" value="{{asset('images/bouteille-par-defaut.jpg')}}" readonly placeholder="Image" aria-label="Image" class="border border-light-gray/30 rounded-md p-xs" required>
+        <input type="text" id="image" name="image" value="{{asset('images/bouteille-par-defaut.jpg')}}" readonly placeholder="Image" aria-label="Image" class="border border-light-gray/30 rounded-md p-xs" >
         @if($errors->has('image'))
-        <div class="bg-alert/70 text-white rounded-md p-xs">
+        <div class="border border-alert text-alert rounded-md p-xxs">
             {{$errors->first('image')}}
         </div>
         @endif
 
-        <input type="number" id="price" step="0.01" name="price" value="{{ old('price') }}" placeholder="Prix" aria-label="Prix" class="border border-light-gray/30 rounded-md p-xs" required>
+        <input type="number" id="price" step="0.01" name="price" value="{{ old('price') }}" placeholder="Prix" aria-label="Prix" class="border border-light-gray/30 rounded-md p-xs" >
         @if($errors->has('price'))
-        <div class="bg-alert/70 text-white rounded-md p-xs">
+        <div class="border border-alert text-alert rounded-md p-xxs">
             {{$errors->first('price')}}
         </div>
         @endif
 
-        <input type="text" id="type" name="type" value="{{ old('type') }}" placeholder="Type" aria-label="Type" class="border border-light-gray/30 rounded-md p-xs" required>
+        <input type="text" id="type" name="type" value="{{ old('type') }}" placeholder="Type" aria-label="Type" class="border border-light-gray/30 rounded-md p-xs" >
         @if($errors->has('type'))
-        <div class="bg-alert/70 text-white rounded-md p-xs">
+        <div class="border border-alert text-alert rounded-md p-xxs">
             {{$errors->first('type')}}
         </div>
         @endif
 
-        <input type="text" id="format" name="format" value="{{ old('format') }}" placeholder="Format" aria-label="Format" class="border border-light-gray/30 rounded-md p-xs" required>
+        <input type="text" id="format" name="format" value="{{ old('format') }}" placeholder="Format" aria-label="Format" class="border border-light-gray/30 rounded-md p-xs" >
         @if($errors->has('format'))
-        <div class="bg-alert/70 text-white rounded-md p-xs">
+        <div class="border border-alert text-alert rounded-md p-xxs">
             {{$errors->first('format')}}
         </div>
         @endif
 
-        <input type="text" id="country" name="country" value="{{ old('country') }}" placeholder="Pays" aria-label="Pays" class="border border-light-gray/30 rounded-md p-xs" required>
+        <input type="text" id="country" name="country" value="{{ old('country') }}" placeholder="Pays" aria-label="Pays" class="border border-light-gray/30 rounded-md p-xs" >
         @if($errors->has('country'))
-        <div class="bg-alert/70 text-white rounded-md p-xs">
+        <div class="border border-alert text-alert rounded-md p-xxs">
             {{$errors->first('country')}}
         </div>
         @endif
 
-        <input type="text" id="code_saq" name="code_saq" value="{{ old('code_saq') }}" placeholder="Code SAQ" aria-label="Code SAQ" class="border border-light-gray/30 rounded-md p-xs" required>
+        <input type="text" id="code_saq" name="code_saq" value="{{ old('code_saq') }}" placeholder="Code SAQ" aria-label="Code SAQ" class="border border-light-gray/30 rounded-md p-xs" >
         @if($errors->has('code_saq'))
-        <div class="bg-alert/70 text-white rounded-md p-xs">
+        <div class="border border-alert text-alert rounded-md p-xxs">
             {{$errors->first('code_saq')}}
         </div>
         @endif
 
-        <input type="text" id="url" name="url" value="{{ old('url') }}" placeholder="Lien SAQ" aria-label="Lien SAQ" class="border border-light-gray/30 rounded-md p-xs" required>
+        <input type="text" id="url" name="url" value="{{ old('url') }}" placeholder="Lien SAQ" aria-label="Lien SAQ" class="border border-light-gray/30 rounded-md p-xs" >
         @if($errors->has('url'))
-        <div class="bg-alert/70 text-white rounded-md p-xs">
+        <div class="border border-alert text-alert rounded-md p-xxs">
             {{$errors->first('url')}}
         </div>
         @endif
