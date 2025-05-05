@@ -1,6 +1,6 @@
 import "./bootstrap";
 import { formatWineTitle } from "./formatWineTitles";
-import { afficherModale } from "./modale";
+import { showModale } from "./modale";
 
 function init() {
     const deleteButton = document.querySelector('[data-action="delete"]');
@@ -10,7 +10,7 @@ function init() {
     });
 
     deleteButton.addEventListener("click", function () {
-        afficherModale();
+        showModale();
     });
 }
 
