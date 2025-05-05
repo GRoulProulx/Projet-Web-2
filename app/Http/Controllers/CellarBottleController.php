@@ -77,7 +77,8 @@ class CellarBottleController extends Controller
     public function show(CellarBottle $cellarBottle)
     {
         $cellars = Cellar::where('user_id', auth()->id())->with('cellarBottles')->get();
-        return view('cellar_bottle.show', ['cellarBottle' => $cellarBottle, 'cellar' => $cellars]);
+        $cellarId = $cellarBottle->cellars->first()->pivot->cellar_id;
+        return view('cellar_bottle.show', ['cellarBottle' => $cellarBottle, 'cellar' => $cellars, 'cellarId' => $cellarId]);
     }
 
     /**
