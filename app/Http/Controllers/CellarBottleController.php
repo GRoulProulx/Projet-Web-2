@@ -132,8 +132,9 @@ class CellarBottleController extends Controller
      */
     public function destroy(CellarBottle $cellarBottle)
     {
+        $cellarId = $cellarBottle->cellars->first()->pivot->cellar_id;
         $cellarBottle->delete();
-        return redirect()->route('cellar_bottle.index')->with('success', 'Bouteille supprimée du cellier avec succès.');
+        return redirect()->route('cellar.show', $cellarId )->with('success', 'Bouteille supprimée du cellier avec succès.');
     }
 
     /**
