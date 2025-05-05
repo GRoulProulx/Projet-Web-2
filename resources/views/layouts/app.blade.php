@@ -17,7 +17,7 @@
 
         <i class="fas fa-search "></i>
     </header>
-    <main class="grow m-md">
+    <main class="grow m-md mb-xxl">
         @yield('content')
     </main>
     <footer class="fixed bottom-0 w-full left-0 z-50 bg-white shadow-md ">

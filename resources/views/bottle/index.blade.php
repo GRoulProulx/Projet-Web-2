@@ -16,7 +16,7 @@
                 @foreach($bottles as $bottle)
                 <a href="{{ route('bottle.show', $bottle->id) }}">
                     <article class="flex max-w-full min-h-full flex-col items-start justify-between border border-light-gray/30 rounded-md p-sm hover:border-light-gray/60 transition duration-300 ease-in-out">
-                        <figure class="flex gap-x-sm xs:gap-x-xxs s:gap-x-sm text-xs">
+                        <figure class="flex gap-x-sm xs:gap-x-xs s:gap-x-sm text-xs">
                             <img src="{{ $bottle->image }}" alt="{{ $bottle->name }}" class="max-w-[111px] max-h-[166px] object-cover">
                             <figcaption class="flex flex-col gap-xxs flex-wrap">
                                 <header>

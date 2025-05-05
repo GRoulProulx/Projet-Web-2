@@ -36,7 +36,7 @@ class CellarController extends Controller
         // Valider les données du formulaire
         $request->validate(
             [
-                'name' => 'required|string|max:191'
+                'name' => 'required|string|max:12'
             ]
         );
 
@@ -74,7 +74,7 @@ class CellarController extends Controller
         // Valider les données du formulaire
         $request->validate(
             [
-                'name' => 'required|string|max:191'
+                'name' => 'required|string|max:12'
             ]
         );
 

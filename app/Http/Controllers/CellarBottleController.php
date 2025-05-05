@@ -77,7 +77,8 @@ class CellarBottleController extends Controller
     public function show(CellarBottle $cellarBottle)
     {
         $cellars = Cellar::where('user_id', auth()->id())->with('cellarBottles')->get();
-        return view('cellar_bottle.show', ['cellarBottle' => $cellarBottle, 'cellar' => $cellars]);
+        $cellarId = $cellarBottle->cellars->first()->pivot->cellar_id;
+        return view('cellar_bottle.show', ['cellarBottle' => $cellarBottle, 'cellar' => $cellars, 'cellarId' => $cellarId]);
     }
 
     /**
@@ -132,8 +133,9 @@ class CellarBottleController extends Controller
      */
     public function destroy(CellarBottle $cellarBottle)
     {
+        $cellarId = $cellarBottle->cellars->first()->pivot->cellar_id;
         $cellarBottle->delete();
-        return redirect()->route('cellar_bottle.index')->with('success', 'Bouteille supprimée du cellier avec succès.');
+        return redirect()->route('cellar.show', $cellarId )->with('success', 'Bouteille supprimée du cellier avec succès.');
     }
 
     /**
