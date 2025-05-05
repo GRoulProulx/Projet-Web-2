@@ -31,7 +31,7 @@
                             <div class="flex flex-col gap-xs">
                                 <label for="quantity">Quantité</label>
                                 <input aria-label="Ajouter à mon cellier" type="number" name="quantity" id="quantity" value="1" min="1" required class="border p-xs rounded-md">
-                                <select name="cellar_id" id="cellar_name" class="border p-xs rounded-md">
+                                <select name="cellar_id" id="cellar_name" required class="border p-xs rounded-md">
                                     <option value="">Choisir un cellier</option>
                                     @foreach ($cellars as $cellar)
                                     <option value="{{$cellar->id}}">{{$cellar->name}}</option>
