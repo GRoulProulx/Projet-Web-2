@@ -51,6 +51,10 @@
             </div>
         </div>
     </article>
+
+    <div class="text-center mt-md">
+        <a href="{{ route('cellar.show', $cellarId) }}" class="link-underline-hover">Retour au cellier</a>
+    </div>
     <!-- MODALE -->
     <div class="modale-container hidden relative z-10">
         <div class="modale fixed inset-0 bg-gray-500/75 transition-opacity">
