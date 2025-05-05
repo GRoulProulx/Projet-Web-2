@@ -26,14 +26,14 @@
                 <input type="email" name="email" placeholder="Courriel"
                     class="border border-light-gray/30 w-full p-xxs my-2 rounded-md focus:outline-none focus:light-gray bg-white" value="{{old('email')}}" required />
                 @if($errors->has('email'))
-                <div>
+                <div class="border border-alert text-alert rounded-md p-xxs">
                     {{$errors->first('email')}}
                 </div>
                 @endif
                 <input type="password" name="password" placeholder="Mot de passe"
-                    class="border border-light-gray/30 w-full p-xxs my-2 rounded-md focus:outline-none focus:light-gray " required />
+                    class="border border-light-gray/30 w-full p-xxs my-2 rounded-md focus:outline-none focus:light-gray" required />
                 @if($errors->has('password'))
-                <div>
+                <div class="border border-alert text-alert rounded-md p-xxs">
                     {{$errors->first('password')}}
                 </div>
                 @endif
