@@ -11,7 +11,7 @@
         @method('PUT')
         <input type="text" id="name" name="name" value="{{ old('name', $cellar->name) }}" placeholder="Nom" aria-label="Nom" class="border border-light-gray/30 rounded-md p-xs" required>
         @if($errors->has('name'))
-        <div>
+        <div class="border border-alert text-alert rounded-md p-xxs">
             {{$errors->first('name')}}
         </div>
         @endif

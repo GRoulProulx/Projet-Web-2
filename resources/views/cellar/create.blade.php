@@ -8,9 +8,9 @@
     </header>
     <form method="POST" action="{{ route('cellar.store') }}" class="flex flex-col gap-sm md:max-w-3xl mx-auto">
         @csrf
-        <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="Nom" aria-label="Nom" class="border border-light-gray/30 rounded-md p-xs" required>
+        <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="Nom" aria-label="Nom" class="border border-light-gray/30 rounded-md p-xs" >
         @if($errors->has('name'))
-        <div>
+        <div class="border border-alert text-alert rounded-md p-xxs">
             {{$errors->first('name')}}
         </div>
         @endif
