@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Bottle;
 use App\Models\Cellar;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use App\Models\CellarBottle;
+use Illuminate\Support\Facades\Auth;
 
 class BottleController extends Controller
 {
@@ -24,6 +25,7 @@ class BottleController extends Controller
      */
     public function create()
     {
+        
         return view('bottle.create');
     }
 
@@ -65,9 +67,13 @@ class BottleController extends Controller
      * Afficher les détails d'une bouteille.
      */
     public function show(Bottle $bottle)
-    { 
+    {
         // Récupérer le nom des celliers associés à l'utlisateur connecté
-        $cellars = auth()->user()->cellars;
+        if (auth()->check()) {
+            $cellars = auth()->user()->cellars;
+        } else {
+            $cellars = [];
+        }
         return view('bottle.show', ['bottle' => $bottle, 'cellars' => $cellars]);   
     }
 
@@ -76,6 +82,9 @@ class BottleController extends Controller
      */
     public function edit(Bottle $bottle)
     {
+        if (!Auth::user()->role_id == 1) {
+            return redirect()->route('bottle.index')->with('error', 'Vous n\'avez pas les droits pour modifier cette bouteille.');
+        }
         return view('bottle.edit', ['bottle' => $bottle]);
     }
 
@@ -84,6 +93,9 @@ class BottleController extends Controller
      */
     public function update(Request $request, Bottle $bottle)
     {
+        if (!Auth::user()->role_id == 1) {
+            return redirect()->route('bottle.index')->with('error', 'Vous n\'avez pas les droits pour modifier cette bouteille.');
+        }
         // Valider les données du formulaire
         $request->validate(
             [
@@ -118,6 +130,10 @@ class BottleController extends Controller
      */
     public function destroy(Bottle $bottle)
     {
+        if (!Auth::user()->role_id == 1) {
+            return redirect()->route('bottle.index')->with('error', 'Vous n\'avez pas les droits pour modifier cette bouteille.');
+        }
+
         $bottle->delete();
         return redirect()->route('bottle.index')->with('success', 'Bouteille supprimée avec succès.');
     }
@@ -126,6 +142,10 @@ class BottleController extends Controller
      * Ajouter une bouteille au cellier.
      */
     public function addToCellar(Request $request, Bottle $bottle){
+        
+        if (!Auth::user()->role_id == 1) {
+            return redirect()->route('bottle.index')->with('error', 'Vous n\'avez pas les droits pour modifier cette bouteille.');
+        }
 
         //TODO: Vérifier si la bouteille existe déjà dans le cellier
         // Sinon, on l'ajoute à la table cellar_bottle

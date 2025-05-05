@@ -79,11 +79,6 @@ class UserController extends Controller
     {
         //
     }
-
-    public function celliers()
-    {
-        return $this->hasMany(Cellier::class);
-    }
     //TODO: Ajouter des méthodes pour l'oubli de mot de passe, la réinitialisation du mot de passe, etc.
 
     public function forgotPassword() {}
