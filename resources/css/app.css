@@ -29,6 +29,7 @@ RYTHME
     --color-light-gray: #9b9b9d;
     --color-alert: #7d3531;
 
+
     /* TAILLES DE POLICE */
     --text-xxs: 0.75rem; /* 12px */
     --text-xs: 0.8125rem; /* 13px */
@@ -48,7 +49,7 @@ RYTHME
     --spacing-xs: 0.625rem; /* 10px */
     --spacing-sm: 0.9375rem; /* 15px */
     --spacing-md: 1.25rem; /* 20px */
-
+    --spacing-xxl: 4.5rem; /* 72px */
     /* BORDER-RADIUS */
     --radius-md: 0.3125rem; /* 5px */
 }
