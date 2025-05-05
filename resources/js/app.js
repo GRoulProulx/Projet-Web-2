@@ -3,15 +3,17 @@ import { formatWineTitle } from "./formatWineTitles";
 import { showModale } from "./modale";
 
 function init() {
-    const deleteButton = document.querySelector('[data-action="delete"]');
-    
+    window.onload = function () {
+        const deleteButton = document.querySelector('[data-action="delete"]');
+        if (deleteButton) {
+            deleteButton.addEventListener("click", function () {
+                showModale();
+            });
+        }
+    };
     document.querySelectorAll("h2").forEach((title) => {
         title.textContent = formatWineTitle(title.textContent);
     });
-
-    deleteButton.addEventListener("click", function () {
-        showModale();
-    });
 }
 
-init();
+init(); 
