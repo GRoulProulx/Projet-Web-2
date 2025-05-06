@@ -14,8 +14,8 @@
             <!-- Grille de produits -->
             <div class="mx-auto grid max-w-2xl grid-cols-1 gap-sm gap-y-sm mt-md md:mx-0 md:max-w-none md:grid-cols-2 xl:grid-cols-3 ">
                 @foreach($bottles as $bottle)
-                <a href="{{ route('bottle.show', $bottle->id) }}">
-                    <article class="flex max-w-full min-h-full flex-col items-start justify-between border border-light-gray/30 rounded-md p-sm hover:border-light-gray/60 transition duration-300 ease-in-out">
+                <a href="{{ route('bottle.show', $bottle->id) }}" class="bg-white border border-light-gray/20 rounded-lg shadow p-5 flex flex-col justify-between relative hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
+                    <article>
                         <figure class="flex gap-x-sm xs:gap-x-xs s:gap-x-sm text-xs">
                             <img src="{{ $bottle->image }}" alt="{{ $bottle->name }}" class="max-w-[111px] max-h-[166px] object-cover">
                             <figcaption class="flex flex-col gap-xxs flex-wrap">
