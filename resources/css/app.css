@@ -48,6 +48,7 @@ RYTHME
     --spacing-xxs: 0.3125rem; /* 5px */
     --spacing-xs: 0.625rem; /* 10px */
     --spacing-sm: 0.9375rem; /* 15px */
+    --spacing-base: 1rem; /* 16px */
     --spacing-md: 1.25rem; /* 20px */
     --spacing-xxl: 4.5rem; /* 72px */
     /* BORDER-RADIUS */
@@ -122,4 +123,23 @@ RYTHME
     .link-underline-hover:hover::after {
         width: 100%;
     }
+}
+.ham-menu.active span {
+    @apply bg-blue-magenta;
+}
+
+.ham-menu.active span:nth-child(1) {
+    @apply top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-45;
+}
+
+.ham-menu.active span:nth-child(2) {
+    @apply opacity-0;
+}
+
+.ham-menu.active span:nth-child(3) {
+    @apply top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-45;
+}
+
+.off-screen-menu.active {
+    @apply left-0;
 }
