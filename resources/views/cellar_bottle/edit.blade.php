@@ -37,7 +37,7 @@
                 <option value="">Sélectionner un cellier</option>
                 @foreach ($cellars as $cellar)
                 <option value="{{ $cellar->id }}"
-                    @if($cellarBottle->cellars->contains('id', $cellar->id))
+                    @if($cellarBottle->cellar_id == $cellar->id)
                     selected
                     @endif>
                     {{ $cellar->name }}
