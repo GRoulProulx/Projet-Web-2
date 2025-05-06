@@ -35,6 +35,9 @@
         <i class="fas fa-search text-lg"></i>
     </header>
     <main class="grow m-md mb-xxl">
+        @auth
+        <div class="">Bienvenue, {{ auth()->user()->name }}</div>
+        @endauth
         @yield('content')
     </main>
     <footer class="fixed bottom-0 w-full left-0 z-50 bg-white shadow-md ">
