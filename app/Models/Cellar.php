@@ -25,9 +25,8 @@ class Cellar extends Model
 
     // Définit la relation entre le modèle Cellar et le modèle CellarBottle
     // Un Cellar peut avoir plusieurs CellarBottle
-    public function cellarBottles(): BelongsToMany
+    public function cellarBottles()
     {
-        return $this->belongsToMany(CellarBottle::class, 'cellar_bottles_has_cellars');
+        return $this->hasMany(CellarBottle::class);
     }
-
 }

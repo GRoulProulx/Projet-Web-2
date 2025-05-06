@@ -24,7 +24,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'edit-bottle']);
         Permission::create(['name' => 'delete-bottle']);
 
-
+        Permission::create(['name' => 'delete-cellar']);
 
         // Création des rôles
         $admin = Role::create(['name' => 'admin']);

@@ -26,7 +26,7 @@ class BottleController extends Controller
     public function create()
     {
         if (!Auth::user()->role_id == 1) {
-            abort(403, 'Unauthorized action.');
+            abort(403, 'Vous n\'avez pas les droits pour accéder à cette page.');
         }
         return view('bottle.create');
     }
@@ -143,7 +143,7 @@ class BottleController extends Controller
     /**
      * Ajouter une bouteille au cellier.
      */
-    public function addToCellar(Request $request, Bottle $bottle){
+    /* public function addToCellar(Request $request, Bottle $bottle){
         
         if (!Auth::user()->role_id == 1) {
             return redirect()->route('bottle.index')->with('error', 'Vous n\'avez pas les droits pour modifier cette bouteille.');
@@ -167,5 +167,5 @@ class BottleController extends Controller
         $bottleInCellar->cellars()->attach($cellarId);
 
         return redirect()->route('cellar.show', $cellarId)->with('success', 'La bouteille a été ajouté au cellier avec succès.');       
-    }
+    } */
 }

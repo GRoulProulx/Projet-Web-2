@@ -2,12 +2,16 @@
 @section('title', 'Cellier')
 @section('content')
 
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto py-sm">
     <!-- En-tête de la page -->
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 border-b border-light-gray/20 pb-4">
-        <h1 class="text-2xl font-family-title font-weight-regular mb-2 md:mb-0">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+        <h1 class="text-2xl font-family-title font-weight-regular md:mb-0">
             Cellier : <span class="color-taupe font-family">{{ $cellar->name }}</span>
         </h1>
+        <div class="flex gap-2 justify-between mt-sm mb-sm">
+            <a href="{{ route('bottle.index') }}" class="bouton mt-0"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Vins du catalogue</a>
+            <a href="#" class="bouton white mt-0">Importations privés</a>
+        </div>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
         @foreach ($cellar->cellarBottles as $cellarbottle)
@@ -22,7 +26,7 @@
                     </div>
                     @endif
                 </div>
-                
+
                 <!-- Information des bouteilles -->
                 <div class="flex-grow ">
                     <h2 class="xs:text-base sm:text-md md:text-lg uppercase mb-2">{{$cellarbottle->bottle->name}}</h2>
@@ -69,10 +73,6 @@
         <p class="text-lg font-family color-light-gray mb-4">Ce cellier ne contient aucune bouteille.</p>
     </div>
     @endif
-    <div class="flex gap-2 justify-between mt-4">
-        <a href="{{ route('bottle.index') }}" class="bouton mt-0">Ajouter Catalogue</a>
-        <a href="#" class="bouton white mt-0">Ajouter Vintage</a>
-    </div>
 </div>
 
 </div>

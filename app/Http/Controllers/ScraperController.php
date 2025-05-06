@@ -31,7 +31,7 @@ class ScraperController extends Controller
             'message' => 'Scraping terminé',
             'nombre_bouteilles' => count($bouteilles),
             'bouteilles' => $bouteilles
-        ]);
+        ]); 
     }
 
     /**
@@ -39,10 +39,11 @@ class ScraperController extends Controller
      */
     public function test()
     {
+        
         // URL d'une seule page
         $url = 'https://www.saq.com/fr/produits/vin';
         
-        $bouteilles = $this->scraper->scraper($url);
+        $bouteilles = $this->scraper();
 
         return response()->json([
             'message' => 'Test d\'une seule page terminé',
