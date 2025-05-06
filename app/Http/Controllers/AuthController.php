@@ -41,7 +41,7 @@ class AuthController extends Controller
         Auth::login($user);
         
         //TODO: Rediriger l'utilisateur vers la future page d'accueil???
-        return redirect()->intended('/bottles')->withSuccess('Connecté avec succès!');
+        return redirect()->intended('/cellars')->withSuccess('Connecté avec succès!');
     }
 
     /**
