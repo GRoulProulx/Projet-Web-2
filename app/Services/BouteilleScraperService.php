@@ -156,4 +156,29 @@ class BouteilleScraperService
         $prixTexte = str_replace(',', '.', $prixTexte);
         return is_numeric($prixTexte) ? round((float) $prixTexte, 2) : null;
     }
+    
+    //Pour les tests
+    public function scraper(): array
+    {
+        set_time_limit(0);
+
+        $page = 1;
+        $numberOfPage = 24;
+        $results = [];
+
+
+        $url = "https://www.saq.com/fr/produits/vin?p={$page}&product_list_limit={$numberOfPage}&product_list_order=name_asc";
+        $products = $this->extraireProduits($url);
+
+        foreach ($products as $product) {
+            if (!Bottle::where('code_saq', $product['code_saq'])->exists()) {
+                $detailsSup = $this->extraireDetailsSupplementaires($product['url']);
+                $data = array_merge($product, $detailsSup);
+                Bottle::create($data);
+                $results[] = $data;
+            }
+        }
+
+        return $results;
+    }
 }
