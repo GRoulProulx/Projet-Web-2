@@ -20,9 +20,11 @@ return new class extends Migration
             $table->integer('quantity')->nullable();
             $table->integer('vintage')->nullable();
             $table->unsignedBigInteger('bottle_id');
+            $table->unsignedBigInteger('cellar_id');
             $table->timestamps();
 
             $table->foreign('bottle_id')->references('id')->on('bottles')->onDelete('cascade');
+            $table->foreign('cellar_id')->references('id')->on('cellars')->onDelete('cascade');
         });
     }
 
