@@ -22,7 +22,7 @@
                     </a>
                     <form method="POST" action="{{ route('cellar.destroy', $cellar->id) }}"
                           onsubmit="return confirm('Supprimer ce cellier ?')" 
-                          class="absolute top-2 right-2"> {{--TO-DO--}}
+                          class="absolute top-2 right-2">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="bg-white  px-2 py-1 rounded hover:bg-taupe/30 hover:text-md text-sm" title="Supprimer">

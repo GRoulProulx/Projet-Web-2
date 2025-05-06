@@ -26,8 +26,12 @@
                     @if(auth()->user()->role_id == null)
                     <div class="flex flex-col pt-md">
 
-                        <form action="" class="flex flex-col gap-xxs" method="POST">
+                        <form action="{{ route('cellar_bottle.store') }}" class="flex flex-col gap-xxs" method="POST">
                             @csrf
+                            @if ($bottle)
+                                <input type="hidden" name="bottle_id" value="{{ $bottle->id }}">
+                            @endif
+
                             <div class="flex flex-col gap-xs">
                                 <label for="quantity">Quantité</label>
                                 <input aria-label="Ajouter à mon cellier" type="number" name="quantity" id="quantity" value="1" min="1" required class="border p-xs rounded-md">
