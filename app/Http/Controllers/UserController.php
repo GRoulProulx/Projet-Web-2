@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use App\Models\Cellar;
 
 class UserController extends Controller
 {
@@ -78,6 +78,11 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function celliers()
+    {
+        return $this->hasMany(Cellar::class);
     }
     //TODO: Ajouter des méthodes pour l'oubli de mot de passe, la réinitialisation du mot de passe, etc.
 

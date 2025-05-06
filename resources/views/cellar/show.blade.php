@@ -22,13 +22,16 @@
                     </div>
                     @endif
                 </div>
-
+                
                 <!-- Information des bouteilles -->
-                <div class="flex-grow">
+                <div class="flex-grow ">
                     <h2 class="xs:text-base sm:text-md md:text-lg uppercase mb-2">{{$cellarbottle->bottle->name}}</h2>
-                    <div class="flex flex-col gap-1 text-sm text-gray-600">
-                        <p>{{ $cellarbottle->bottle->country }}</p>
+                    <div class="flex gap-xs flex-wrap">
+                        <p>{{ $cellarbottle->bottle->type }}</p>
+                        <div class="border-2 border-l border-light-gray"></div>
                         <p>{{ $cellarbottle->bottle->format }}</p>
+                        <div class="border-2 border-l border-light-gray"></div>
+                        <p>{{ $cellarbottle->bottle->country }}</p>
                     </div>
                 </div>
             </div>
@@ -65,10 +68,12 @@
     <div class="bg-white border border-light-gray/20 rounded-lg shadow p-8 text-center">
         <p class="text-lg font-family color-light-gray mb-4">Ce cellier ne contient aucune bouteille.</p>
     </div>
-    @else
-    <button type="submit" class="bouton mt-0">Ajouter une bouteille</button>
-
+    @endif
+    <div class="flex gap-2 justify-between mt-4">
+        <a href="{{ route('bottle.index') }}" class="bouton mt-0">Ajouter Catalogue</a>
+        <a href="#" class="bouton white mt-0">Ajouter Vintage</a>
+    </div>
 </div>
-@endif
+
 </div>
 @endsection

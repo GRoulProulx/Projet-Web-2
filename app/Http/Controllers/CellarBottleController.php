@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\CellarBottle;
 use Illuminate\Http\Request;
-use App\Models\Cellar;
 use App\Models\Bottle;
-
+use App\Models\Cellar;
 class CellarBottleController extends Controller
 {
     /**
@@ -38,25 +37,44 @@ class CellarBottleController extends Controller
         return view('cellar_bottle.create', compact('bottles'));
     }
 
-    /**
-     * Stocker une nouvelle bouteille dans le cellier.
-     */
     public function store(Request $request)
-    {
-        //Valider les données du formulaire
-        $request->validate(
-            [
-                'purchase_date' => 'required|date',
-                'storage_until' => 'required|date',
-                'notes' => 'nullable|string|max:191',
-                'price' => 'required|decimal:2',
-                'quantity' => 'required|integer|min:1',
-                'vintage' => 'nullable|integer',
-                'bottle_id' => 'required|exists:bottles,id'
-            ]
-        );
+{
+    // Étape 1 - Validation
+    //dd('Étape 1: Début de la méthode');
+   // dd('Contenu de la requête', $request->all());
 
-        //Créer la bouteille dans le cellier
+    $request->validate([
+        //'purchase_date' => 'required|date',
+       // 'storage_until' => 'required|date',
+        //'notes' => 'nullable|string|max:191',
+        //'price' => 'required|numeric|decimal:2',
+        'quantity' => 'required|integer|min:1',
+        'vintage' => 'nullable|integer',
+        'bottle_id' => 'required|exists:bottles,id',
+        'cellar_id' => 'required|exists:cellars,id'
+    ]);
+
+    //dd('Étape 2: Validation réussie', $request->all());
+
+    // Étape 3 - Rechercher une bouteille existante dans ce cellier
+    $existingBottle = CellarBottle::whereHas('cellars', function ($query) use ($request) {
+        $query->where('cellar_id', $request->cellar_id);
+    })->where('bottle_id', $request->bottle_id)->first();
+
+   // dd('Étape 3: Bouteille existante ?', $existingBottle);
+
+    if ($existingBottle) {
+        $existingBottle->update([
+            'quantity' => $existingBottle->quantity + $request->quantity,
+            'purchase_date' => $request->purchase_date,
+            'storage_until' => $request->storage_until,
+            'notes' => $request->notes,
+            'price' => $request->price,
+            'vintage' => $request->vintage
+        ]);
+        $cellarBottle = $existingBottle;
+      //  dd('Étape 4: Quantité mise à jour', $cellarBottle);
+    } else {
         $cellarBottle = CellarBottle::create([
             'purchase_date' => $request->purchase_date,
             'storage_until' => $request->storage_until,
@@ -67,10 +85,16 @@ class CellarBottleController extends Controller
             'bottle_id' => $request->bottle_id
         ]);
 
-        //Rediriger vers la liste des bouteilles dans le cellier
-        return redirect()->route('cellar_bottle.show', $cellarBottle->id)->with('success', 'Bouteille mise à jour avec succès.');
+        // Associer au cellier
+        $cellarBottle->cellars()->attach($request->cellar_id);
+      //  dd('Étape 5: Nouvelle bouteille ajoutée au cellier', $cellarBottle);
     }
 
+    // Étape 6 - Redirection finale
+    return redirect()
+        ->route('cellar_bottle.show', $cellarBottle->id)
+        ->with('success', 'Bouteille ajoutée au cellier avec succès.');
+}
     /**
      * Afficher les détails d'une bouteille spécifique dans le cellier.
      */
