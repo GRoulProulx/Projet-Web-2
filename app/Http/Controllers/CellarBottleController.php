@@ -11,7 +11,7 @@ class CellarBottleController extends Controller
     /**
      * Afficher la liste des bouteilles dans un cellier.
      */
-    public function index($cellarId)
+  /*   public function index($cellarId)
     {
         // $cellarId = request()->segment(2);
         // return $cellarId;
@@ -25,13 +25,13 @@ class CellarBottleController extends Controller
             'cellars' => $cellars,
             'cellar' => $cellar
         ]);  
-    }
+    } */
 
     /**
      * Afficher le formulaire pour ajouter une nouvelle bouteille au cellier.
      */
     public function create()
-    {  
+    {
         $bottles = Bottle::all();
         // Afficher le formulaire pour ajouter une nouvelle bouteille au cellier
         return view('cellar_bottle.create', compact('bottles'));
@@ -41,7 +41,7 @@ class CellarBottleController extends Controller
 {
     // Étape 1 - Validation
     //dd('Étape 1: Début de la méthode');
-   // dd('Contenu de la requête', $request->all());
+    //dd('Contenu de la requête', $request->all());
 
     $request->validate([
         //'purchase_date' => 'required|date',
@@ -54,17 +54,17 @@ class CellarBottleController extends Controller
         'cellar_id' => 'required|exists:cellars,id'
     ]);
 
-    //dd('Étape 2: Validation réussie', $request->all());
+        //dd('Étape 2: Validation réussie', $request->all());
 
-    // Étape 3 - Rechercher une bouteille existante dans ce cellier
-    $existingBottle = CellarBottle::whereHas('cellars', function ($query) use ($request) {
+        // Étape 3 - Rechercher une bouteille existante dans ce cellier
+        $existingBottle = CellarBottle::whereHas('cellars', function ($query) use ($request) {
         $query->where('cellar_id', $request->cellar_id);
     })->where('bottle_id', $request->bottle_id)->first();
-
-   // dd('Étape 3: Bouteille existante ?', $existingBottle);
+    //dd('Étape 3: Bouteille existante ?', $existingBottle);
+    
 
     if ($existingBottle) {
-        $existingBottle->update([
+$existingBottle->update([
             'quantity' => $existingBottle->quantity + $request->quantity,
             'purchase_date' => $request->purchase_date,
             'storage_until' => $request->storage_until,
@@ -82,12 +82,14 @@ class CellarBottleController extends Controller
             'price' => $request->price,
             'quantity' => $request->quantity,
             'vintage' => $request->vintage,
-            'bottle_id' => $request->bottle_id
+            'bottle_id' => $request->bottle_id,
+            'cellar_id' => $request->cellar_id,
         ]);
-
+        
         // Associer au cellier
-        $cellarBottle->cellars()->attach($request->cellar_id);
+        
       //  dd('Étape 5: Nouvelle bouteille ajoutée au cellier', $cellarBottle);
+      
     }
 
     // Étape 6 - Redirection finale
@@ -101,7 +103,7 @@ class CellarBottleController extends Controller
     public function show(CellarBottle $cellarBottle)
     {
         $cellars = Cellar::where('user_id', auth()->id())->with('cellarBottles')->get();
-        $cellarId = $cellarBottle->cellars->first()->pivot->cellar_id;
+        $cellarId = $cellarBottle->cellar_id;
         return view('cellar_bottle.show', ['cellarBottle' => $cellarBottle, 'cellar' => $cellars, 'cellarId' => $cellarId]);
     }
 
@@ -128,14 +130,12 @@ class CellarBottleController extends Controller
                 'price' => 'required|decimal:2',
                 'quantity' => 'required|integer|min:1',
                 'vintage' => 'nullable|integer',
-                'bottle_id' => 'required|exists:bottles,id'
+                'bottle_id' => 'required|exists:bottles,id',
+                'cellar_id' => 'required|exists:cellars,id',
             ]
         );
 
-        //Mettre à jour le cellier de la bouteille dans la table cellar_bottles_has_cellars
-        $cellarBottle->cellars()->update([
-            'cellar_id' => $request->cellar_id
-        ]);        
+             
 
         //Mettre à jour la bouteille dans le cellier
         $cellarBottle->update([
@@ -145,7 +145,8 @@ class CellarBottleController extends Controller
             'price' => $request->price,
             'quantity' => $request->quantity,
             'vintage' => $request->vintage,
-            'bottle_id' => $request->bottle_id
+            'bottle_id' => $request->bottle_id,
+            'cellar_id' => $request->cellar_id,
         ]);
 
         //Rediriger vers la liste des bouteilles dans le cellier
@@ -157,7 +158,7 @@ class CellarBottleController extends Controller
      */
     public function destroy(CellarBottle $cellarBottle)
     {
-        $cellarId = $cellarBottle->cellars->first()->pivot->cellar_id;
+        $cellarId = $cellarBottle->cellar_id;
         $cellarBottle->delete();
         return redirect()->route('cellar.show', $cellarId )->with('success', 'Bouteille supprimée du cellier avec succès.');
     }
