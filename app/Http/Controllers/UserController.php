@@ -14,7 +14,6 @@ class UserController extends Controller
     public function index()
     {
         //Récupère tous les utilisateurs depuis la base de données
-       // TODO:  Géré les permissions d'accès ici
         
         $users = User::all();        
         return view('user.index', ['users' => $users]);
