@@ -25,7 +25,9 @@ class BottleController extends Controller
      */
     public function create()
     {
-        
+        if (!Auth::user()->role_id == 1) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('bottle.create');
     }
 
