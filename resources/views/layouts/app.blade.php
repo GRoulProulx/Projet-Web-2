@@ -12,7 +12,7 @@
 
 <body class="flex flex-col min-h-[100vh]">
     <header class="flex items-center justify-between p-md">
-        <div class="off-screen-menu z-10 fixed top-0 left-[-500px] bg-white h-screen w-full max-w-[500px] flex flex-col items-center justify-center text-center text-lg transition-all duration-500 ease-in-out">
+        <div class="off-screen-menu z-10 fixed top-0 left-[-2000px] bg-white h-screen w-full flex flex-col items-center justify-center text-center text-lg transition-all duration-500 ease-in-out">
             <ul>
                 <li><a href="#" class="hover:text-taupe">Accueil</a></li>
                 <li><a href="{{route('bottle.index')}}" class="hover:text-taupe">Catalogue des vins</a></li>
