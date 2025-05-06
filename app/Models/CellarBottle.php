@@ -17,6 +17,7 @@ class CellarBottle extends Model
         'quantity',
         'vintage',
         'bottle_id',
+        'cellar_id',
     ];
 
     //Définit la relation entre le modèle CellarBottle et le modèle Bottle
@@ -30,7 +31,7 @@ class CellarBottle extends Model
     //Un CellarBottle peut appatenir à plusieurs Cellar
     public function cellars()
     {
-        return $this->belongsToMany(Cellar::class, 'cellar_bottles_has_cellars');
+        return $this->belongsTo(Cellar::class, 'cellar_id');
     }
 }
  
