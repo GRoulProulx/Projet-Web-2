@@ -47,9 +47,9 @@
         </div>
         <div class=" flex flex-col gap-xxs">
             <label for="purchase_date">Date d'achat</label>
-            <input type="date" id="purchase_date" name="purchase_date" value="{{ old('purchase_date', $cellarBottle->purchase_date) }}" class="border border-light-gray/30 rounded-md p-xs" required>
+            <input type="date" id="purchase_date" name="purchase_date" value="{{ old('purchase_date', $cellarBottle->purchase_date) }}" class="border border-light-gray/30 rounded-md p-xs">
             @if($errors->has('purchase_date'))
-            <div>
+            <div class="border border-alert text-alert rounded-md p-xxs">
                 {{$errors->first('purchase_date')}}
             </div>
             @endif
@@ -57,9 +57,9 @@
 
         <div class="flex flex-col gap-xxs">
             <label for="storage_until">Garder jusqu'à</label>
-            <input type="date" id="storage_until" name="storage_until" value="{{ old('storage_until', $cellarBottle->storage_until) }}" class="border border-light-gray/30 rounded-md p-xs" required>
+            <input type="date" id="storage_until" name="storage_until" value="{{ old('storage_until', $cellarBottle->storage_until) }}" class="border border-light-gray/30 rounded-md p-xs">
             @if($errors->has('storage_until'))
-            <div>
+            <div class="border border-alert text-alert rounded-md p-xxs">
                 {{$errors->first('storage_until')}}
             </div>
             @endif
@@ -67,9 +67,9 @@
 
         <div class="flex flex-col gap-xxs">
             <label for="price">Prix</label>
-            <input type="number" id="price" name="price" step="0.01" value="{{ old('price', $cellarBottle->price) }}" placeholder="Prix" aria-label="Prix" class="border border-light-gray/30 rounded-md p-xs" required>
+            <input type="number" id="price" name="price" step="0.01" value="{{ old('price', $cellarBottle->price) }}" placeholder="Prix" aria-label="Prix" class="border border-light-gray/30 rounded-md p-xs">
             @if($errors->has('price'))
-            <div>
+            <div class="border border-alert text-alert rounded-md p-xxs">
                 {{$errors->first('price')}}
             </div>
             @endif
@@ -77,9 +77,9 @@
 
         <div class="flex flex-col gap-xxs">
             <label for="quantity">Quantité</label>
-            <input type="number" id="quantity" name="quantity" value="{{ old('quantity', $cellarBottle->quantity) }}" placeholder="Quantité" aria-label="Quantité" class="border border-light-gray/30 rounded-md p-xs" required>
+            <input type="number" id="quantity" name="quantity" value="{{ old('quantity', $cellarBottle->quantity) }}" placeholder="Quantité" aria-label="Quantité" class="border border-light-gray/30 rounded-md p-xs">
             @if($errors->has('quantity'))
-            <div>
+            <div class="border border-alert text-alert rounded-md p-xxs">
                 {{$errors->first('quantity')}}
             </div>
             @endif
@@ -89,7 +89,7 @@
             <label for="vintage">Millésime</label>
             <input type="number" id="vintage" name="vintage" value="{{ old('vintage', $cellarBottle->vintage) }}" placeholder="Millésime" aria-label="Millésime" class="border border-light-gray/30 rounded-md p-xs">
             @if($errors->has('vintage'))
-            <div>
+            <div class="border border-alert text-alert rounded-md p-xxs">
                 {{$errors->first('vintage')}}
             </div>
             @endif
@@ -99,7 +99,7 @@
             <label for="notes">Notes</label>
             <textarea id="notes" name="notes" placeholder="Notes" aria-label="Notes" class="border border-light-gray/30 rounded-md p-xs">{{ old('notes', $cellarBottle->notes) }}</textarea>
             @if($errors->has('notes'))
-            <div>
+            <div class="border border-alert text-alert rounded-md p-xxs">
                 {{$errors->first('notes')}}
             </div>
             @endif
