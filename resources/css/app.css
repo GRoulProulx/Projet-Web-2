@@ -105,5 +105,5 @@ RYTHME
 }
 
 .off-screen-menu.active {
-    @apply left-0;
+    @apply right-0;
 }
