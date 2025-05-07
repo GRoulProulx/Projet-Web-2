@@ -9,25 +9,6 @@ use App\Models\Cellar;
 class CellarBottleController extends Controller
 {
     /**
-     * Afficher la liste des bouteilles dans un cellier.
-     */
-  /*   public function index($cellarId)
-    {
-        // $cellarId = request()->segment(2);
-        // return $cellarId;
-        $cellars = Cellar::where('user_id', auth()->id())->with('cellarBottles')->get();
-        $cellar = $cellars->find($cellarId);
-        $cellarBottles = $cellars->flatMap(function ($cellar) {
-            return $cellar->cellarBottles;
-        });
-        return view('cellar_bottle.index', [
-            'cellarBottles' => $cellarBottles,
-            'cellars' => $cellars,
-            'cellar' => $cellar
-        ]);  
-    } */
-
-    /**
      * Afficher le formulaire pour ajouter une nouvelle bouteille au cellier.
      */
     public function create()
@@ -70,9 +51,16 @@ class CellarBottleController extends Controller
             'vintage' => $request->vintage,
             'bottle_id' => $request->bottle_id,
             'cellar_id' => $request->cellar_id,
-            ]);
-         }
-        return redirect()
+        ]);
+        
+        // Associer au cellier
+        
+      //  dd('Étape 5: Nouvelle bouteille ajoutée au cellier', $cellarBottle);
+      
+    }
+
+    // Étape 6 - Redirection finale
+    return redirect()
         ->route('cellar_bottle.show', $cellarBottle->id)
         ->with('success', 'Bouteille ajoutée au cellier avec succès.');
     }
