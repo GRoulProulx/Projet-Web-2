@@ -49,6 +49,8 @@ RYTHME
     --spacing-sm: 0.9375rem; /* 15px */
     --spacing-base: 1rem; /* 16px */
     --spacing-md: 1.25rem; /* 20px */
+    --spacing-lg: 1.875rem; /* 30px */
+    --spacing-xl: 2.5rem; /* 40px */
     --spacing-xxl: 4.5rem; /* 72px */
     /* BORDER-RADIUS */
     --radius-md: 0.3125rem; /* 5px */

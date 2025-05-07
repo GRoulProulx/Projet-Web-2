@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr" class="bg-white font-family font-light text-blue-magenta">
 
-<head>
+<head> 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@yield('title')</title>
@@ -19,12 +19,6 @@
                 <img src="{{asset('images/logo.jpg')}}" alt="Logo" class="w-[125px] mx-auto mb-sm">
                 <li><a href="{{route('bottle.index')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Catalogue des vins</a></li>
                 <div class="border-t border-light-gray/50"></div>
-
-                <!-- <li><a href="#" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">À propos</a></li>
-                <div class="border-t border-light-gray/50"></div>
-
-                <li><a href="#" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Contact</a></li>
-                <div class="border-t border-light-gray/50"></div> -->
 
                 <li><a href="{{route('login')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Se connecter</a></li>
                 <div class="border-t border-light-gray/50"></div>
@@ -51,9 +45,9 @@
         </div>
     </header>
     
-    <main class="grow m-md mb-xxl">
+    <main class="grow m-md mb-xxl ">
         @auth
-        <div class="">Bienvenue, {{ auth()->user()->name }}</div>
+        <div class="mb-sm">Bienvenue {{ auth()->user()->name }}</div>
         @endauth
         @yield('content')
     </main>
