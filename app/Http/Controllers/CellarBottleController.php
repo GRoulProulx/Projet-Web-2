@@ -103,10 +103,10 @@ class CellarBottleController extends Controller
         //Valider les données du formulaire
         $request->validate(
             [
-                'purchase_date' => 'required|date',
-                'storage_until' => 'required|date',
+                'purchase_date' => 'nullable|date',
+                'storage_until' => 'nullable|date',
                 'notes' => 'nullable|string|max:191',
-                'price' => 'required|decimal:2',
+                'price' => 'nullable|decimal:2',
                 'quantity' => 'required|integer|min:1',
                 'vintage' => 'nullable|integer',
                 'bottle_id' => 'required|exists:bottles,id',
