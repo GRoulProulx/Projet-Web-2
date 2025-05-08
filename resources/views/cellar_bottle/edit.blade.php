@@ -109,7 +109,11 @@
         <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle_id }}">
 
         <button type="submit" class="bouton mt-0">Sauvegarder</button>
-        <!-- <a href="{{ route('cellar_bottle.index', $cellarBottle->cellar_id ?? '') }}" class="bouton white mt-0">Annuler</a> -->
+        <!-- <a href="{{ route('cellar.show', $cellarBottle->cellar_id ?? '') }}" class="bouton white mt-0">Annuler</a> -->
+
+        <div class="text-center mt-sm">
+            <a href="{{ route('cellar_bottle.show', $cellarBottle->bottle_id ?? '' ) }}" class="link-underline-hover">Annuler</a>
+        </div>
     </form>
 </section>
 
