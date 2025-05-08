@@ -2,13 +2,15 @@
 @section('title', 'Mes Celliers')
 
 @section('content')
-<div class="container mx-auto">
+<div class="container">
 
-    <h1 class="text-lg font-family-title">Mes Celliers</h1>
+    <header class="mb-sm">
+        <h1 class="text-lg font-family-title">Mes Celliers</h1>
+    </header>
 
     @if ($cellars->isEmpty())
-    <div class="text-center mt-4">
-        <p class="text-md color-light-gray font-family font-weight-regular spacing-sm">Vous n'avez pas encore de celliers.</p>
+    <div class="bg-white border border-light-gray/20 rounded-lg shadow p-8 text-center mb-xl">
+        <p class="text-lg font-family color-light-gray mb-4">Vous n'avez pas encore de celliers.</p>
     </div>
     @else
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-sm mb-xl mt-md">
