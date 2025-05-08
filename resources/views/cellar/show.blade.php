@@ -10,10 +10,12 @@
         </h1>
         <div class="flex gap-2 justify-between mt-sm mb-sm">
             <a href="{{ route('bottle.index') }}" class="bouton mt-0"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Vins du catalogue</a>
+            <button class="bouton alert mt-0" data-action="delete">Supprimer le cellier</button>
+
             <!-- <a href="#" class="bouton white mt-0"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Importations privés</a> -->
         </div>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-sm">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-sm mb-sm">
         @foreach ($cellar->cellarBottles as $cellarbottle)
         <a href="{{route('cellar_bottle.show', $cellarbottle->id)}}" class="bg-white border border-light-gray/20 rounded-lg shadow p-5 flex flex-col justify-between relative hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
             <div class="flex flex-row gap-4 mb-4">
@@ -73,10 +75,39 @@
         <p class="text-lg font-family color-light-gray mb-4">Ce cellier ne contient aucune bouteille.</p>
     </div>
     @endif
+
     <div class="text-center mt-md">
         <a href="{{ route('cellar.index') }}" class="link-underline-hover">Retour à mes celliers</a>
     </div>
 </div>
+<!-- MODALE -->
+<div class="modale-container hidden relative z-10">
+    <div class="modale fixed inset-0 bg-gray-500/75 transition-opacity">
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div class="modale-header flex items-start justify-between">
+                            <h2 class="font-family-title text-lg uppercase">Supprimer le cellier</h2>
+                            <a href=""><i class="fa-solid fa-xmark"></i></a>
+                        </div>
+                        <div class="modale-body">
+                            <p>Êtes-vous sûr de vouloir supprimer ce cellier?</p>
+                        </div>
+                        <div class="modale-footer flex justify-between items-baseline">
+                            <a href="" class="bouton blue-magenta">Annuler</a>
 
+
+                            <form action="" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bouton alert mt-0" data-action="delete">Supprimer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
