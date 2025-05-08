@@ -10,10 +10,10 @@
         </h1>
         <div class="flex gap-2 justify-between mt-sm mb-sm">
             <a href="{{ route('bottle.index') }}" class="bouton mt-0"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Vins du catalogue</a>
-            <a href="#" class="bouton white mt-0"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Importations privés</a>
+            <!-- <a href="#" class="bouton white mt-0"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Importations privés</a> -->
         </div>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-sm">
         @foreach ($cellar->cellarBottles as $cellarbottle)
         <a href="{{route('cellar_bottle.show', $cellarbottle->id)}}" class="bg-white border border-light-gray/20 rounded-lg shadow p-5 flex flex-col justify-between relative hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
             <div class="flex flex-row gap-4 mb-4">
