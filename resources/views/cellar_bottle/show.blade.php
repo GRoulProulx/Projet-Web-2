@@ -45,7 +45,7 @@
         </div>
         <div class="mt-md flex gap-md flex-col align-center justify-items-center">
             <div class="flex gap-sm justify-between flex-wrap ">
-                <a href="{{ route('cellar_bottle.edit', $cellarBottle->id)}}" class="bouton blue-magenta mt-0">Modifier</a>
+                <a href="{{ route('cellar_bottle.edit', $cellarBottle->id)}}" class="bouton white mt-0">Modifier</a>
                 <button class="bouton alert mt-0" data-action="delete">Supprimer</button>
 
             </div>
