@@ -20,13 +20,15 @@
 
                 <li><a href="{{route('bottle.index')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Catalogue des vins</a></li>
                 <div class="border-t border-light-gray/50"></div>
-
+                @if (Auth::check())
+                <li><a href="{{route('logout')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Se déconnecter</a></li>
+                <div class="border-t border-light-gray/50"></div>
+                @else
                 <li><a href="{{route('login')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Se connecter</a></li>
                 <div class="border-t border-light-gray/50"></div>
-
                 <li><a href="{{route('user.create')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">S'inscrire</a></li>
                 <div class="border-t border-light-gray/50"></div>
-
+                @endif
                 @if (Auth::check())
                 <li><a href="{{route('cellar.index')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Mes celliers</a></li>
                 <div class="border-t border-light-gray/50"></div>
