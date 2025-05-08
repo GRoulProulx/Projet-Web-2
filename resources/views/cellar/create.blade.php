@@ -19,7 +19,7 @@
         <!-- <a href="{{ route('cellar.index') }}" class="bouton white mt-0">Annuler</a> -->
     </form>
     <div class="text-center mt-md">
-        <a href="{{ route('cellar.index') }}" class="link-underline-hover">Retour à mes celliers</a>
+        <a href="{{ route('cellar.index') }}" class="link-underline-hover"><i class="fa-solid fa-circle-arrow-left mr-2.5"></i>Retour à mes celliers</a>
     </div>
 </section>
 @endsection

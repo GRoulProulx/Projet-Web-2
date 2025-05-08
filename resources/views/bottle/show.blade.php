@@ -69,7 +69,7 @@
         @endauth
     </article>
     <div class="text-center mt-md">
-        <a href="{{ route('bottle.index') }}" class="link-underline-hover">Retour au catalogue des vins</a>
+        <a href="{{ route('bottle.index') }}" class="link-underline-hover"><i class="fa-solid fa-circle-arrow-left mr-2.5"></i>Retour au catalogue des vins</a>
     </div>
 
     <!-- MODALE -->

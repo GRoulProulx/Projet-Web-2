@@ -3,8 +3,12 @@
 @section('content')
 
 <div class="container mx-auto">
+
+    
+
     <!-- En-tête de la page -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+       
         <h1 class="text-lg font-family-title md:mb-0">
             Cellier : <span class="color-taupe font-family">{{ $cellar->name }}</span>
         </h1>
@@ -29,19 +33,18 @@
 
                 <!-- Information des bouteilles -->
                 <div class="flex-grow ">
-                    <h2 class="xs:text-base sm:text-md md:text-lg uppercase mb-2">{{$cellarbottle->bottle->name}}</h2>
-                    <div class="flex gap-xs flex-wrap">
-                        <p>{{ $cellarbottle->bottle->type }}</p>
-                        <div class="border-2 border-l border-light-gray"></div>
-                        <p>{{ $cellarbottle->bottle->format }}</p>
-                        <div class="border-2 border-l border-light-gray"></div>
-                        <p>{{ $cellarbottle->bottle->country }}</p>
+                    <h2 class="xs:text-base sm:text-md md:text-lg uppercase mb-2 font-semibold">{{$cellarbottle->bottle->name}}</h2>
+                    <div class="flex gap-xs flex-wrap font-weight-medium">
+                        <p>Type: {{ $cellarbottle->bottle->type }}</p>
+                        <p >Format: {{ $cellarbottle->bottle->format }}</p>
+                        <p>Pays: {{ $cellarbottle->bottle->country }}</p>
                     </div>
                 </div>
             </div>
 
             <!-- Information additionnelles -->
             <div class="border-t border-light-gray/20 pt-3 mt-2">
+                <p>Quantité: <span class=""> {{ strval($cellarbottle->quantity) }} </span> </p>
                 <div class="grid grid-cols-2 gap-2 text-sm">
                     @if($cellarbottle->purchase_date)
                     <div>
@@ -74,7 +77,7 @@
     </div>
     @endif
     <div class="text-center mt-md">
-        <a href="{{ route('cellar.index') }}" class="link-underline-hover">Retour à mes celliers</a>
+        <a href="{{ route('cellar.index') }}" class="link-underline-hover"><i class="fa-solid fa-circle-arrow-left mr-2.5"></i>Retour à mes celliers</a>
     </div>
 </div>
 
