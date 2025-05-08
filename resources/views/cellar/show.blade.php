@@ -77,8 +77,8 @@
     @endif
 
 
-    <div class="text-center mt-md flex flex-col gap-sm">
-        <a href="{{route('cellar.edit', $cellar->id)}}" class="bouton white">Modifier</a>
+    <a href="{{route('cellar.edit', $cellar->id)}}" class="bouton white block text-center">Modifier le cellier</a>
+    <div class="text-center mt-md">
         <a href="{{ route('cellar.index') }}" class="link-underline-hover">Retour à mes celliers</a>
     </div>
 </div>
