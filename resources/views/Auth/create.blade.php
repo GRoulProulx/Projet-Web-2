@@ -5,18 +5,6 @@
 
 <!-- Page de Connexion -->
 
-<!-- Test de la connexion TODO: À enlever  après les tests-->
-<!-- <div class="p-md mb-4 bg-gray-300 rounded-sm">
-    @auth
-    <h1>Bienvenue, {{ auth()->user()->name }}</h1>
-    <p>Authentifié avec succès!</p>
-    @else
-    <p>Non authentifié. Veuillez vous connecter.</p>
-    @endauth
-</div> -->
-<!-- Fin du test de la connexion -->
-
-
 <div class="border border-light-gray/30 p-md rounded-sm flex flex-col gap-sm md:max-w-3xl mx-auto ">
     <div>
         <h1 class="font-family-title mx-2 text-lg">Connectez-vous</h1>
