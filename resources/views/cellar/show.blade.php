@@ -2,7 +2,7 @@
 @section('title', 'Cellier')
 @section('content')
 
-<div class="container mx-auto">
+<div class="container">
     <!-- En-tête de la page -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between">
         <h1 class="text-lg font-family-title md:mb-0">
