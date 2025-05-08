@@ -33,7 +33,7 @@ class BouteilleScraperService
 
             foreach ($productsOnPage as $product) {
                 if (!Bottle::where('code_saq', $product['code_saq'])->exists()) {
-                    $detailsSup = $this->getDetailsSu($product['url']);
+                    $detailsSup = $this->getDetailsSup($product['url']);
                     $data = array_merge($product, $detailsSup);
                     Bottle::create($data);
                     $results[] = $data;
