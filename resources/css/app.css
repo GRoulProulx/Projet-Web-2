@@ -29,7 +29,6 @@ RYTHME
     --color-light-gray: #9b9b9d;
     --color-alert: #7d3531;
 
-
     /* TAILLES DE POLICE */
     --text-xxs: 0.75rem; /* 12px */
     --text-xs: 0.8125rem; /* 13px */
@@ -50,6 +49,8 @@ RYTHME
     --spacing-sm: 0.9375rem; /* 15px */
     --spacing-base: 1rem; /* 16px */
     --spacing-md: 1.25rem; /* 20px */
+    --spacing-lg: 1.875rem; /* 30px */
+    --spacing-xl: 2.5rem; /* 40px */
     --spacing-xxl: 4.5rem; /* 72px */
     /* BORDER-RADIUS */
     --radius-md: 0.3125rem; /* 5px */
@@ -57,73 +58,38 @@ RYTHME
 
 @layer components {
     .bouton {
-        padding-top: var(--spacing-xs);
-        padding-bottom: var(--spacing-xs);
-        padding-left: var(--spacing-md);
-        padding-right: var(--spacing-md);
-        background-color: var(--color-gold);
-        border-radius: var(--radius-md);
-        color: var(--color-white);
-        font-weight: var(--font-weight-regular);
-        font-size: var(--text-sm);
-        cursor: pointer;
-        margin-top: var(--spacing-md);
+        @apply px-md py-xs bg-gold rounded-md text-white font-regular text-sm cursor-pointer mt-md hover:bg-[#856c42] transition-colors duration-500 ease-in;
+    }
 
-        &:hover {
-            background-color: #856c42;
-            transition: background-color 0.5s ease-in;
-        }
-    }
     .bouton.taupe {
-        background-color: var(--color-taupe);
-        &:hover {
-            background-color: #6b4e4c;
-        }
+        @apply bg-taupe hover:bg-[#6b4e4c];
     }
+
     .bouton.blue-magenta {
-        background-color: var(--color-blue-magenta);
-        &:hover {
-            background-color: #413c44;
-        }
+        @apply bg-blue-magenta hover:bg-[#413c44];
     }
+
     .bouton.white {
-        background-color: var(--color-white);
-        border: 1px solid var(--color-blue-magenta);
-        color: var(--color-blue-magenta);
-        &:hover {
-            background-color: var(--color-blue-magenta);
-            color: var(--color-white);
-        }
+        @apply bg-white border border-blue-magenta text-blue-magenta hover:bg-blue-magenta hover:text-white;
     }
+
     .bouton.alert {
-        background-color: var(--color-alert);
-        &:hover {
-            background-color: #632926;
-        }
+        @apply bg-alert hover:bg-[#632926];
     }
+
     .link-underline-hover {
-        position: relative;
-        display: inline-block;
-        color: var(--color-taupe); 
-        text-decoration: none;
+        @apply relative inline-block text-taupe no-underline;
     }
 
     .link-underline-hover::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        height: 2px;
-        width: 0;
-        background-color: var(--color-taupe);
-        opacity: 0.5;
-        transition: width 0.3s ease;
+        @apply content-[''] absolute left-0 bottom-0 h-[2px] w-0 bg-taupe opacity-50 transition-all duration-300 ease-in-out;
     }
 
     .link-underline-hover:hover::after {
-        width: 100%;
+        @apply w-full;
     }
 }
+
 .ham-menu.active span {
     @apply bg-blue-magenta;
 }
@@ -141,5 +107,5 @@ RYTHME
 }
 
 .off-screen-menu.active {
-    @apply left-0;
+    @apply right-0;
 }

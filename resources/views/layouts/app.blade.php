@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr" class="bg-white font-family font-light text-blue-magenta">
 
-<head>
+<head> 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@yield('title')</title>
@@ -11,32 +11,43 @@
 </head>
 
 <body class="flex flex-col min-h-[100vh]">
-    <header class="flex items-center justify-between p-md">
-        <div class="off-screen-menu z-10 fixed top-0 left-[-2000px] bg-white h-screen w-full flex flex-col items-center justify-center text-center text-lg transition-all duration-500 ease-in-out">
-            <ul>
-                <li><a href="#" class="hover:text-taupe">Accueil</a></li>
-                <li><a href="{{route('bottle.index')}}" class="hover:text-taupe">Catalogue des vins</a></li>
-                <li><a href="{{route('login')}}" class="hover:text-taupe">Se connecter</a></li>
-                <li><a href="{{route('user.create')}}" class="hover:text-taupe">S'inscrire</a></li>
+    <!-- Navigation -->
+    <header class="flex items-center justify-between px-md py-sm">
+        <img src="{{asset('images/logo.jpg')}}" alt="Logo" class="w-[125px]">
+        <nav class="off-screen-menu z-10 fixed top-0 right-[-2000px] bg-white h-screen w-full flex flex-col text-center text-lg transition-all duration-500 ease-in-out">
+            <ul class="mt-[100px] min-w-full">
+                <img src="{{asset('images/logo.jpg')}}" alt="Logo" class="w-[125px] mx-auto mb-sm">
+                <li><a href="{{route('bottle.index')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Catalogue des vins</a></li>
+                <div class="border-t border-light-gray/50"></div>
+
+                <li><a href="{{route('login')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Se connecter</a></li>
+                <div class="border-t border-light-gray/50"></div>
+
+                <li><a href="{{route('user.create')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">S'inscrire</a></li>
+                <div class="border-t border-light-gray/50"></div>
+
                 @if (Auth::check())
-                <li><a href="{{route('cellar.index')}}" class="hover:text-taupe">Mes celliers</a></li>
+                <li><a href="{{route('cellar.index')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Mes celliers</a></li>
+                <div class="border-t border-light-gray/50"></div>
+
                 @endif
             </ul>
-        </div>
+        </nav>
 
-        <nav class="flex">
-            <div class="ham-menu h-[50px] w-[30px] relative cursor-pointer z-11">
+        <!-- Menu hamburger -->
+        <div class="flex items-center gap-md">
+            <i class="fas fa-search text-lg"></i>
+            <div class="ham-menu h-[40px] w-[30px] relative cursor-pointer z-11">
                 <span class="h-[3px] w-full bg-blue-magenta rounded-[25px] absolute left-1/2 top-1/5 -translate-x-1/2 transition duration-300 ease-in-out"></span>
                 <span class="h-[3px] w-full bg-blue-magenta rounded-[25px] absolute left-1/2 top-2/5 -translate-x-1/2 transition duration-300 ease-in-out"></span>
                 <span class="h-[3px] w-full bg-blue-magenta rounded-[25px] absolute left-1/2 top-3/5 -translate-x-1/2 transition duration-300 ease-in-out"></span>
             </div>
-        </nav>
-        <h1 class="font-title text-center text-lg text-transparent bg-clip-text bg-gradient-to-b from-black via-gray-500 to-gray-100">MAISON DES VINS</h1>
-        <i class="fas fa-search text-lg"></i>
+        </div>
     </header>
-    <main class="grow m-md mb-xxl">
+    
+    <main class="grow m-md mb-xxl ">
         @auth
-        <div class="">Bienvenue, {{ auth()->user()->name }}</div>
+        <div class="mb-sm">Bienvenue {{ auth()->user()->name }}</div>
         @endauth
         @yield('content')
     </main>
