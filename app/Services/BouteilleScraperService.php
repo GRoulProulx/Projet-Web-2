@@ -18,23 +18,23 @@ class BouteilleScraperService
     }
 
     /**
-     * Scraper toutes les pages de vin
+     * Scraper toutes les pages de vin de la SAQ
      */
     public function scraperAllPages(): array
     {
         set_time_limit(0); 
         $page = 1;
-        $numberOfPage = 24;
+        $itemsPerPage = 24; // nombre des elements sur une page 
         $results = [];
 
         do {
-            $url = "https://www.saq.com/fr/produits/vin?p={$page}&product_list_limit={$numberOfPage}&product_list_order=name_asc";
-            $productsOnPage = $this->extraireProduits($url);
+            $url = "https://www.saq.com/fr/produits/vin?p={$page}&product_list_limit={$itemsPerPage}&product_list_order=name_asc";
+            $productsOnPage = $this->getDetails($url);
 
-            foreach ($productsOnPage as $produit) {
-                if (!Bottle::where('code_saq', $produit['code_saq'])->exists()) {
-                    $detailsSup = $this->extraireDetailsSupplementaires($produit['url']);
-                    $data = array_merge($produit, $detailsSup);
+            foreach ($productsOnPage as $product) {
+                if (!Bottle::where('code_saq', $product['code_saq'])->exists()) {
+                    $detailsSup = $this->getDetailsSu($product['url']);
+                    $data = array_merge($product, $detailsSup);
                     Bottle::create($data);
                     $results[] = $data;
                 }
@@ -60,7 +60,7 @@ class BouteilleScraperService
     /**
      * Récupérer la liste de produits sur une page et en extraire quelques attributs 
      */
-    private function extraireProduits(string $url): array
+    private function getDetails(string $url): array
     {
         $crawler = $this->client->request('GET', $url);
         $products = [];
@@ -75,8 +75,8 @@ class BouteilleScraperService
                 }
             });
 
-            $prixTexte = $node->filter('.price')->count() ? $node->filter('.price')->text() : null;
-            $price = $this->convertirPrix($prixTexte);
+            $priceText = $node->filter('.price')->count() ? $node->filter('.price')->text() : null;
+            $price = $this->convertPrice($priceText);
             $image = $node->filter('.product-image-photo')->count() ? $node->filter('.product-image-photo')->attr('src') : null;
             $name = $node->filter('.product-item-link')->count() ? trim($node->filter('.product-item-link')->text()) : null;
 
@@ -97,7 +97,7 @@ class BouteilleScraperService
     /**
      * Récupérer les détails supplémentaires sur la fiche produit
      */
-    private function extraireDetailsSupplementaires(string $url): array
+    private function getDetailsSup(string $url): array
     {
         $crawler = $this->client->request('GET', $url);
 
@@ -146,15 +146,15 @@ class BouteilleScraperService
 
     /**
      * Convertir prix texte en float
-     * @param string|null $prixTexte
+     * @param string|null $priceText
      * @return float|null
      */
-    private function convertirPrix(?string $prixTexte): ?float
+    private function convertPrice(?string $priceText): ?float
     {
-        if (!$prixTexte) return null;
-        $prixTexte = str_replace(['$', ' ', ' '], '', $prixTexte);
-        $prixTexte = str_replace(',', '.', $prixTexte);
-        return is_numeric($prixTexte) ? round((float) $prixTexte, 2) : null;
+        if (!$priceText) return null;
+        $priceText = str_replace(['$', ' ', ' '], '', $priceText);
+        $priceText = str_replace(',', '.', $priceText);
+        return is_numeric($priceText) ? round((float) $priceText, 2) : null;
     }
     
     //Pour les tests
@@ -163,16 +163,16 @@ class BouteilleScraperService
         set_time_limit(0);
 
         $page = 1;
-        $numberOfPage = 24;
+        $itemsPerPage = 24;
         $results = [];
 
 
-        $url = "https://www.saq.com/fr/produits/vin?p={$page}&product_list_limit={$numberOfPage}&product_list_order=name_asc";
-        $products = $this->extraireProduits($url);
+        $url = "https://www.saq.com/fr/produits/vin?p={$page}&product_list_limit={$itemsPerPage}&product_list_order=name_asc";
+        $products = $this->getDetails($url);
 
         foreach ($products as $product) {
             if (!Bottle::where('code_saq', $product['code_saq'])->exists()) {
-                $detailsSup = $this->extraireDetailsSupplementaires($product['url']);
+                $detailsSup = $this->getDetailsSup($product['url']);
                 $data = array_merge($product, $detailsSup);
                 Bottle::create($data);
                 $results[] = $data;
