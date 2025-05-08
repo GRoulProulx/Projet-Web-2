@@ -3,7 +3,7 @@
 @section('content')
 
 <section class="md:max-w-3xl mx-auto">
-    <header class="mb-md py-sm">
+    <header class="mb-sm">
         <h1 class="font-family-title text-lg">Créer un cellier</h1>
     </header>
     <form method="POST" action="{{ route('cellar.store') }}" class="flex flex-col gap-sm ">
