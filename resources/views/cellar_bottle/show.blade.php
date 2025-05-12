@@ -5,11 +5,14 @@
 <section>
     <article class="mx-auto relative max-w-3xl border border-light-gray/30 rounded-md p-sm">
         <div class="flex gap-sm flex-wrap">
+            <!-- Image -->
             <img src="{{$cellarBottle->bottle->image}}" alt="{{$cellarBottle->bottle->image}}" class="max-w-[111px] max-h-[166px] object-cover mx-auto">
             <div class="flex flex-col gap-sm">
+                <!-- Entête -->
                 <header>
                     <h2 class="xs:text-base sm:text-md md:text-lg uppercase font-regular">{{$cellarBottle->bottle->name}}</h2>
                 </header>
+                <!-- Informations générales -->
                 <div class="flex gap-xs flex-wrap ">
                     <p>{{$cellarBottle->bottle->type}}</p>
                     <div class="border-2 border-l border-light-gray"></div>
@@ -17,37 +20,24 @@
                     <div class="border-2 border-l border-light-gray"></div>
                     <p>{{$cellarBottle->bottle->country}}</p>
                 </div>
+                <!-- Informations supplémentaires -->
                 <div class="flex flex-col">
                     <p><span class="font-regular">Date d'achat:</span> {{$cellarBottle->purchase_date}}</p>
                     <p><span class="font-regular">Garder jusqu'à:</span> {{$cellarBottle->storage_until}}</p>
                 </div>
-                <form action="" method="post">
-                    @csrf
-                    @method('PUT')
-                    <div class="flex flex-col">
-                        <label for="quantity" class="font-regular">Quantité: </label>
-                        <div class="flex">
-                            <input type="number" id="quantity" name="quantity" min="1" max="{{$cellarBottle->quantity}}" value="{{$cellarBottle->quantity}}" class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
-                            <button type="submit" class="bouton py-1 px-3  text-sm rounded-r-md rounded-l-none w- sm:w-auto mt-0 sm:mt-0">Boire</button>
-                        </div>
-                    </div>
-                </form>
-
                 <div class="flex flex-col">
-
                     <p><span class="font-regular">Prix d'achat:</span> {{$cellarBottle->price}} $</p>
                     <p><span class="font-regular">Note:</span> {{$cellarBottle->notes}}</p>
-
                 </div>
-
+                <!-- Lien SAQ -->
                 <a href="{{$cellarBottle->bottle->url}}" target="_blank" class="link-underline-hover max-w-fit">Commander à la SAQ <i class="fa-solid fa-arrow-up-right-from-square text-taupe"></i></a>
             </div>
         </div>
+        <!-- Section pour modifier et supprimer -->
         <div class="mt-md flex gap-md flex-col align-center justify-items-center">
             <div class="flex gap-sm justify-between flex-wrap ">
                 <a href="{{ route('cellar_bottle.edit', $cellarBottle->id)}}" class="bouton white mt-0">Modifier</a>
                 <button class="bouton alert mt-0" data-action="delete">Supprimer</button>
-
             </div>
         </div>
     </article>
@@ -55,6 +45,7 @@
     <div class="text-center mt-md">
         <a href="{{ route('cellar.show', $cellarId) }}" class="link-underline-hover">Retour au cellier</a>
     </div>
+    
     <!-- MODALE -->
     <div class="modale-container hidden relative z-10">
         <div class="modale fixed inset-0 bg-gray-500/75 transition-opacity">
