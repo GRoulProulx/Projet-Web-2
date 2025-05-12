@@ -17,7 +17,9 @@
         @endif
 
         <button type="submit" class="bouton mt-0">Sauvegarder</button>
-        <!-- <a href="{{ route('cellar.index') }}" class="bouton white mt-0">Annuler</a> -->
+        <div class="text-center mt-sm">
+            <a href="{{ route('cellar.index') }}" class="link-underline-hover">Retour à mes celliers</a>
+        </div>
     </form>
 </section>
 @endsection
