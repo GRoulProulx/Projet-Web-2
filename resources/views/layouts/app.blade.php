@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@yield('title')</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
 </head>
@@ -49,11 +50,12 @@
     </header>
 
     <main class="grow m-md mb-xxl ">
+        @auth
+        <div class="mb-sm">Bienvenue {{ auth()->user()->name }}</div>
+        @endauth
         @if (session('success'))
         <div class="border border-light-gray/30 p-md rounded-sm mb-sm">
-            <strong>@auth Bienvenue {{ auth()->user()->name }}
-                @endauth
-            </strong>
+
             <div><i class="fa-solid fa-circle-check text-gold mr-xs"></i>{{ session('success') }}</div>
         </div>
         @endif
@@ -74,7 +76,7 @@
             <div class="flex justify-around items-center">
                 <a href="{{ route('cellar.index') }}"><i class="fas fa-home"></i></a>
                 <a href="{{ route('bottle.index') }}"><i class="fas fa-book-open"></i></a>
-                <a href="{{ route('bottle.index') }}"><i class="fa-solid fa-square-plus text-xl"></i></a>
+                <a href="{{ route('bottle.index') }}"><i class="fa-solid fa-square-plus text-xl text-gold"></i></a>
                 <i class="fas fa-user"></i>
                 <i class="fas fa-search"></i>
             </div>
