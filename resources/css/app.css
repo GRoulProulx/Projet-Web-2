@@ -90,6 +90,7 @@ RYTHME
     }
 }
 
+/* Menu hamburger */
 .ham-menu.active span {
     @apply bg-blue-magenta;
 }
