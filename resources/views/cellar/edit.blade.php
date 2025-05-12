@@ -3,7 +3,7 @@
 @section('content')
 
 <section>
-    <header class="mb-md text-center">
+    <header class="mb-md">
         <h1 class="font-family-title text-lg">Modifier un cellier</h1>
     </header>
     <form method="POST" class="flex flex-col gap-sm md:max-w-3xl mx-auto">
@@ -17,7 +17,9 @@
         @endif
 
         <button type="submit" class="bouton mt-0">Sauvegarder</button>
-        <!-- <a href="{{ route('cellar.index') }}" class="bouton white mt-0">Annuler</a> -->
+        <div class="text-center mt-xs">
+            <a href="{{ route('cellar.index') }}" class="link-underline-hover">Retour à mes celliers</a>
+        </div>
     </form>
 </section>
 @endsection

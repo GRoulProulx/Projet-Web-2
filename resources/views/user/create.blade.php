@@ -33,7 +33,7 @@
                 @endif
             </div>
 
-            <div class=" flex p-xs">
+            <div class="hidden flex p-xs">
                 <input type="checkbox" name="terms" class="mr-3" />
                 <p class="text-xxs font-light">J'accepte les <span class="font-regular text-">Termes & Politiques de confidentialité</span></p>
                 @if($errors->has('terms'))
@@ -43,13 +43,13 @@
                 @endif
             </div>
 
-            <div class="relative flex items-center py-5">
+            <div class="hidden relative flex items-center py-5">
                 <div class="flex-grow border-t border-gray-300"></div>
                 <span class="flex-shrink mx-4 text-xxs text-gray-500">Continuer avec</span>
                 <div class="flex-grow border-t border-gray-300"></div>
             </div>
 
-            <div class=" p-xxs flex-col justify-between">
+            <div class="hidden p-xxs flex-col justify-between">
                 <button type="button" class="text-xxs w-full p-xs my-2 border border-light-gray/30 rounded-md focus:outline-none focus:light-gray bg-white cursor-pointer flex items-center justify-center">
                     <i class="fab fa-facebook mr-2"></i> Facebook
                 </button>
@@ -64,9 +64,11 @@
             <button type="submit" class="bouton w-full">S'inscrire</button>
         </form>
 
-        <p class="text-xxs flex justify-center p-xxs">
-            Déjà membre? <a href="{{ route('login') }}" class="px-xxs underline"> Connectez-vous</a>
-        </p>
+        <div class="mt-sm">
+            <p class="text-xxs text-center">
+                Déjà membre? <a href="{{ route('login') }}" class="underline"> Connectez-vous</a>
+            </p>
+        </div>
     </div>
 </div>
 @endsection
