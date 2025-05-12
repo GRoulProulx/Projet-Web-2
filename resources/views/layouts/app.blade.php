@@ -49,16 +49,32 @@
     </header>
 
     <main class="grow m-md mb-xxl ">
-        @auth
-        <div class="mb-sm">Bienvenue {{ auth()->user()->name }}</div>
-        @endauth
+        @if (session('success'))
+        <div class="border border-light-gray/30 p-md rounded-sm mb-sm">
+            <strong>@auth Bienvenue {{ auth()->user()->name }}
+                @endauth
+            </strong>
+            <div><i class="fa-solid fa-circle-check text-gold mr-xs"></i>{{ session('success') }}</div>
+        </div>
+        @endif
+        @if ($errors->any())
+        <div class="border border-light-gray/30 p-md rounded-sm mb-sm">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li><i class="fa-solid fa-circle-exclamation text-alert mr-xs"></i>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
         @yield('content')
     </main>
-    <footer class="hidden fixed bottom-0 w-full left-0 z-50 bg-white shadow-md ">
+    <footer class="fixed bottom-0 w-full left-0 z-50 bg-white shadow-md ">
         <div class=" mx-auto text-md p-md">
             <div class="flex justify-around items-center">
                 <a href="{{ route('cellar.index') }}"><i class="fas fa-home"></i></a>
                 <a href="{{ route('bottle.index') }}"><i class="fas fa-book-open"></i></a>
+                <a href="{{ route('bottle.index') }}"><i class="fa-solid fa-square-plus text-xl"></i></a>
                 <i class="fas fa-user"></i>
                 <i class="fas fa-search"></i>
             </div>
