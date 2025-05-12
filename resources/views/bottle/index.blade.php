@@ -14,21 +14,24 @@
             <!-- Grille de produits -->
             <div class="mx-auto grid max-w-2xl grid-cols-1 gap-sm gap-y-sm mt-md md:mx-0 md:max-w-none md:grid-cols-2 xl:grid-cols-3 ">
                 @foreach($bottles as $bottle)
-                <a href="{{ route('bottle.show', $bottle->id) }}" class="bg-white border border-light-gray/20 rounded-lg shadow p-5 flex flex-col justify-between relative hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
+                <a href="{{ route('bottle.show', $bottle->id) }}" class="border border-light-gray/20 rounded-md shadow p-md hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
                     <article>
-                        <figure class="flex gap-x-sm xs:gap-x-xs s:gap-x-sm text-xs">
-                            <img src="{{ $bottle->image }}" alt="{{ $bottle->name }}" class="max-w-[111px] max-h-[166px] object-cover">
-                            <figcaption class="flex flex-col gap-xxs flex-wrap">
-                                <header>
-                                    <h2 class="xs:text-base sm:text-md md:text-lg uppercase font-semibold">{{ $bottle->name }}</h2>
-                                </header>
-                                <div class="flex gap-xs flex-wrap">
-                                    <p>{{ $bottle->type }}</p>
-                                    <div class="border-2 border-l border-light-gray"></div>
-                                    <p>{{ $bottle->format }}</p>
-                                    <div class="border-2 border-l border-light-gray"></div>
-                                    <p>{{ $bottle->country }}</p>
+                        <figure class="flex flex-col sm:flex-row gap-sm text-sm">
+                            <img src="{{ $bottle->image }}" alt="{{ $bottle->name }}" class="mx-auto sm:mx-0 max-w-[111px] max-h-[166px] object-cover">
+                            <figcaption class="flex flex-col gap-md justify-between">
+                                <div class="flex flex-col sm:gap-xs">
+                                    <header>
+                                        <h2 class="text-md uppercase">{{ $bottle->name }}</h2>
+                                    </header>
+                                    <div class="flex gap-xs flex-wrap">
+                                        <p>{{ $bottle->type }}</p>
+                                        <div class="border-2 border-l border-light-gray"></div>
+                                        <p>{{ $bottle->format }}</p>
+                                        <div class="border-2 border-l border-light-gray"></div>
+                                        <p>{{ $bottle->country }}</p>
+                                    </div>
                                 </div>
+                                <p class="w-fit text-md text-taupe link-underline-hover ">Ajouter au cellier <i class="ri-arrow-right-circle-fill"></i></p>
                             </figcaption>
                         </figure>
                     </article>

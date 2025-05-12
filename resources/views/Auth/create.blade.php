@@ -5,7 +5,7 @@
 
 <!-- Page de Connexion -->
 
-<div class="border border-light-gray/30 p-md rounded-sm flex flex-col gap-sm md:max-w-3xl mx-auto ">
+<div class="border border-light-gray/30 p-md rounded-md flex flex-col gap-sm md:max-w-3xl mx-auto ">
     <div>
         <h1 class="font-family-title mx-2 text-lg">Connectez-vous</h1>
         <form method="post" action="{{ route('login.store') }}">
@@ -13,18 +13,8 @@
             <div class=" p-xxs">
                 <input type="email" name="email" placeholder="Courriel"
                     class="border border-light-gray/30 w-full p-xxs my-2 rounded-md focus:outline-none focus:light-gray bg-white" value="{{old('email')}}" required />
-                @if($errors->has('email'))
-                <div class="border border-alert text-alert rounded-md p-xxs">
-                    {{$errors->first('email')}}
-                </div>
-                @endif
                 <input type="password" name="password" placeholder="Mot de passe"
                     class="border border-light-gray/30 w-full p-xxs my-2 rounded-md focus:outline-none focus:light-gray" required />
-                @if($errors->has('password'))
-                <div class="border border-alert text-alert rounded-md p-xxs">
-                    {{$errors->first('password')}}
-                </div>
-                @endif
             </div>
 
             <div class="hidden p-xs">

@@ -134,6 +134,6 @@ class CellarBottleController extends Controller
     public function drink(CellarBottle $cellarBottle)
     {
         $cellarBottle->update(['quantity' => $cellarBottle->quantity - 1]);
-        return redirect()->route('cellar_bottle.show', $cellarBottle->id)->with('success', 'Bouteille marquée comme bue.');
+        return redirect()->route('cellar.show', $cellarBottle->cellar_id)->with('success', 'Bouteille marquée comme bue.');
     }
 }

@@ -12,25 +12,10 @@
             <div class="p-xxs">
                 <input type="text" name="name" placeholder="Nom"
                     class="border border-light-gray/30 w-full p-xxs my-2 rounded-md focus:outline-none focus:light-gray bg-white" value="{{old('name')}}" required />
-                @if($errors->has('name'))
-                <div class="border border-alert text-alert rounded-md p-xxs">
-                    {{$errors->first('name')}}
-                </div>
-                @endif
                 <input type="email" name="email" placeholder="Courriel"
                     class="border border-light-gray/30 w-full p-xxs my-2 rounded-md focus:outline-none focus:light-gray bg-white" value="{{old('email')}}" required />
-                @if($errors->has('email'))
-                <div class="border border-alert text-alert rounded-md p-xxs">
-                    {{$errors->first('email')}}
-                </div>
-                @endif
                 <input type="password" name="password" placeholder="Mot de passe"
                     class="border border-light-gray/30 w-full p-xxs my-2 rounded-md focus:outline-none focus:light-gray bg-white" required />
-                @if($errors->has('password'))
-                <div class="border border-alert text-alert rounded-md p-xxs">
-                    {{$errors->first('password')}}
-                </div>
-                @endif
             </div>
 
             <div class="hidden flex p-xs">

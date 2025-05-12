@@ -1,29 +1,30 @@
 @extends('layouts.app')
-@section('title', 'Cellier')
+@section('title', 'Mon cellier')
 @section('content')
 
-<div class="container">
+<section class="mx-auto">
     <!-- En-tête de la page -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-       
-        <h1 class="text-lg font-family-title md:mb-0">
-            Cellier : <span class="color-taupe font-family">{{ $cellar->name }}</span>
-        </h1>
-        <div class="flex gap-2 justify-between mt-sm mb-sm">
-            <a href="{{ route('bottle.index') }}" class="bouton mt-0"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Vins du catalogue</a>
-            <button class="bouton alert mt-0" data-action="delete">Supprimer le cellier</button>
-
-            <!-- <a href="#" class="bouton white mt-0"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Importations privés</a> -->
+        <header class="">
+            <h1 class="text-lg font-family-title ">
+                Cellier : <span class="color-taupe font-family">{{ $cellar->name }}</span>
+            </h1>
+        </header>
+        <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm ">
+            <a href="{{ route('bottle.index') }}" class="bouton mt-0 grow text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille</a>
+            <button class="bouton alert mt-0 grow" data-action="delete">Supprimer le cellier</button>
         </div>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-sm mb-sm">
-        @foreach ($cellar->cellarBottles as $cellarbottle)
-        <a href="{{route('cellar_bottle.show', $cellarbottle->id)}}" class="bg-white border border-light-gray/20 rounded-lg shadow p-5 flex flex-col justify-between relative hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
-            <div class="flex flex-row gap-4 mb-4">
+
+    <!-- Bouteilles du cellier -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-sm mb-sm ">
+        @foreach ($cellar->cellarBottles as $cellarBottle)
+        <div class="border border-light-gray/20 rounded-lg shadow p-md flex flex-col gap-sm justify-between relative hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
+            <div class="flex flex-col sm:flex-row gap-sm text-sm">
                 <!-- Image -->
                 <div class="flex-shrink-0">
-                    @if ($cellarbottle->bottle->image)
-                    <img src="{{ $cellarbottle->bottle->image }}" class="max-w-[100px] max-h-[150px] object-cover rounded-md" alt="{{ $cellarbottle->bottle->name }}">
+                    @if ($cellarBottle->bottle->image)
+                    <img src="{{ $cellarBottle->bottle->image }}" class="mx-auto sm:mx-0 max-w-[100px] max-h-[150px] object-cover rounded-md" alt="{{ $cellarBottle->bottle->name }}">
                     @else
                     <div class="bg-gray-100 flex items-center justify-center rounded-md">
                     </div>
@@ -32,57 +33,90 @@
 
                 <!-- Information des bouteilles -->
                 <div class="flex-grow ">
-                    <h2 class="xs:text-base sm:text-md md:text-lg uppercase mb-2 font-semibold">{{$cellarbottle->bottle->name}}</h2>
-                    <div class="flex gap-xs flex-wrap font-weight-medium">
-                        <p>Type: {{ $cellarbottle->bottle->type }}</p>
-                        <p >Format: {{ $cellarbottle->bottle->format }}</p>
-                        <p>Pays: {{ $cellarbottle->bottle->country }}</p>
+                    <h2 class="xs:text-base sm:text-md md:text-lg uppercase mb-2">{{$cellarBottle->bottle->name}}</h2>
+                    <div class="flex gap-xs flex-wrap">
+                        <p>{{ $cellarBottle->bottle->type }}</p>
+                        <div class="border-2 border-l border-light-gray"></div>
+                        <p>{{ $cellarBottle->bottle->format }}</p>
+                        <div class="border-2 border-l border-light-gray"></div>
+                        <p>{{ $cellarBottle->bottle->country }}</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Information additionnelles -->
-            <div class="border-t border-light-gray/20 pt-3 mt-2">
-                <p>Quantité: <span class=""> {{ strval($cellarbottle->quantity) }} </span> </p>
-                <div class="grid grid-cols-2 gap-2 text-sm">
-                    @if($cellarbottle->purchase_date)
+            <!-- Formulaire pour indiquée qu'une bouteille est bue -->
+            <div class="flex justify-between items-baseline-last flex-wrap gap-sm">
+                <form action="{{route('cellar_bottle.drink', $cellarBottle->id)}}" method="post">
+                    @csrf
+                    @method('PUT')
+                    <div class="flex flex-col">
+                        <label for="quantity" class="font-regular">Quantité: </label>
+                        <div class="flex">
+                            <input type="text" id="bottle_id" name="bottle_id" value="{{$cellarBottle->bottle->id}}" class="hidden">
+                            <input type="number" id="quantity" name="quantity" min="1" max="{{$cellarBottle->quantity}}" value="{{$cellarBottle->quantity}}" class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
+                            <button type="submit" class="bouton py-1 px-3 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Boire</button>
+                        </div>
+                    </div>
+                </form>
+                <a href="{{route('cellar_bottle.show', $cellarBottle->id)}}" class="w-fit text-md text-taupe link-underline-hover ">Détails <i class="ri-arrow-right-circle-fill"></i></a>
+            </div>
+
+            <!-- Bordure grise -->
+            <div class="border-t border-light-gray/20 ">
+                <!-- Information additionnelles -->
+                <p>Quantité: <span class=""> {{ strval($cellarBottle->quantity) }} </span> </p>
+                <div class="grid grid-cols-2 gap-2 text-sm mt-sm">
                     <div>
+                        @if($cellarBottle->purchase_date == null)
                         <span class="text-gray-500 font-medium">Date d'achat:</span>
-                        <p>{{ $cellarbottle->purchase_date }}</p>
+                        <p>-</p>
+                        @else
+                        <span class="text-gray-500 font-medium">Date d'achat:</span>
+                        <p>{{ $cellarBottle->purchase_date }}</p>
+                        @endif
                     </div>
-                    @endif
 
-                    @if($cellarbottle->storage_until)
                     <div>
+                        @if($cellarBottle->storage_until == null)
                         <span class="text-gray-500 font-medium">Conservation:</span>
-                        <p>{{$cellarbottle->storage_until}}</p>
+                        <p>-</p>
+                        @else
+                        <span class="text-gray-500 font-medium">Date d'achat:</span>
+                        <p>{{ $cellarBottle->storage_until }}</p>
+                        @endif
                     </div>
-                    @endif
                 </div>
 
-                @if($cellarbottle->notes)
-                <div class="mt-2">
+                <div>
+                    @if($cellarBottle->notes == null)
                     <span class="text-gray-500 font-medium">Notes:</span>
-                    <p class="text-sm line-clamp-2">{{ $cellarbottle->notes }}</p>
+                    <p>-</p>
+                    @else
+                    <span class="text-gray-500 font-medium">Notes:</span>
+                    <p>{{ $cellarBottle->notes }}</p>
+                    @endif
                 </div>
-                @endif
             </div>
-        </a>
+        </div>
         @endforeach
     </div>
+    <!-- Message si le cellier est vide -->
     @if ($cellar->cellarBottles->isEmpty())
     <div class="bg-white border border-light-gray/20 rounded-lg shadow p-8 text-center">
         <p class="text-lg font-family color-light-gray mb-4">Ce cellier ne contient aucune bouteille.</p>
     </div>
     @endif
 
-
-    <a href="{{route('cellar.edit', $cellar->id)}}" class="bouton white block text-center">Modifier le cellier</a>
-    <div class="text-center mt-md">
-        <a href="{{ route('cellar.index') }}" class="link-underline-hover"><i class="fa-solid fa-circle-arrow-left mr-2.5"></i>Retour à mes celliers</a>
+    <!-- Section pour modifier le cellier ou retourner aux celliers -->
+    <div class="text-center">
+        <a href="{{route('cellar.edit', $cellar->id)}}" class="bouton white block sm:inline-block text-center">Modifier mon cellier</a>
     </div>
-</div>
-<!-- MODALE -->
+    <div class="text-center mt-md">
+        <a href="{{ route('cellar.index') }}" class="link-underline-hover">Retour à mes celliers</a>
+    </div>
+</section>
+
+<!-- Modale -->
 <div class="modale-container hidden relative z-10">
     <div class="modale fixed inset-0 bg-gray-500/75 transition-opacity">
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -98,8 +132,6 @@
                         </div>
                         <div class="modale-footer flex justify-between items-baseline">
                             <a href="" class="bouton blue-magenta">Annuler</a>
-
-
                             <form action="" method="POST">
                                 @csrf
                                 @method('DELETE')

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@yield('title')</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
 </head>
@@ -52,13 +53,30 @@
         @auth
         <div class="mb-sm">Bienvenue {{ auth()->user()->name }}</div>
         @endauth
+        @if (session('success'))
+        <div class="border border-light-gray/30 p-md rounded-sm mb-sm">
+
+            <div><i class="fa-solid fa-circle-check text-gold mr-xs"></i>{{ session('success') }}</div>
+        </div>
+        @endif
+        @if ($errors->any())
+        <div class="border border-light-gray/30 p-md rounded-sm mb-sm">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li><i class="fa-solid fa-circle-exclamation text-alert mr-xs"></i>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
         @yield('content')
     </main>
-    <footer class="hidden fixed bottom-0 w-full left-0 z-50 bg-white shadow-md ">
+    <footer class="fixed bottom-0 w-full left-0 z-50 bg-white shadow-md ">
         <div class=" mx-auto text-md p-md">
             <div class="flex justify-around items-center">
                 <a href="{{ route('cellar.index') }}"><i class="fas fa-home"></i></a>
                 <a href="{{ route('bottle.index') }}"><i class="fas fa-book-open"></i></a>
+                <a href="{{ route('bottle.index') }}"><i class="fa-solid fa-square-plus text-xl text-gold"></i></a>
                 <i class="fas fa-user"></i>
                 <i class="fas fa-search"></i>
             </div>

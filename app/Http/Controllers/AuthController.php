@@ -34,14 +34,14 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (!Auth::validate($credentials)):
-            return redirect(route('login'))->withErrors('email ou mot de passe invalide');
+            return redirect(route('login'))->withErrors('Email ou mot de passe invalide. Veuillez réessayer.'); 
         endif;
         // Authentification réussie et la connexion de l'utilisateur
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
         Auth::login($user);
         
         //TODO: Rediriger l'utilisateur vers la future page d'accueil???
-        return redirect()->intended('/cellars')->withSuccess('Connecté avec succès!');
+        return redirect()->intended('/bottles')->withSuccess('Connecté avec succès!');
     }
 
     /**
