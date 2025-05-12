@@ -64,6 +64,7 @@
             <!-- Bordure grise -->
             <div class="border-t border-light-gray/20 ">
                 <!-- Information additionnelles -->
+                <p>Quantité: <span class=""> {{ strval($cellarBottle->quantity) }} </span> </p>
                 <div class="grid grid-cols-2 gap-2 text-sm mt-sm">
                     <div>
                         @if($cellarBottle->purchase_date == null)
