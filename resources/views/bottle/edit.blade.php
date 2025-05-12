@@ -91,7 +91,7 @@
         </div>
 
         <button type="submit" class="bouton mt-0">Sauvegarder</button>
-        <a href="{{ route('bottle.index') }}" class="bouton white mt-0">Annuler</a>
+        <a href="{{ route('bottle.index') }}" class="bouton white mt-0"><i class="fa-solid fa-circle-arrow-left mr-2.5"></i>Annuler</a>
     </form>
 </section>
 @endsection

@@ -20,7 +20,7 @@
                             <img src="{{ $bottle->image }}" alt="{{ $bottle->name }}" class="max-w-[111px] max-h-[166px] object-cover">
                             <figcaption class="flex flex-col gap-xxs flex-wrap">
                                 <header>
-                                    <h2 class="xs:text-base sm:text-md md:text-lg uppercase">{{ $bottle->name }}</h2>
+                                    <h2 class="xs:text-base sm:text-md md:text-lg uppercase font-semibold">{{ $bottle->name }}</h2>
                                 </header>
                                 <div class="flex gap-xs flex-wrap">
                                     <p>{{ $bottle->type }}</p>
