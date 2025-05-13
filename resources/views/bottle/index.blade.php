@@ -28,7 +28,7 @@
                 </div>
                 <button type="submit" class="bouton blue-magenta mt-0">Appliquer</button>
             </form>
-            
+
             <!-- Grille de produits -->
             <div class="mx-auto grid max-w-2xl grid-cols-1 gap-sm gap-y-sm mt-md md:mx-0 md:max-w-none md:grid-cols-2 xl:grid-cols-3 ">
                 @foreach($bottles as $bottle)
@@ -49,7 +49,7 @@
                                         <p>{{ $bottle->country }}</p>
                                     </div>
                                 </div>
-                                <p class="w-fit text-md text-taupe link-underline-hover ">Ajouter au cellier <i class="ri-arrow-right-circle-fill"></i></p>
+                                <p class="w-fit text-md text-taupe link-underline-hover ">Ajouter au cellier <i class="fa-solid fa-circle-arrow-right text-base"></i></p>
                             </figcaption>
                         </figure>
                     </article>
