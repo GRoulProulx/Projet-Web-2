@@ -1,4 +1,4 @@
-// Tout les éléments de recherche sont récupérés
+// Tous les éléments de recherche sont récupérés
 function getWineDetails(card) {
     return {   
         name: card.querySelector("h2").textContent.toLowerCase(),
