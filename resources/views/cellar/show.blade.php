@@ -5,7 +5,7 @@
 <section class="mx-auto">
     <!-- En-tête de la page -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-        <header class="">
+        <header>
             <h1 class="text-lg font-family-title ">
                 Cellier : <span class="color-taupe font-family">{{ $cellar->name }}</span>
             </h1>
