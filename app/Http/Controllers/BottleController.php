@@ -16,7 +16,40 @@ class BottleController extends Controller
      */
     public function index()
     {
-        $bottles = Bottle::all();
+        //$bottles = Bottle::all();
+        $query = Bottle::query();
+
+        switch (request('sort_by')) {
+            case 'name_asc':
+                $query->orderBy('name', 'asc');
+                break;
+            case 'name_desc':
+                $query->orderBy('name', 'desc');
+                break;
+            case 'country_asc':
+                $query->orderBy('country', 'asc');
+                break;
+            case 'country_desc':
+                $query->orderBy('country', 'desc');
+                break;
+            case 'type_asc':
+                $query->orderBy('type', 'asc');
+                break;
+            case 'type_desc':
+                $query->orderBy('type', 'desc');
+                break;
+            case 'price_asc':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price_desc':
+                $query->orderBy('price', 'desc');
+                break;
+            default:
+            $query->orderBy('name'); // ou autre tri par défaut
+            break;
+        }
+
+        $bottles = $query->get();
         return view('bottle.index', compact('bottles'));
     }
 
