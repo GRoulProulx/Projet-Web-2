@@ -53,11 +53,22 @@ Route::get('/edit/cellar-bottle/{cellarBottle}', [CellarBottleController::class,
 Route::put('/edit/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'update'])->name('cellar_bottle.update')->middleware('auth');
 Route::delete('/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'destroy'])->name('cellar_bottle.destroy')->middleware('auth');
 
-// Routes pour les utilisateurs
+// Routes pour la connextion et l'inscription
 Route::get('/users', [UserController::class, 'index'])->name('user.index');
 Route::get('/register', [UserController::class, 'create'])->name('user.create');
 Route::post('/register', [UserController::class, 'store'])->name('user.store');
-// TODO: Le reste des routes pour l'oublie du mot de passe, la modification du mot de passe, etc.
+
+// Route pour le profil utilisateur
+Route::get('/user/{user}', [UserController::class, 'show'])->name('user.show')->middleware('auth');
+Route::get('/user/edit/{user}', [UserController::class, 'edit'])->name('user.edit')->middleware('auth');
+Route::put('/user/edit/{user}', [UserController::class, 'update'])->name('user.update')->middleware('auth');
+Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy')->middleware('auth');
+
+// Route pour le mot de passe oublié
+Route::get('/password/forgot', [UserController::class, 'forgot'])->name('user.forgot');
+Route::post('/password/forgot', [UserController::class, 'email'])->name('user.email');
+Route::get('/password/reset/{user}/{token}', [UserController::class, 'reset'])->name('user.reset');
+Route::put('/password/reset/{user}/{token}', [UserController::class, 'resetUpdate'])->name('user.reset.update');
 
 // Routes AUTHENTIFICATION
 Route::get('/login', [AuthController::class, 'create'])->name('login');

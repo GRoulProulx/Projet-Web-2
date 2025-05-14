@@ -44,6 +44,7 @@
                     <i class="fab fa-apple mr-2"></i> Apple
                 </button>
             </div>
+            <a href="{{ route('user.forgot') }}" class="px-xxs underline text-taupe">Mot de passe oublié?</a>
             @guest
             <button type="submit" class="bouton w-full">Connexion</button>
             @endguest
@@ -54,6 +55,8 @@
         </div>
         @endauth
     </div>
+
+
     <p class="text-xxs flex justify-center p-xxs">
         Pas membre? <a href="{{ route('user.create') }}" class="px-xxs underline"> S'inscrire</a>
     </p>
