@@ -2,7 +2,10 @@ import "./bootstrap";
 import { formatWineTitle } from "./formatWineTitles";
 import { showModale } from "./modale";
 import { filterWineCards } from "./search";
+import { hideElementAfterDelay } from "./hideElementAfterDelay";
+
 function init() {
+    const main = document.querySelector("main");
     const hamMenu = document.querySelector(".ham-menu");
     const offScreenMenu = document.querySelector(".off-screen-menu");
 
@@ -18,9 +21,19 @@ function init() {
         const myCellar = document.querySelector(".my_cellar");
         if (myCellar) {
             const cellarId = myCellar.querySelector("#cellar_id").value;
+            
             if (cellarId) {
-                localStorage.setItem("cellarId", cellarId);
+                sessionStorage.setItem("cellarId", cellarId);
             }
+            setTimeout(() => {
+                sessionStorage.removeItem("cellarId");
+            }, 900000); // 15 minutes
+        }
+
+        // Vérifier si un message de succès est présent et le masquer après un délai
+        const successMessage = main.querySelector(".success-message");
+        if (successMessage) {
+            hideElementAfterDelay(successMessage);
         }
     };
 
@@ -39,7 +52,7 @@ function init() {
     const formAddBottleInCellar = document.querySelector(".form_add_bottle");
     const selectCellar = formAddBottleInCellar.querySelector("#select_name_cellar");   
     // Vérifier si le nom du cellier est déjà dans le localStorage
-    const cellarIdInStorage = localStorage.getItem("cellarId");
+    const cellarIdInStorage = sessionStorage.getItem("cellarId");
 
     if (cellarIdInStorage) {
         const option = selectCellar.querySelector(
@@ -85,8 +98,8 @@ function init() {
     searchInput.addEventListener("input", (e) => {
         filterWineCards(e.target.value.toLowerCase());
     });
-
     // FIN DE LA FONCTION POUR FILTRER LES CARTES DE VIN EN FONCTION DE LA RECHERCHE
+
 }
 
 init();
