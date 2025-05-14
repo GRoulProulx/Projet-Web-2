@@ -2,7 +2,10 @@ import "./bootstrap";
 import { formatWineTitle } from "./formatWineTitles";
 import { showModale } from "./modale";
 import { filterWineCards } from "./search";
+import { hideElementAfterDelay } from "./hideElementAfterDelay";
+
 function init() {
+    const main = document.querySelector("main");
     const hamMenu = document.querySelector(".ham-menu");
     const offScreenMenu = document.querySelector(".off-screen-menu");
 
@@ -25,6 +28,12 @@ function init() {
             setTimeout(() => {
                 sessionStorage.removeItem("cellarId");
             }, 900000); // 15 minutes
+        }
+
+        // Vérifier si un message de succès est présent et le masquer après un délai
+        const successMessage = main.querySelector(".success-message");
+        if (successMessage) {
+            hideElementAfterDelay(successMessage);
         }
     };
 
@@ -88,6 +97,8 @@ function init() {
         filterWineCards(e.target.value.toLowerCase());
     });
     // FIN DE LA FONCTION POUR FILTRER LES CARDES DE VIN EN FONCTION DE LA RECHERCHE
+
+
 
 }
 
