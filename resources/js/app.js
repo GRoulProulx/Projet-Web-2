@@ -18,9 +18,13 @@ function init() {
         const myCellar = document.querySelector(".my_cellar");
         if (myCellar) {
             const cellarId = myCellar.querySelector("#cellar_id").value;
+            
             if (cellarId) {
-                localStorage.setItem("cellarId", cellarId);
+                sessionStorage.setItem("cellarId", cellarId);
             }
+            setTimeout(() => {
+                sessionStorage.removeItem("cellarId");
+            }, 900000); // 15 minutes
         }
     };
 
@@ -40,7 +44,7 @@ function init() {
     const formAddBottleInCellar = document.querySelector(".form_add_bottle");
     const selectCellar = formAddBottleInCellar.querySelector("#select_name_cellar");   
     // Vérifier si le nom du cellier est déjà dans le localStorage
-    const cellarIdInStorage = localStorage.getItem("cellarId");
+    const cellarIdInStorage = sessionStorage.getItem("cellarId");
 
     if (cellarIdInStorage) {
         const option = selectCellar.querySelector(
