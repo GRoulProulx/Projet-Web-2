@@ -22,7 +22,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-sm mb-sm ">
         @foreach ($cellar->cellarBottles as $cellarBottle)
         <div class="border border-light-gray/20 rounded-lg shadow p-md flex flex-col gap-sm justify-between relative hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
-            <div class="flex flex-col sm:flex-row gap-sm text-sm">
+            <div class="flex flex-col sm:flex-row gap-sm ">
                 <!-- Image -->
                 <div class="flex-shrink-0">
                     @if ($cellarBottle->bottle->image)
@@ -66,23 +66,23 @@
             <!-- Bordure grise -->
             <div class="border-t border-light-gray/20 ">
                 <!-- Information additionnelles -->
-                <div class="grid grid-cols-2 gap-2 text-sm mt-sm">
+                <div class="grid grid-cols-2 gap-2 mt-sm">
                     <div>
                         @if($cellarBottle->purchase_date == null)
-                        <span class="text-gray-500 font-medium">Date d'achat:</span>
+                        <span class="text-gray-500 text-sm font-medium">Date d'achat:</span>
                         <p>-</p>
                         @else
-                        <span class="text-gray-500 font-medium">Date d'achat:</span>
+                        <span class="text-gray-500 text-sm font-medium">Date d'achat:</span>
                         <p>{{ $cellarBottle->purchase_date }}</p>
                         @endif
                     </div>
 
                     <div>
                         @if($cellarBottle->storage_until == null)
-                        <span class="text-gray-500 font-medium">Conservation:</span>
+                        <span class="text-gray-500 text-sm font-medium">Conservation:</span>
                         <p>-</p>
                         @else
-                        <span class="text-gray-500 font-medium">Date d'achat:</span>
+                        <span class="text-gray-500 text-sm font-medium">Conservation:</span>
                         <p>{{ $cellarBottle->storage_until }}</p>
                         @endif
                     </div>
@@ -90,10 +90,10 @@
 
                 <div>
                     @if($cellarBottle->notes == null)
-                    <span class="text-gray-500 font-medium">Notes:</span>
+                    <span class="text-gray-500 text-sm font-medium">Notes:</span>
                     <p>-</p>
                     @else
-                    <span class="text-gray-500 font-medium">Notes:</span>
+                    <span class="text-gray-500 text-sm font-medium">Notes:</span>
                     <p>{{ $cellarBottle->notes }}</p>
                     @endif
                 </div>
