@@ -53,27 +53,49 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Méthode pour afficher les détails d'un utilisateur
+     * @param string $id L'identifiant de l'utilisateur.
+     * @return \Illuminate\View\View La vue des détails de l'utilisateur.
      */
     public function show(string $id)
     {
-        //
+        return view('user.show', ['user' => $id]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Méthode pour afficher le formulaire d'édition d'un utilisateur
+     * @param string $id L'identifiant de l'utilisateur.
+     * @return \Illuminate\View\View La vue du formulaire d'édition de l'utilisateur.
      */
     public function edit(string $id)
     {
-        //
+        return view('user.edit', ['user' => $id]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Méthode pour mettre à jour les informations d'un utilisateur
+     * @param Request $request Les données du formulaire d'édition.
+     * @param string $id L'identifiant de l'utilisateur.
+     * @return \Illuminate\Http\RedirectResponse Redirige vers la page de détails de l'utilisateur avec un message de succès.
      */
     public function update(Request $request, string $id)
     {
-        //
+        //Validation des données du formulaire
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email'
+        ]);
+
+        //Création d'un nouvel utilisateur
+        $user = User::find($id);
+        if (!$user) {
+            return redirect()->route('user.index')->withErrors('Utilisateur non trouvé.');
+        }
+        
+        $user->fill($request->all());
+        $user->save();
+
+        return redirect()->route('user.show', $id)->with('success', 'Informations mises à jour avec succès.');
     }
 
     /**

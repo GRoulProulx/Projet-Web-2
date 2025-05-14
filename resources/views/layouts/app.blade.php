@@ -24,6 +24,8 @@
                 @if (Auth::check())
                 <li><a href="{{route('logout')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Se déconnecter</a></li>
                 <div class="border-t border-light-gray/50"></div>
+                <li><a href="{{ route('user.show', auth()->user()->id) }}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Mon profil</a></li>
+                <div class="border-t border-light-gray/50"></div>
                 @else
                 <li><a href="{{route('login')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Se connecter</a></li>
                 <div class="border-t border-light-gray/50"></div>
@@ -78,7 +80,11 @@
                 <a href="{{ route('cellar.index') }}"><i class="fas fa-home"></i></a>
                 <a href="{{ route('bottle.index') }}"><i class="fas fa-book-open"></i></a>
                 <a href="{{ route('bottle.index') }}"><i class="fa-solid fa-square-plus text-xl text-gold"></i></a>
-                <i class="fas fa-user"></i>
+                @if (Auth::check())
+                <a href="{{ route('user.show', auth()->user()->id) }}"><i class="fas fa-user"></i></a>
+                @else
+                <a href="{{ route('login') }}"><i class="fas fa-user"></i></a>
+                @endif
                 <i class="fas fa-search"></i>
             </div>
         </div>
