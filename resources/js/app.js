@@ -24,11 +24,12 @@ function init() {
         offScreenMenu.classList.toggle("active");
     });
 
-    // Les Fonctions de la modale pour la barre de recherche 
-
+    // Les Fonctions de la modale pour la barre de recherche
+    const closeSearch = document.querySelector("#search");
     const closePopup = document.querySelector(".close-popup");
     const popup = document.querySelector(".popup");
     const popupIcon = document.querySelector(".popupIcon");
+
     popupIcon.addEventListener("click", () => {
         popupIcon.classList.toggle("active");
         popup.classList.toggle("active");
@@ -36,26 +37,27 @@ function init() {
     closePopup.addEventListener("click", () => {
         popupIcon.classList.toggle("active");
         popup.classList.toggle("active");
+        closeSearch.value = "";
     });
-    // Fonction pour fermer la modale en appuyant sur la touche "Entrée"
-    // TODO: Ne fonctionne pas, à régler plus tard 	
-   /*  closePopup.addEventListener("keydown", (e) => {
+    // Fonction pour fermer la modale de la barre de recherche en appuyant sur la touche "Entrée"
+
+    closeSearch.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
             popupIcon.classList.toggle("active");
             popup.classList.toggle("active");
+            closeSearch.value = "";
         }
-    }); */
+    });
 
     // FIN DES FONCTIONS DE LA MODALE POUR LA BARRE DE RECHERCHE
-
 
     // Fonction pour filtrer les cartes de vin en fonction de la recherche
     const searchInput = document.querySelector("#search");
     searchInput.addEventListener("input", (e) => {
         filterWineCards(e.target.value.toLowerCase());
     });
-    // FIN DE LA FONCTION POUR FILTRER LES CARDES DE VIN EN FONCTION DE LA RECHERCHE
+    // FIN DE LA FONCTION POUR FILTRER LES CARTES DE VIN EN FONCTION DE LA RECHERCHE
 }
 
-init(); 
+init();
