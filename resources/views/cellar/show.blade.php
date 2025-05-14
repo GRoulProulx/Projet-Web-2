@@ -2,12 +2,14 @@
 @section('title', 'Mon cellier')
 @section('content')
 
-<section class="mx-auto">
+<section class="my_cellar mx-auto">
     <!-- En-tête de la page -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-        <header class="">
+        <header>
             <h1 class="text-lg font-family-title ">
                 Cellier : <span class="color-taupe font-family">{{ $cellar->name }}</span>
+                <a href="{{route('cellar.edit', $cellar->id)}}"><i class="fa-regular fa-pen-to-square text-md text-taupe"></i></a>
+                <input type="text" id="cellar_id" value="{{$cellar->id}}" class="hidden">
             </h1>
         </header>
         <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm ">
@@ -33,7 +35,7 @@
 
                 <!-- Information des bouteilles -->
                 <div class="flex-grow ">
-                    <h2 class="xs:text-base sm:text-md md:text-lg uppercase mb-2">{{$cellarBottle->bottle->name}}</h2>
+                    <h2 class="xs:text-base sm:text-base md:text-md uppercase mb-2">{{$cellarBottle->bottle->name}}</h2>
                     <div class="flex gap-xs flex-wrap">
                         <p>{{ $cellarBottle->bottle->type }}</p>
                         <div class="border-2 border-l border-light-gray"></div>
@@ -58,13 +60,12 @@
                         </div>
                     </div>
                 </form>
-                <a href="{{route('cellar_bottle.show', $cellarBottle->id)}}" class="w-fit text-md text-taupe link-underline-hover ">Détails <i class="ri-arrow-right-circle-fill"></i></a>
+                <a href="{{route('cellar_bottle.show', $cellarBottle->id)}}" class="w-fit text-md text-taupe link-underline-hover ">Détails <i class="fa-solid fa-circle-arrow-right text-base"></i></a>
             </div>
 
             <!-- Bordure grise -->
             <div class="border-t border-light-gray/20 ">
                 <!-- Information additionnelles -->
-                <p>Quantité: <span class=""> {{ strval($cellarBottle->quantity) }} </span> </p>
                 <div class="grid grid-cols-2 gap-2 text-sm mt-sm">
                     <div>
                         @if($cellarBottle->purchase_date == null)
@@ -107,12 +108,9 @@
     </div>
     @endif
 
-    <!-- Section pour modifier le cellier ou retourner aux celliers -->
-    <div class="text-center">
-        <a href="{{route('cellar.edit', $cellar->id)}}" class="bouton white block sm:inline-block text-center">Modifier mon cellier</a>
-    </div>
+    <!-- Section pour retourner aux celliers -->
     <div class="text-center mt-md">
-        <a href="{{ route('cellar.index') }}" class="link-underline-hover">Retour à mes celliers</a>
+        <a href="{{ route('cellar.index') }}" class="link-underline-hover"><i class="fa-solid fa-circle-arrow-left mr-2.5"></i>Retour à mes celliers</a>
     </div>
 </section>
 

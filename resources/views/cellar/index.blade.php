@@ -2,11 +2,17 @@
 @section('title', 'Mes Celliers')
 
 @section('content')
-<div class="container">
-
-    <header class="mb-sm">
-        <h1 class="text-lg font-family-title">Mes Celliers</h1>
-    </header>
+<section class="mx-auto">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+        <header>
+            <h1 class="text-lg font-family-title">Mes Celliers</h1>
+        </header>
+        <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm">
+            <a href="{{ route('cellar.create') }}" class="bouton mt-0 grow text-center "><i class="fa fa-plus mr-xs" aria-hidden="true"></i>
+                Ajouter un cellier
+            </a>
+        </div>
+    </div>
 
     @if ($cellars->isEmpty())
     <div class="bg-white border border-light-gray/20 rounded-lg shadow p-8 text-center mb-xl">
@@ -18,14 +24,10 @@
         <a href="{{ route('cellar.show', $cellar->id) }}" class="bg-white border border-light-gray/20 rounded-lg shadow p-5 flex flex-col justify-between relative hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
             <h2 class="text-md font-family-title font-weight-regular   mb-2 color--taupe uppercase ">{{ $cellar->name }}</h2>
             <p class="hidden font-weight-medium font-family">Nombre de bouteilles :</p>
+            <p class="w-fit text-md text-taupe link-underline-hover ">Voir <i class="ri-arrow-right-circle-fill"></i></p>
         </a>
         @endforeach
     </div>
     @endif
-    <div class="text-center">
-        <a href="{{ route('cellar.create') }}" class="bouton ">
-            Ajouter un cellier
-        </a>
-    </div>
-</div>
+</section>
 @endsection

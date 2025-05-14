@@ -86,7 +86,7 @@
                                         <p>{{ $bottle->country }}</p>
                                     </div>
                                 </div>
-                                <p class="w-fit text-md text-taupe link-underline-hover ">Ajouter au cellier <i class="ri-arrow-right-circle-fill"></i></p>
+                                <p class="w-fit text-md text-taupe link-underline-hover ">Ajouter au cellier <i class="fa-solid fa-circle-arrow-right text-base"></i></p>
                             </figcaption>
                         </figure>
                     </article>
