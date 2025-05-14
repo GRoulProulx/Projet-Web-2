@@ -9,8 +9,7 @@
     <!-- Formulaire pour mot de passe oublié -->
     <form method="POST" class="flex flex-col gap-sm ">
         @csrf
-        <input type="text" id="name" name="name" value="{{ old('courriel') }}" placeholder="Courriel" aria-label="Courriel" class="border border-light-gray/30 rounded-md p-xs">
-        
+        <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="Courriel" aria-label="Courriel" class="border border-light-gray/30 rounded-md p-xs">
         <button type="submit" class="bouton mt-0">Mot de passe oublié</button>
     </form>
     <div class="text-center mt-md">
