@@ -14,11 +14,29 @@ class BottleController extends Controller
     /**
      * Afficher la liste des bouteilles.
      */
+    
     public function index()
     {
-        //$bottles = Bottle::all();
         $query = Bottle::query();
 
+        // Filtres
+        if (request('country')) {
+            $query->where('country', request('country'));
+        }
+
+        if (request('type')) {
+            $query->where('type', request('type'));
+        }
+
+        if (request('min_price') !== null) {
+            $query->where('price', '>=', request('min_price'));
+        }
+
+        if (request('max_price') !== null) {
+            $query->where('price', '<=', request('max_price'));
+        }
+
+        // Tri
         switch (request('sort_by')) {
             case 'name_asc':
                 $query->orderBy('name', 'asc');
@@ -45,12 +63,16 @@ class BottleController extends Controller
                 $query->orderBy('price', 'desc');
                 break;
             default:
-            $query->orderBy('name'); // ou autre tri par défaut
-            break;
+                $query->orderBy('name');
         }
 
         $bottles = $query->get();
-        return view('bottle.index', compact('bottles'));
+
+        // Valeurs uniques pour les filtres
+        $allCountries = Bottle::select('country')->distinct()->orderBy('country')->pluck('country');
+        $allTypes = Bottle::select('type')->distinct()->orderBy('type')->pluck('type');
+
+        return view('bottle.index', compact('bottles', 'allCountries', 'allTypes'));
     }
 
     /**
