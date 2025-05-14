@@ -41,7 +41,7 @@
         <div class="flex items-center gap-md">
             <div class="popup bg-white h-[130px] top-[-1000px] fixed w-full">
                 <input id="search" type="text" placeholder="Rechercher un vin" class="border border-light-gray/20 rounded px-2 py-2 absolute right-[70px] top-10">
-                <i class="fas fa-xmark cursor-pointer absolute top-13 right-[80px] close-popup" ></i>
+                <i class="fas fa-xmark cursor-pointer absolute top-13 right-[80px] close-popup"></i>
             </div>
             <i class="fas fa-search text-lg cursor-pointer popupIcon"></i>
             <div class="ham-menu h-[40px] w-[30px] relative cursor-pointer z-11">
@@ -57,8 +57,7 @@
         <div class="mb-sm">Bienvenue {{ auth()->user()->name }}</div>
         @endauth
         @if (session('success'))
-        <div class="border border-light-gray/30 p-md rounded-sm mb-sm">
-
+        <div class="success-message border border-light-gray/30 p-md rounded-sm mb-sm">
             <div><i class="fa-solid fa-circle-check text-gold mr-xs"></i>{{ session('success') }}</div>
         </div>
         @endif
@@ -71,7 +70,6 @@
             </ul>
         </div>
         @endif
-
         @yield('content')
     </main>
     <footer class="fixed bottom-0 w-full left-0 z-50 bg-white shadow-md ">
