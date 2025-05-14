@@ -38,9 +38,12 @@
             </ul>
         </nav>
 
-        <!-- Menu hamburger -->
         <div class="flex items-center gap-md">
-            <!-- <i class="fas fa-search text-lg"></i> -->
+            <div class="popup bg-white h-[130px] top-[-1000px] fixed w-full">
+                <input id="search" type="text" placeholder="Rechercher un vin" class="border border-light-gray/20 rounded px-2 py-2 absolute right-[70px] top-10">
+                <i class="fas fa-xmark cursor-pointer absolute top-13 right-[80px] close-popup" ></i>
+            </div>
+            <i class="fas fa-search text-lg cursor-pointer popupIcon"></i>
             <div class="ham-menu h-[40px] w-[30px] relative cursor-pointer z-11">
                 <span class="h-[2px] w-full bg-blue-magenta rounded-[25px] absolute left-1/2 top-1/5 -translate-x-1/2 transition duration-300 ease-in-out"></span>
                 <span class="h-[2px] w-full bg-blue-magenta rounded-[25px] absolute left-1/2 top-2/5 -translate-x-1/2 transition duration-300 ease-in-out"></span>

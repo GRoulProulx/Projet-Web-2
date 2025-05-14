@@ -25,18 +25,9 @@
             <h2 class="text-md font-family-title font-weight-regular   mb-2 color--taupe uppercase ">{{ $cellar->name }}</h2>
             <p class="hidden font-weight-medium font-family">Nombre de bouteilles :</p>
             <p class="w-fit text-md text-taupe link-underline-hover ">Voir <i class="ri-arrow-right-circle-fill"></i></p>
-            <form method="POST" action="{{ route('cellar.destroy', $cellar->id) }}"
-                onsubmit="return confirm('Supprimer ce cellier ?')"
-                class="absolute top-2 right-2">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="bg-white  px-2 py-1 rounded hover:bg-taupe/30 hover:text-md text-sm" title="Supprimer">
-                </button>
-            </form>
         </a>
         @endforeach
     </div>
     @endif
-
 </section>
 @endsection

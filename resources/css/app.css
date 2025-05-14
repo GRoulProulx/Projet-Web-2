@@ -110,3 +110,7 @@ RYTHME
 .off-screen-menu.active {
     @apply right-0;
 }
+
+.popup.active {
+    @apply top-0 left-0;
+}

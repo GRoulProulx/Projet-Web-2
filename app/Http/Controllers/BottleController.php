@@ -14,11 +14,29 @@ class BottleController extends Controller
     /**
      * Afficher la liste des bouteilles.
      */
+    
     public function index()
     {
-        //$bottles = Bottle::all();
         $query = Bottle::query();
 
+        // Filtres
+        if (request('country')) {
+            $query->where('country', request('country'));
+        }
+
+        if (request('type')) {
+            $query->where('type', request('type'));
+        }
+
+        if (request('min_price') !== null) {
+            $query->where('price', '>=', request('min_price'));
+        }
+
+        if (request('max_price') !== null) {
+            $query->where('price', '<=', request('max_price'));
+        }
+
+        // Tri
         switch (request('sort_by')) {
             case 'name_asc':
                 $query->orderBy('name', 'asc');
@@ -45,12 +63,16 @@ class BottleController extends Controller
                 $query->orderBy('price', 'desc');
                 break;
             default:
-            $query->orderBy('name'); // ou autre tri par défaut
-            break;
+                $query->orderBy('name');
         }
 
         $bottles = $query->get();
-        return view('bottle.index', compact('bottles'));
+
+        // Valeurs uniques pour les filtres
+        $allCountries = Bottle::select('country')->distinct()->orderBy('country')->pluck('country');
+        $allTypes = Bottle::select('type')->distinct()->orderBy('type')->pluck('type');
+
+        return view('bottle.index', compact('bottles', 'allCountries', 'allTypes'));
     }
 
     /**
@@ -172,33 +194,4 @@ class BottleController extends Controller
         $bottle->delete();
         return redirect()->route('bottle.index')->with('success', 'Bouteille supprimée avec succès.');
     }
-
-    /**
-     * Ajouter une bouteille au cellier.
-     */
-    /* public function addToCellar(Request $request, Bottle $bottle){
-        
-        if (!Auth::user()->role_id == 1) {
-            return redirect()->route('bottle.index')->with('error', 'Vous n\'avez pas les droits pour modifier cette bouteille.');
-        }
-
-        //TODO: Vérifier si la bouteille existe déjà dans le cellier
-        // Sinon, on l'ajoute à la table cellar_bottle
-        // Augmenter la quantité de bouteilles dans le cellier sélectionné
-        // La quantité est ajoutée à la table cellar_bottle
-        $request->validate([
-            'cellar_id' => 'required|exists:cellars,id',
-            'quantity' => 'required|integer|min:1'
-        ]);
-        $bottleInCellar = CellarBottle::create([
-            'quantity' => $request->quantity,
-            'bottle_id' => $bottle->id,
-        ]);
-
-        $cellarId = $request->cellar_id;
-        //Ajouter le cellier sélectionné à la table cellar_bottles_has_cellars
-        $bottleInCellar->cellars()->attach($cellarId);
-
-        return redirect()->route('cellar.show', $cellarId)->with('success', 'La bouteille a été ajouté au cellier avec succès.');       
-    } */
 }
