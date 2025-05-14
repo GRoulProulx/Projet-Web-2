@@ -39,12 +39,12 @@
         </nav>
 
         <div class="flex items-center gap-md">
-            <div class="popup bg-white h-[130px] top-[-1000px] fixed w-full z-30 transition-all duration-400 ease-in-out shadow-md">
+            <div class="popup bg-white h-[130px] top-[-1000px] fixed w-full z-12 transition-all duration-400 ease-in-out shadow-md">
                 <input id="search" type="text" placeholder="Rechercher un vin" class="border border-light-gray/20 rounded px-2 py-2 absolute right-[70px] top-10">
                 <i class="fas fa-xmark cursor-pointer absolute top-13 right-[80px] close-popup"></i>
             </div>
             <i class="fas fa-search text-lg cursor-pointer popupIcon"></i>
-            <div class="ham-menu h-[40px] w-[30px] relative cursor-pointer z-40">
+            <div class="ham-menu h-[40px] w-[30px] relative cursor-pointer z-11">
                 <span class="h-[2px] w-full bg-blue-magenta rounded-[25px] absolute left-1/2 top-1/5 -translate-x-1/2 transition duration-300 ease-in-out"></span>
                 <span class="h-[2px] w-full bg-blue-magenta rounded-[25px] absolute left-1/2 top-2/5 -translate-x-1/2 transition duration-300 ease-in-out"></span>
                 <span class="h-[2px] w-full bg-blue-magenta rounded-[25px] absolute left-1/2 top-3/5 -translate-x-1/2 transition duration-300 ease-in-out"></span>
@@ -72,7 +72,7 @@
         @endif
         @yield('content')
     </main>
-    <footer class="fixed bottom-0 w-full left-0 z-50 bg-white shadow-md ">
+    <footer class="fixed bottom-0 w-full left-0 z-20 bg-white shadow-md ">
         <div class=" mx-auto text-md p-md">
             <div class="flex justify-around items-center">
                 <a href="{{ route('cellar.index') }}"><i class="fas fa-home"></i></a>
