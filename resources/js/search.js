@@ -2,9 +2,12 @@
 function getWineDetails(card) {
     return {   
         name: card.querySelector("h2").textContent.toLowerCase(),
-        type: card.querySelector("figcaption div p").textContent.toLowerCase(),
+        type: card.querySelector(".type").textContent.toLowerCase(),
+        format: card
+            .querySelector(".format")
+            .textContent.toLowerCase(),
         country: card
-            .querySelector("figcaption div p:last-child")
+            .querySelector(".country")
             .textContent.toLowerCase(),
     };
 }
@@ -14,7 +17,8 @@ function isWineMatch(wineDetails, searchText) {
     return (
         wineDetails.name.includes(searchText) ||
         wineDetails.type.includes(searchText) ||
-        wineDetails.country.includes(searchText)
+        wineDetails.country.includes(searchText) ||
+        wineDetails.format.includes(searchText)
     );
 }
 

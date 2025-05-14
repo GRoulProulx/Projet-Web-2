@@ -79,11 +79,11 @@
                                         <h2 class="text-md uppercase">{{ $bottle->name }}</h2>
                                     </header>
                                     <div class="flex gap-xs flex-wrap">
-                                        <p>{{ $bottle->type }}</p>
+                                        <p class="type">{{ $bottle->type }}</p>
                                         <div class="border-2 border-l border-light-gray"></div>
-                                        <p>{{ $bottle->format }}</p>
+                                        <p class="format">{{ $bottle->format }}</p>
                                         <div class="border-2 border-l border-light-gray"></div>
-                                        <p>{{ $bottle->country }}</p>
+                                        <p class="country">{{ $bottle->country }}</p>
                                     </div>
                                 </div>
                                 <p class="w-fit text-md text-taupe link-underline-hover ">Ajouter au cellier <i class="fa-solid fa-circle-arrow-right text-base"></i></p>
