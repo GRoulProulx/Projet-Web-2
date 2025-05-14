@@ -26,7 +26,7 @@
                     @if(auth()->user()->role_id == null)
                     <div class="flex flex-col pt-md">
 
-                        <form action="{{ route('cellar_bottle.store') }}" class="flex flex-col gap-xxs" method="POST">
+                        <form action="{{ route('cellar_bottle.store') }}" class="form_add_bottle flex flex-col gap-xxs" method="POST">
                             @csrf
                             @if ($bottle)
                                 <input type="hidden" name="bottle_id" value="{{ $bottle->id }}">
@@ -35,7 +35,7 @@
                             <div class="flex flex-col gap-xs">
                                 <label for="quantity">Quantité</label>
                                 <input aria-label="Ajouter à mon cellier" type="number" name="quantity" id="quantity" value="1" min="1" required class="border p-xs rounded-md">
-                                <select name="cellar_id" id="cellar_name" required class="border p-xs rounded-md">
+                                <select name="cellar_id" id="select_name_cellar" required class="border p-xs rounded-md">
                                     <option value="">Choisir un cellier</option>
                                     @foreach ($cellars as $cellar)
                                     <option value="{{$cellar->id}}">{{$cellar->name}}</option>
@@ -44,7 +44,6 @@
                             </div>
                             <button type="submit" class="bouton">Ajouter à mon cellier</button>
                         </form>
-                        </fieldset>
                     </div>
                     @endif
                     @endauth
@@ -57,12 +56,6 @@
             <div class="flex gap-sm justify-between flex-wrap ">
                 <a href="{{ route('bottle.edit', $bottle->id) }}" class="bouton blue-magenta mt-0">Modifier</a>
                 <button class="bouton alert mt-0" data-action="delete">Supprimer</button>
-
-                <!-- <form action="" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="bouton alert mt-0">Supprimer</button>
-                </form> -->
             </div>
         </div>
         @endif
