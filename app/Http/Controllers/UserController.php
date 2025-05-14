@@ -85,7 +85,9 @@ class UserController extends Controller
     }
     //TODO: Ajouter des méthodes pour l'oubli de mot de passe, la réinitialisation du mot de passe, etc.
 
-    public function forgotPassword() {}
+    public function forgot() {
+        return view('user.forgot');
+    }
     public function passwordEmail() {}
     public function resetPassword() {}
 }
