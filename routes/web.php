@@ -43,7 +43,6 @@ Route::put('/edit/cellar/{cellar}', [CellarController::class, 'update'])->name('
 Route::delete('/cellar/{cellar}', [CellarController::class, 'destroy'])->name('cellar.destroy')->middleware('auth');
 
 // Route pour gérer les bouteilles dans le cellier
-Route::get('/cellar-bottles/{cellarId}', [CellarBottleController::class, 'index'])->name('cellar_bottle.index')->middleware('auth');
 Route::get('/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'show'])->name('cellar_bottle.show')->middleware('auth');
 Route::put('/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'drink'])->name('cellar_bottle.drink')->middleware('auth');
 Route::get('/create/cellar-bottle', [CellarBottleController::class, 'create'])->name('cellar_bottle.create')->middleware('auth');
