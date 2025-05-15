@@ -5,23 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Cellar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Gate;
 class CellarController extends Controller
 {
-    // TODO: Vérifier l'authentification de l'utilisateur avant d'accéder aux méthodes de ce contrôleur
-
     /**
-     * Afficher les celliers de l'utilisateur.
+     * Affiche la liste des celliers appartenant à l'utilisateur connecté.
+     *
+     * @return \Illuminate\View\View La vue contenant la liste des celliers.
      */
     public function index()
     {
         $cellars = Cellar::where('user_id', auth()->id())->get();
         return view('cellar.index', compact('cellars'));
-        /* return view('cellar.index'); */
     }
 
     /**
-     * Afficher le formulaire pour créer un cellier.
+     * Affiche le formulaire permettant à l'utilisateur de créer un nouveau cellier.
+     *
+     * @return \Illuminate\View\View La vue du formulaire de création de cellier.
      */
     public function create()
     {
@@ -29,7 +30,10 @@ class CellarController extends Controller
     }
 
     /**
-     * Créer un nouveau cellier et valider les données.
+     * Valide les données du formulaire et crée un nouveau cellier pour l'utilisateur connecté.
+     *
+     * @param \Illuminate\Http\Request $request Les données du formulaire de création.
+     * @return \Illuminate\Http\RedirectResponse Redirige vers la page du cellier créé avec un message de succès.
      */
     public function store(Request $request)
     {
@@ -51,23 +55,41 @@ class CellarController extends Controller
     }
 
     /**
-     * Afficher le cellier spécifié.
+     * Affiche les détails d'un cellier spécifique appartenant à l'utilisateur connecté.
+     * Renvoie une erreur 403 si l'utilisateur n'est pas autorisé à accéder au cellier.
+     *
+     * @param \App\Models\Cellar $cellar Le cellier à afficher.
+     * @return \Illuminate\View\View La vue contenant les détails du cellier.
      */
     public function show(Cellar $cellar)
     {
+        if ($cellar->user_id !== Auth::user()->id) {
+            abort(403, 'Vous n\'êtes pas autorisé à accéder à ce cellier.');
+        }
         return view('cellar.show', compact('cellar'));
     }
 
     /**
-     * Afficher le formulaire pour modifier le cellier.
+     * Affiche le formulaire permettant de modifier un cellier spécifique appartenant à l'utilisateur connecté.
+     * Renvoie une erreur 403 si l'utilisateur n'est pas autorisé à accéder au cellier.
+     *
+     * @param \App\Models\Cellar $cellar Le cellier à modifier.
+     * @return \Illuminate\View\View La vue du formulaire de modification du cellier.
      */
     public function edit(Cellar $cellar)
     {
+        if ($cellar->user_id !== Auth::user()->id) {
+            abort(403, 'Vous n\'êtes pas autorisé à accéder à ce cellier.');
+        }
         return view('cellar.edit', compact('cellar'));
     }
 
     /**
-     * Modifier le cellier spécifié et valider les données.
+     * Valide les données du formulaire et met à jour un cellier spécifique appartenant à l'utilisateur connecté.
+     *
+     * @param \Illuminate\Http\Request $request Les données du formulaire de modification.
+     * @param \App\Models\Cellar $cellar Le cellier à mettre à jour.
+     * @return \Illuminate\Http\RedirectResponse Redirige vers la page du cellier modifié avec un message de succès.
      */
     public function update(Request $request, Cellar $cellar)
     {
@@ -88,7 +110,10 @@ class CellarController extends Controller
     }
 
     /**
-     * Supprimer le cellier spécifié.
+     * Supprime un cellier spécifique appartenant à l'utilisateur connecté.
+     *
+     * @param \App\Models\Cellar $cellar Le cellier à supprimer.
+     * @return \Illuminate\Http\RedirectResponse Redirige vers la liste des celliers avec un message de succès.
      */
     public function destroy(Cellar $cellar)
     {
