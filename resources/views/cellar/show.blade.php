@@ -55,7 +55,7 @@
                         <label for="quantity" class="font-regular">Quantité: </label>
                         <div class="flex">
                             <input type="text" id="bottle_id" name="bottle_id" value="{{$cellarBottle->bottle->id}}" class="hidden">
-                            <input type="number" id="quantity" name="quantity" min="1" max="{{$cellarBottle->quantity}}" value="{{$cellarBottle->quantity}}" class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
+                            <input type="number" id="quantity" name="quantity" min="1" max="{{$cellarBottle->quantity}}" value="{{$cellarBottle->quantity}}" class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center" readonly>
                             <button type="submit" class="bouton py-1 px-3 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Boire</button>
                         </div>
                     </div>
