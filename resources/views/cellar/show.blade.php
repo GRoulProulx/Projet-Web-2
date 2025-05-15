@@ -5,16 +5,18 @@
 <section class="my_cellar mx-auto">
     <!-- En-tête de la page -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-        <header>
+        <header class="flex items-center justify-between mb-sm">
             <h1 class="text-lg font-family-title ">
                 Cellier : <span class="color-taupe font-family">{{ $cellar->name }}</span>
-                <a href="{{route('cellar.edit', $cellar->id)}}"><i class="fa-regular fa-pen-to-square text-md text-taupe"></i></a>
-                <input type="text" id="cellar_id" value="{{$cellar->id}}" class="hidden">
             </h1>
+            <div class="flex gap-md">
+                <a href="{{route('cellar.edit', $cellar->id)}}"><i class="fa-solid fa-pen-to-square text-md"></i></a>
+                <a href="#" data-action="delete"><i class="fa-solid fa-trash text-md text-alert"></i></a>
+            </div>
+            <input type="text" id="cellar_id" value="{{$cellar->id}}" class="hidden">
         </header>
         <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm ">
             <a href="{{ route('bottle.index') }}" class="bouton mt-0 grow text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille</a>
-            <button class="bouton alert mt-0 grow" data-action="delete">Supprimer le cellier</button>
         </div>
     </div>
 
