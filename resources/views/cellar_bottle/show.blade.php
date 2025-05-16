@@ -25,6 +25,25 @@
                     <p><span class="font-regular">Date d'achat:</span> {{$cellarBottle->purchase_date}}</p>
                     <p><span class="font-regular">Garder jusqu'à:</span> {{$cellarBottle->storage_until}}</p>
                 </div>
+                <!-- Formulaire pour ajouter des bouteilles -->
+                <div class="flex flex-col">
+                    <form action="{{ route('cellar_bottle.store') }}" class="form_add_bottle flex flex-col gap-xxs" method="POST">
+                        @csrf
+                        <div class="flex flex-col">
+                            <label for="quantity">Quantité</label>
+                            <div class="flex">
+                                <!-- Récupérer bottle_id et cellar_id -->
+                                <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle->id }}">
+                                <input type="hidden" name="cellar_id" value="{{ $cellarBottle->cellars->id }}">
+
+                                <!-- Champ pour la quantité -->
+                                <input aria-label="Ajouter à mon cellier" type="number" name="quantity" id="quantity" value="1" min="1" required class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
+
+                                <button type="submit" class="bouton py-1 px-3 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Ajouter des bouteilles</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <div class="flex flex-col">
                     <p><span class="font-regular">Prix d'achat:</span> {{$cellarBottle->price}} $</p>
                     <p><span class="font-regular">Note:</span> {{$cellarBottle->notes}}</p>
@@ -45,13 +64,13 @@
     <div class="text-center mt-md">
         <a href="{{ route('cellar.show', $cellarId) }}" class="link-underline-hover">Retour au cellier</a>
     </div>
-    
+
     <!-- MODALE -->
     <div class="modale-container hidden relative z-10">
         <div class="modale fixed inset-0 bg-gray-500/75 transition-opacity">
             <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div class="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
-                    <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <div class="modale-header flex items-start justify-between">
                                 <h2 class="font-family-title text-lg uppercase">Supprimer le vin</h2>

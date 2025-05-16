@@ -96,8 +96,15 @@
                 </a>
                 @endforeach
             </div>
+
+            <div class="my-md">
+                {{ $bottles->links() }}
+            </div>
         </div>
     </div>
 </section>
+
+
+
 
 @endsection

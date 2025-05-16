@@ -5,13 +5,18 @@
 <section class="my_cellar mx-auto">
     <!-- En-tête de la page -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-        <header>
-            <h1 class="text-lg font-family-title">
+        <header class="flex items-center justify-between gap-md mb-sm">
+            <h1 class="text-lg font-family-title ">
                 Cellier : <span class="color-taupe font-family">{{ $cellar->name }}</span>
-                <a href="{{ route('cellar.edit', $cellar->id) }}"><i class="fa-regular fa-pen-to-square text-md text-taupe"></i></a>
-                <input type="hidden" id="cellar_id" value="{{ $cellar->id }}">
             </h1>
+            <div class="flex gap-lg">
+                <a href="{{route('cellar.edit', $cellar->id)}}"><i class="fa-solid fa-pen-to-square text-md"></i></a>
+                <a href="#" data-action="delete"><i class="fa-solid fa-trash text-md text-alert"></i></a>
+            </div>
+            <input type="text" id="cellar_id" value="{{$cellar->id}}" class="hidden">
         </header>
+        <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm ">
+            <a href="{{ route('bottle.index') }}" class="bouton mt-0 grow text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille</a>
         <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm">
             <a href="{{ route('bottle.index') }}" class="bouton mt-0 grow text-center">
                 <i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille
@@ -74,9 +79,9 @@
                     <div class="flex flex-col">
                         <label for="quantity" class="font-regular">Quantité:</label>
                         <div class="flex">
-                            <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle->id }}">
-                            <input type="number" name="quantity" min="1" max="{{ $cellarBottle->quantity }}" value="{{ $cellarBottle->quantity }}" class="border border-light-gray rounded-l-md py-1 px-3 w-20 text-center">
-                            <button type="submit" class="bouton py-1 px-3 text-sm rounded-r-md">Boire</button>
+                            <input type="text" id="bottle_id" name="bottle_id" value="{{$cellarBottle->bottle->id}}" class="hidden">
+                            <input type="number" id="quantity" name="quantity" min="1" max="{{$cellarBottle->quantity}}" value="{{$cellarBottle->quantity}}" readonly class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
+                            <button type="submit" class="bouton py-1 px-3 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Boire</button>
                         </div>
                     </div>
                 </form>
@@ -120,4 +125,33 @@
         </a>
     </div>
 </section>
+
+<!-- Modale -->
+<div class="modale-container hidden relative z-10">
+    <div class="modale fixed inset-0 bg-gray-500/75 transition-opacity">
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div class="modale-header flex items-start justify-between">
+                            <h2 class="font-family-title text-lg uppercase">Supprimer le cellier</h2>
+                            <a href=""><i class="fa-solid fa-xmark"></i></a>
+                        </div>
+                        <div class="modale-body">
+                            <p>Êtes-vous sûr de vouloir supprimer ce cellier?</p>
+                        </div>
+                        <div class="modale-footer flex justify-between items-baseline">
+                            <a href="" class="bouton blue-magenta">Annuler</a>
+                            <form action="" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bouton alert mt-0" data-action="delete">Supprimer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

@@ -76,16 +76,34 @@
     </main>
     <footer class="fixed bottom-0 w-full left-0 z-20 bg-white shadow-md ">
         <div class=" mx-auto text-md p-md">
-            <div class="flex justify-around items-center">
-                <a href="{{ route('cellar.index') }}"><i class="fas fa-home"></i></a>
-                <a href="{{ route('bottle.index') }}"><i class="fas fa-book-open"></i></a>
-                <a href="{{ route('bottle.index') }}"><i class="fa-solid fa-square-plus text-xl text-gold"></i></a>
+            <div class="flex justify-around items-baseline gap-xs">
+                <div class="flex flex-col items-center">
+                    <a href="#"><i class="fas fa-home"></i></a>
+                    <p class="text-xs">Accueil</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <a href="{{ route('cellar.index') }}"><i class="fas fa-book-open"></i></a>
+                    <p class="text-xs">Cellier</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <a href="{{ route('bottle.index') }}"><i class="fa-solid fa-square-plus text-xl text-gold"></i></a>
+                    <p class="text-xs">Bouteilles</p>
+                </div>
                 @if (Auth::check())
-                <a href="{{ route('user.show', auth()->user()->id) }}"><i class="fas fa-user"></i></a>
+                <div class="flex flex-col items-center">
+                    <a href="{{ route('user.show', auth()->user()->id) }}"><i class="fas fa-user"></i></a>
+                    <p class="text-xs">Profil</p>
+                </div>
                 @else
-                <a href="{{ route('login') }}"><i class="fas fa-user"></i></a>
+                <div class="flex flex-col items-center">
+                    <a href="{{ route('login') }}"><i class="fas fa-user"></i></a>
+                    <p class="text-xs">Connexion</p>
+                </div>
                 @endif
-                <i class="fas fa-search"></i>
+                <div class="flex flex-col items-center">
+                    <a href="#"><i class="fas fa-search"></i></a>
+                    <p class="text-xs">Rechercher</p>
+                </div>
             </div>
         </div>
     </footer>

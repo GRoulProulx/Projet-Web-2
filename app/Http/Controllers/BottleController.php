@@ -66,7 +66,7 @@ class BottleController extends Controller
                 $query->orderBy('name');
         }
 
-        $bottles = $query->get();
+        $bottles = $query->paginate(10);
 
         // Valeurs uniques pour les filtres
         $allCountries = Bottle::select('country')->distinct()->orderBy('country')->pluck('country');
