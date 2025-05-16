@@ -52,5 +52,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Cellar::class);
     }
+
+    public function shoppingList()
+    {
+        return $this->hasMany(ShoppingList::class);
+    }
     
 }
