@@ -21,13 +21,15 @@
         </div>
 
         <div class="flex flex-col gap-xxs">
-            <label for="password">Mot de passe</label>
+            <label for="password">Mot de passe</span></label>
             <input type="" id="password" name="password" placeholder="Mot de passe" class="border border-light-gray/30 rounded-md p-xs">
+            <small class="text-taupe">Laisser vide pour conserver votre mot de passe actuel.</small>
         </div>
 
         <div class="flex flex-col gap-xxs">
             <label for="password_confirm">Confirmation du mot de passe</label>
             <input type="" id="password_confirm" name="password_confirmation" placeholder="Confirmer le mot de passe" class="border border-light-gray/30 rounded-md p-xs">
+            <small class="text-taupe">Laisser vide pour conserver votre mot de passe actuel.</small>
         </div>
         <button type="submit" class="bouton mt-0">Sauvegarder</button>
     </form>
