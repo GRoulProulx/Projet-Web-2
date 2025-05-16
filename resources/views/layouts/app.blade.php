@@ -24,7 +24,7 @@
                 @if (Auth::check())
                 <li><a href="{{route('logout')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Se déconnecter</a></li>
                 <div class="border-t border-light-gray/50"></div>
-                <li><a href="{{ route('user.show', auth()->user()->id) }}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Mon profil</a></li>
+                <li><a href="{{ route('auth.show', auth()->user()->id) }}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Mon profil</a></li>
                 <div class="border-t border-light-gray/50"></div>
                 @else
                 <li><a href="{{route('login')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Se connecter</a></li>
@@ -91,7 +91,7 @@
                 </div>
                 @if (Auth::check())
                 <div class="flex flex-col items-center">
-                    <a href="{{ route('user.show', auth()->user()->id) }}" aria-label="Mon profil"><i class="fas fa-user"></i></a>
+                    <a href="{{ route('auth.show', auth()->user()->id) }}" aria-label="Mon profil"><i class="fas fa-user"></i></a>
                     <p class="text-xs">Profil</p>
                 </div>
                 @else
