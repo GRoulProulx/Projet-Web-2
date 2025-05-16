@@ -14,8 +14,8 @@
 <body class="flex flex-col min-h-[100vh]">
     <!-- Navigation -->
     <header class="flex items-center justify-between px-md py-sm">
-        <img src="{{asset('images/logo-maison-des-vins.png')}}" alt="Logo" class="w-[100px]">
-        <nav class="off-screen-menu z-10 fixed top-0 right-[-2000px] bg-white h-screen w-full flex flex-col text-center text-lg transition-all duration-500 ease-in-out">
+        <h1><img src="{{asset('images/logo-maison-des-vins.png')}}" alt="Logo de l'application Maison de vins" class="w-[100px]"></h1>
+        <nav class="off-screen-menu z-10 fixed top-0 right-[-10000px] bg-white h-screen w-full flex flex-col text-center text-lg transition-all duration-500 ease-in-out">
             <ul class="mt-[100px] min-w-full">
                 <img src="{{asset('images/logo-maison-des-vins.png')}}" alt="Logo" class="w-[100px] mx-auto mb-sm">
 
@@ -78,30 +78,30 @@
         <div class=" mx-auto text-md p-md">
             <div class="flex justify-around items-baseline gap-xs">
                 <div class="flex flex-col items-center">
-                    <a href="#"><i class="fas fa-home"></i></a>
+                    <a href="#"><i class="fas fa-home" aria-label="Accueil"></i></a>
                     <p class="text-xs">Accueil</p>
                 </div>
                 <div class="flex flex-col items-center">
-                    <a href="{{ route('cellar.index') }}"><i class="fas fa-book-open"></i></a>
+                    <a href="{{ route('cellar.index') }}" aria-label="Mes celliers"><i class="fas fa-book-open"></i></a>
                     <p class="text-xs">Cellier</p>
                 </div>
                 <div class="flex flex-col items-center">
-                    <a href="{{ route('bottle.index') }}"><i class="fa-solid fa-square-plus text-xl text-gold"></i></a>
+                    <a href="{{ route('bottle.index') }}" aria-label="Ajouter des bouteilles"><i class="fa-solid fa-square-plus text-xl text-gold"></i></a>
                     <p class="text-xs">Bouteilles</p>
                 </div>
                 @if (Auth::check())
                 <div class="flex flex-col items-center">
-                    <a href="{{ route('user.show', auth()->user()->id) }}"><i class="fas fa-user"></i></a>
+                    <a href="{{ route('user.show', auth()->user()->id) }}" aria-label="Mon profil"><i class="fas fa-user"></i></a>
                     <p class="text-xs">Profil</p>
                 </div>
                 @else
                 <div class="flex flex-col items-center">
-                    <a href="{{ route('login') }}"><i class="fas fa-user"></i></a>
+                    <a href="{{ route('login') }}" aria-label="Se connecter"><i class="fas fa-user"></i></a>
                     <p class="text-xs">Connexion</p>
                 </div>
                 @endif
                 <div class="flex flex-col items-center">
-                    <a href="#"><i class="fas fa-search"></i></a>
+                    <a href="#" aria-label="Rechercher"><i class="fas fa-search"></i></a>
                     <p class="text-xs">Rechercher</p>
                 </div>
             </div>
