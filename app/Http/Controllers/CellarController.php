@@ -53,10 +53,31 @@ class CellarController extends Controller
     /**
      * Afficher le cellier spécifié.
      */
-    public function show(Cellar $cellar)
+   public function show(Cellar $cellar)
     {
-        return view('cellar.show', compact('cellar'));
-    }
+        $sortBy = request('sort_by', 'name');
+        $order = request('order', 'asc');
+
+        $validSorts = ['name', 'price', 'purchase_date'];
+        if (!in_array($sortBy, $validSorts)) {
+            $sortBy = 'name';
+        }
+
+    // Récupération des cellarBottles triées
+         $cellarBottles = $cellar->cellarBottles()
+            ->with('bottle')
+            ->when(in_array($sortBy, ['name', 'price']), function ($query) use ($sortBy, $order) {
+            $query->join('bottles', 'cellar_bottles.bottle_id', '=', 'bottles.id')
+                ->orderBy("bottles.$sortBy", $order)
+                ->select('cellar_bottles.*');
+        })
+            ->when($sortBy === 'purchase_date', function ($query) use ($order) {
+            $query->orderBy('purchase_date', $order);
+        })
+            ->get();
+
+    return view('cellar.show', compact('cellar', 'cellarBottles'));
+}
 
     /**
      * Afficher le formulaire pour modifier le cellier.
