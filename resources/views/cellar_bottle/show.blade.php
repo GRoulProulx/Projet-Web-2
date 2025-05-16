@@ -6,7 +6,7 @@
     <article class="mx-auto relative max-w-3xl border border-light-gray/30 rounded-md p-sm">
         <div class="flex gap-sm flex-wrap">
             <!-- Image -->
-            <img src="{{$cellarBottle->bottle->image}}" alt="{{$cellarBottle->bottle->image}}" class="max-w-[111px] max-h-[166px] object-cover mx-auto">
+            <img src="{{$cellarBottle->bottle->image}}" alt="{{$cellarBottle->bottle->name}}" class="max-w-[111px] max-h-[166px] object-cover mx-auto">
             <div class="flex flex-col gap-sm">
                 <!-- Entête -->
                 <header>
@@ -30,7 +30,7 @@
                     <form action="{{ route('cellar_bottle.store') }}" class="form_add_bottle flex flex-col gap-xxs" method="POST">
                         @csrf
                         <div class="flex flex-col">
-                            <label for="quantity">Quantité</label>
+                            <label for="quantity"><strong>Quantité dans le cellier:</strong> {{$cellarBottle->quantity}}</label>
                             <div class="flex">
                                 <!-- Récupérer bottle_id et cellar_id -->
                                 <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle->id }}">
@@ -45,7 +45,7 @@
                     </form>
                 </div>
                 <div class="flex flex-col">
-                    <p><span class="font-regular">Prix d'achat:</span> {{$cellarBottle->price}} $</p>
+                    <p><span class="font-regular">Prix d'achat:</span> {{number_format($cellarBottle->bottle->price, 2, '.', '')}} $</p>
                     <p><span class="font-regular">Note:</span> {{$cellarBottle->notes}}</p>
                 </div>
                 <!-- Lien SAQ -->

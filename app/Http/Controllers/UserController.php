@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 class UserController extends Controller
 {
     /**
@@ -16,7 +18,9 @@ class UserController extends Controller
     public function index()
     {
         //Récupère tous les utilisateurs depuis la base de données
-        
+        if (!Auth::user()->role_id == 1){
+            abort(403, 'Vous n\'avez pas les droits pour accéder à cette page.');
+        }
         $users = User::all();        
         return view('user.index', ['users' => $users]);
     }
@@ -49,7 +53,9 @@ class UserController extends Controller
         $user->fill($request->all());
         $user->save();
 
-        return redirect()->route('login')->with('success', 'Inscription réussie! Veuillez vous connecter.');
+        // Après l'inscription, on connecte automatiquement l'utilisateur
+        auth()->login($user);
+        return redirect()->route('cellar.index')->with('success', 'Inscription réussie! Créer votre premier cellier.');
     }
 
     /**
@@ -59,6 +65,9 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
+        if (Auth::user()->id != $id) {
+            abort(403, 'Vous n\'avez pas les droits pour accéder à cette page.');
+        }
         return view('user.show', ['user' => $id]);
     }
 
@@ -69,6 +78,9 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
+        if (Auth::user()->id != $id) {
+            abort(403, 'Vous n\'avez pas les droits pour accéder à cette page.');
+        }
         return view('user.edit', ['user' => $id]);
     }
 
@@ -83,8 +95,18 @@ class UserController extends Controller
         //Validation des données du formulaire
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email'
+            'email' => 'required|email',
+            'password' => 'nullable|min:5|confirmed',
         ]);
+
+        // si le mot de passe est fourni, on le hache
+        if ($request->filled('password')) {
+            $request->merge(['password' => Hash::make($request->password)]);
+        }else{
+            //on récupère le mot de passe actuel
+            $user = User::find($id);
+            $request->merge(['password' => $user->password]);
+        }
 
         //Création d'un nouvel utilisateur
         $user = User::find($id);
@@ -99,11 +121,18 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Méthode pour supprimer un utilisateur
+     * @param string $id L'identifiant de l'utilisateur.
+     * @return \Illuminate\Http\RedirectResponse Redirige vers la page de création d'utilisateur avec un message de succès.
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+        if (!$user) {
+            return redirect()->route('user.index')->withErrors('Utilisateur non trouvé.');
+        }
+        $user->delete();
+        return redirect()->route('user.create')->with('success', 'Votre compte a bien été supprimé.');
     }
 
     /**
