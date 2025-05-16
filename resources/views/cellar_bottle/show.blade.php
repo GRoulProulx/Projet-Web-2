@@ -30,7 +30,7 @@
                     <form action="{{ route('cellar_bottle.store') }}" class="form_add_bottle flex flex-col gap-xxs" method="POST">
                         @csrf
                         <div class="flex flex-col">
-                            <label for="quantity">Quantité</label>
+                            <label for="quantity"><strong>Quantité dans le cellier:</strong> {{$cellarBottle->quantity}}</label>
                             <div class="flex">
                                 <!-- Récupérer bottle_id et cellar_id -->
                                 <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle->id }}">
