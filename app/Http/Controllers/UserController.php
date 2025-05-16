@@ -49,7 +49,9 @@ class UserController extends Controller
         $user->fill($request->all());
         $user->save();
 
-        return redirect()->route('login')->with('success', 'Inscription réussie! Veuillez vous connecter.');
+        // Après l'inscription, on connecte automatiquement l'utilisateur
+        auth()->login($user);
+        return redirect()->route('cellar.index')->with('success', 'Inscription réussie! Créer votre premier cellier.');
     }
 
     /**
