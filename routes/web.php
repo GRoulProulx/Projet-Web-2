@@ -56,11 +56,17 @@ Route::get('/users', [UserController::class, 'index'])->name('user.index');
 Route::get('/register', [UserController::class, 'create'])->name('user.create');
 Route::post('/register', [UserController::class, 'store'])->name('user.store');
 
-// Route pour le profil utilisateur
+// Route pour le dashboard de l'administrateur
 Route::get('/user/{user}', [UserController::class, 'show'])->name('user.show')->middleware('auth');
 Route::get('/user/edit/{user}', [UserController::class, 'edit'])->name('user.edit')->middleware('auth');
 Route::put('/user/edit/{user}', [UserController::class, 'update'])->name('user.update')->middleware('auth');
-Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy')->middleware('auth');
+Route::delete('/user/{user}', [UserController::class, 'deleteUser'])->name('user.destroy')->middleware('auth');
+
+// Route pour le profil de l'utilisateur
+Route::get('/auth/{user}', [AuthController::class, 'show'])->name('auth.show')->middleware('auth');
+Route::get('/auth/edit/{user}', [AuthController::class, 'edit'])->name('auth.edit')->middleware('auth');
+Route::put('/auth/edit/{user}', [AuthController::class, 'update'])->name('auth.update')->middleware('auth');
+Route::delete('/auth/{user}', [AuthController::class, 'deleteProfile'])->name('auth.destroy')->middleware('auth');
 
 // Route pour le mot de passe oublié
 Route::get('/password/forgot', [UserController::class, 'forgot'])->name('user.forgot');
