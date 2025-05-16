@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CellarController;
 use App\Http\Controllers\CellarBottleController;
+use App\Http\Controllers\ShoppingListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +28,7 @@ Route::get('/', function () {
 // Route pour gérer les bouteilles du catalogue provenant de la SAQ
 Route::get('/bottles', [BottleController::class, 'index'])->name('bottle.index');
 Route::get('/bottle/{bottle}', [BottleController::class, 'show'])->name('bottle.show');
-/* Route::post('/bottle/{bottle}', [BottleController::class, 'addToCellar'])->name('bottle.add_to_cellar');
- */Route::get('/create/bottle', [BottleController::class, 'create'])->name('bottle.create')->middleware('auth');
+Route::get('/create/bottle', [BottleController::class, 'create'])->name('bottle.create')->middleware('auth');
 Route::post('/create/bottle', [BottleController::class, 'store'])->name('bottle.store')->middleware('auth');
 Route::get('/edit/bottle/{bottle}', [BottleController::class, 'edit'])->name('bottle.edit')->middleware('auth');
 Route::put('/edit/bottle/{bottle}', [BottleController::class, 'update'])->name('bottle.update')->middleware('auth');
@@ -52,6 +52,12 @@ Route::post('/create/cellar-bottle', [CellarBottleController::class, 'store'])->
 Route::get('/edit/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'edit'])->name('cellar_bottle.edit')->middleware('auth');
 Route::put('/edit/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'update'])->name('cellar_bottle.update')->middleware('auth');
 Route::delete('/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'destroy'])->name('cellar_bottle.destroy')->middleware('auth');
+
+// Route pour la liste d'achat d'un utilisateur
+Route::get('/shopping-list', [ShoppingListController::class, 'index'])->name('shoppingList.index')->middleware('auth');
+Route::post('/shopping-list/{bottle}', [ShoppingListController::class, 'store'])->name('shoppingList.store')->middleware('auth');
+Route::put('/shopping-list/{bottle}', [ShoppingListController::class, 'update'])->name('shoppingList.update')->middleware('auth');
+Route::delete('/shopping-list/{bottle}', [ShoppingListController::class, 'destroy'])->name('shoppingList.destroy')->middleware('auth');
 
 // Routes pour la connextion et l'inscription
 Route::get('/users', [UserController::class, 'index'])->name('user.index');
