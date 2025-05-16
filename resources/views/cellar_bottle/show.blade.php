@@ -6,7 +6,7 @@
     <article class="mx-auto relative max-w-3xl border border-light-gray/30 rounded-md p-sm">
         <div class="flex gap-sm flex-wrap">
             <!-- Image -->
-            <img src="{{$cellarBottle->bottle->image}}" alt="{{$cellarBottle->bottle->image}}" class="max-w-[111px] max-h-[166px] object-cover mx-auto">
+            <img src="{{$cellarBottle->bottle->image}}" alt="{{$cellarBottle->bottle->name}}" class="max-w-[111px] max-h-[166px] object-cover mx-auto">
             <div class="flex flex-col gap-sm">
                 <!-- Entête -->
                 <header>
@@ -45,7 +45,7 @@
                     </form>
                 </div>
                 <div class="flex flex-col">
-                    <p><span class="font-regular">Prix d'achat:</span> {{$cellarBottle->price}} $</p>
+                    <p><span class="font-regular">Prix d'achat:</span> {{number_format($cellarBottle->bottle->price, 2, '.', '')}} $</p>
                     <p><span class="font-regular">Note:</span> {{$cellarBottle->notes}}</p>
                 </div>
                 <!-- Lien SAQ -->
