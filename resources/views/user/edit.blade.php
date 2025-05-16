@@ -10,8 +10,25 @@
     <form method="POST" class="flex flex-col gap-sm">
         @csrf
         @method('PUT')
-        <input type="text" id="name" name="name" value="{{ old('name', auth()->user()->name) }}" placeholder="Nom" aria-label="Nom" class="border border-light-gray/30 rounded-md p-xs" required>
-        <input type="email" id="email" name="email" value="{{ old('email', auth()->user()->email) }}" placeholder="Email" aria-label="Email" class="border border-light-gray/30 rounded-md p-xs" required>
+        <div class="flex flex-col gap-xxs">
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="name" value="{{ old('name', auth()->user()->name) }}" placeholder="Nom" class="border border-light-gray/30 rounded-md p-xs" required>
+        </div>
+
+        <div class="flex flex-col gap-xxs">
+            <label for="email">Courriel</label>
+            <input type="email" id="email" name="email" value="{{ old('email', auth()->user()->email) }}" placeholder="Email" class="border border-light-gray/30 rounded-md p-xs" required>
+        </div>
+
+        <div class="flex flex-col gap-xxs">
+            <label for="password">Mot de passe</label>
+            <input type="" id="password" name="password" placeholder="Mot de passe" class="border border-light-gray/30 rounded-md p-xs">
+        </div>
+
+        <div class="flex flex-col gap-xxs">
+            <label for="password_confirm">Confirmation du mot de passe</label>
+            <input type="" id="password_confirm" name="password_confirmation" placeholder="Confirmer le mot de passe" class="border border-light-gray/30 rounded-md p-xs">
+        </div>
         <button type="submit" class="bouton mt-0">Sauvegarder</button>
     </form>
     <div class="text-center mt-sm">
