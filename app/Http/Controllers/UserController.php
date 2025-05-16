@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 class UserController extends Controller
 {
     /**
@@ -16,7 +18,9 @@ class UserController extends Controller
     public function index()
     {
         //Récupère tous les utilisateurs depuis la base de données
-        
+        if (!Auth::user()->role_id == 1){
+            abort(403, 'Vous n\'avez pas les droits pour accéder à cette page.');
+        }
         $users = User::all();        
         return view('user.index', ['users' => $users]);
     }
@@ -61,6 +65,9 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
+        if (Auth::user()->id != $id) {
+            abort(403, 'Vous n\'avez pas les droits pour accéder à cette page.');
+        }
         return view('user.show', ['user' => $id]);
     }
 
@@ -71,6 +78,9 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
+        if (Auth::user()->id != $id) {
+            abort(403, 'Vous n\'avez pas les droits pour accéder à cette page.');
+        }
         return view('user.edit', ['user' => $id]);
     }
 
