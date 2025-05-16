@@ -85,8 +85,18 @@ class UserController extends Controller
         //Validation des données du formulaire
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email'
+            'email' => 'required|email',
+            'password' => 'nullable|min:5|confirmed',
         ]);
+
+        // si le mot de passe est fourni, on le hache
+        if ($request->filled('password')) {
+            $request->merge(['password' => Hash::make($request->password)]);
+        }else{
+            //on récupère le mot de passe actuel
+            $user = User::find($id);
+            $request->merge(['password' => $user->password]);
+        }
 
         //Création d'un nouvel utilisateur
         $user = User::find($id);
@@ -101,11 +111,18 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Méthode pour supprimer un utilisateur
+     * @param string $id L'identifiant de l'utilisateur.
+     * @return \Illuminate\Http\RedirectResponse Redirige vers la page de création d'utilisateur avec un message de succès.
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+        if (!$user) {
+            return redirect()->route('user.index')->withErrors('Utilisateur non trouvé.');
+        }
+        $user->delete();
+        return redirect()->route('user.create')->with('success', 'Votre compte a bien été supprimé.');
     }
 
     /**
