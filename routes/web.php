@@ -21,7 +21,7 @@ use App\Http\Controllers\CellarBottleController;
 
 Route::get('/', function () {
     return view('Auth.create');
-}); 
+});
 
 
 // Route pour gérer les bouteilles du catalogue provenant de la SAQ
@@ -51,16 +51,16 @@ Route::get('/edit/cellar-bottle/{cellarBottle}', [CellarBottleController::class,
 Route::put('/edit/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'update'])->name('cellar_bottle.update')->middleware('auth');
 Route::delete('/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'destroy'])->name('cellar_bottle.destroy')->middleware('auth');
 
-// Routes pour la connextion et l'inscription
-Route::get('/users', [UserController::class, 'index'])->name('user.index');
+// Routes pour l'inscription
 Route::get('/register', [UserController::class, 'create'])->name('user.create');
 Route::post('/register', [UserController::class, 'store'])->name('user.store');
 
 // Route pour le dashboard de l'administrateur
+Route::get('/users', [UserController::class, 'index'])->name('user.index')->middleware('auth');;
 Route::get('/user/{user}', [UserController::class, 'show'])->name('user.show')->middleware('auth');
 Route::get('/user/edit/{user}', [UserController::class, 'edit'])->name('user.edit')->middleware('auth');
 Route::put('/user/edit/{user}', [UserController::class, 'update'])->name('user.update')->middleware('auth');
-Route::delete('/user/{user}', [UserController::class, 'deleteUser'])->name('user.destroy')->middleware('auth');
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('user.destroy')->middleware('auth');
 
 // Route pour le profil de l'utilisateur
 Route::get('/auth/{user}', [AuthController::class, 'show'])->name('auth.show')->middleware('auth');
@@ -74,11 +74,10 @@ Route::post('/password/forgot', [UserController::class, 'email'])->name('user.em
 Route::get('/password/reset/{user}/{token}', [UserController::class, 'reset'])->name('user.reset');
 Route::put('/password/reset/{user}/{token}', [UserController::class, 'resetUpdate'])->name('user.reset.update');
 
-// Routes AUTHENTIFICATION
+// Routes pour la connexion et la déconnexion
 Route::get('/login', [AuthController::class, 'create'])->name('login');
 Route::post('/login', [AuthController::class, 'store'])->name('login.store');
 Route::get('/logout', [AuthController::class, 'destroy'])->name('logout');
 
 // Route pour le scraper
 Route::get('/test-scraper', [ScraperController::class, 'index']);
-
