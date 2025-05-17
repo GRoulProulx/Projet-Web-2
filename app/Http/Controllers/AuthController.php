@@ -107,7 +107,7 @@ class AuthController extends Controller
         $user->fill($request->all());
         $user->save();
 
-        return redirect()->route('Auth.show', $id)->with('success', 'Informations mises à jour avec succès.');
+        return redirect()->route('auth.show', $id)->with('success', 'Informations mises à jour avec succès.');
     }
 
     /**
