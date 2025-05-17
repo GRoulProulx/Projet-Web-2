@@ -61,13 +61,32 @@ class CellarController extends Controller
      * @param \App\Models\Cellar $cellar Le cellier à afficher.
      * @return \Illuminate\View\View La vue contenant les détails du cellier.
      */
-    public function show(Cellar $cellar)
+   public function show(Cellar $cellar)
     {
-        if ($cellar->user_id !== Auth::user()->id) {
-            abort(403, 'Vous n\'êtes pas autorisé à accéder à ce cellier.');
+        $sortBy = request('sort_by', 'name');
+        $order = request('order', 'asc');
+
+        $validSorts = ['name', 'price', 'purchase_date'];
+        if (!in_array($sortBy, $validSorts)) {
+            $sortBy = 'name';
         }
-        return view('cellar.show', compact('cellar'));
-    }
+
+    // Récupération des cellarBottles triées
+         $cellarBottles = $cellar->cellarBottles()
+            ->with('bottle')
+            ->when(in_array($sortBy, ['name', 'price']), function ($query) use ($sortBy, $order) {
+            $query->join('bottles', 'cellar_bottles.bottle_id', '=', 'bottles.id')
+                ->orderBy("bottles.$sortBy", $order)
+                ->select('cellar_bottles.*');
+        })
+            ->when($sortBy === 'purchase_date', function ($query) use ($order) {
+            $query->orderBy('purchase_date', $order);
+        })
+            ->get();
+
+    return view('cellar.show', compact('cellar', 'cellarBottles'));
+}
+     
 
     /**
      * Affiche le formulaire permettant de modifier un cellier spécifique appartenant à l'utilisateur connecté.
