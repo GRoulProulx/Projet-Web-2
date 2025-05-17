@@ -10,10 +10,10 @@
                 Cellier : <span class="color-taupe font-family">{{ $cellar->name }}</span>
             </h1>
             <div class="flex gap-lg">
-                <a href="{{route('cellar.edit', $cellar->id)}}"><i class="fa-solid fa-pen-to-square text-md"></i></a>
-                <a href="#" data-action="delete"><i class="fa-solid fa-trash text-md text-alert"></i></a>
+                <a href="{{route('cellar.edit', $cellar->id)}}" aria-label="Modifier le cellier"><i class="fa-solid fa-pen-to-square text-md"></i></a>
+                <a href="#" data-action="delete" aria-label="Icône poubelle pour supprimer le cellier"><i class="fa-solid fa-trash text-md text-alert"></i></a>
             </div>
-            <input type="text" id="cellar_id" value="{{$cellar->id}}" class="hidden">
+            <input type="hidden" id="cellar_id" value="{{$cellar->id}}">
         </header>
         <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm ">
            
@@ -77,10 +77,10 @@
                     @csrf
                     @method('PUT')
                     <div class="flex flex-col">
-                        <label for="quantity" class="font-regular">Quantité:</label>
+                        <label for="quantity{{$cellarBottle->id}}" class="font-regular">Quantité: </label>
                         <div class="flex">
-                            <input type="text" id="bottle_id" name="bottle_id" value="{{$cellarBottle->bottle->id}}" class="hidden">
-                            <input type="number" id="quantity" name="quantity" min="1" max="{{$cellarBottle->quantity}}" value="{{$cellarBottle->quantity}}" readonly class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
+                            <input type="hidden" id="bottle_id" name="bottle_id" value="{{$cellarBottle->bottle->id}}">
+                            <input type="number" id="quantity{{$cellarBottle->id}}" name="quantity" min="1" max="{{$cellarBottle->quantity}}" value="{{$cellarBottle->quantity}}" readonly class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
                             <button type="submit" class="bouton py-1 px-3 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Boire</button>
                         </div>
                     </div>

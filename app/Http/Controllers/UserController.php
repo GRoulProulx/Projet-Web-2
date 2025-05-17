@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 class UserController extends Controller
 {
     /**
@@ -16,8 +18,10 @@ class UserController extends Controller
     public function index()
     {
         //Récupère tous les utilisateurs depuis la base de données
-        
-        $users = User::all();        
+        if (!Auth::user()->role_id == 1) {
+            abort(403, 'Vous n\'avez pas les droits pour accéder à cette page.');
+        }
+        $users = User::all();
         return view('user.index', ['users' => $users]);
     }
 
@@ -49,68 +53,24 @@ class UserController extends Controller
         $user->fill($request->all());
         $user->save();
 
-        return redirect()->route('login')->with('success', 'Inscription réussie! Veuillez vous connecter.');
+        // Après l'inscription, on connecte automatiquement l'utilisateur
+        auth()->login($user);
+        return redirect()->route('cellar.index')->with('success', 'Inscription réussie! Créer votre premier cellier.');
     }
 
     /**
-     * Méthode pour afficher les détails d'un utilisateur
+     * Méthode pour supprimer un utilisateur
      * @param string $id L'identifiant de l'utilisateur.
-     * @return \Illuminate\View\View La vue des détails de l'utilisateur.
+     * @return \Illuminate\Http\RedirectResponse Redirige vers la page de création d'utilisateur avec un message de succès.
      */
-    public function show(string $id)
-    {
-        return view('user.show', ['user' => $id]);
-    }
-
-    /**
-     * Méthode pour afficher le formulaire d'édition d'un utilisateur
-     * @param string $id L'identifiant de l'utilisateur.
-     * @return \Illuminate\View\View La vue du formulaire d'édition de l'utilisateur.
-     */
-    public function edit(string $id)
-    {
-        return view('user.edit', ['user' => $id]);
-    }
-
-    /**
-     * Méthode pour mettre à jour les informations d'un utilisateur
-     * @param Request $request Les données du formulaire d'édition.
-     * @param string $id L'identifiant de l'utilisateur.
-     * @return \Illuminate\Http\RedirectResponse Redirige vers la page de détails de l'utilisateur avec un message de succès.
-     */
-    public function update(Request $request, string $id)
-    {
-        //Validation des données du formulaire
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email'
-        ]);
-
-        //Création d'un nouvel utilisateur
-        $user = User::find($id);
-        if (!$user) {
-            return redirect()->route('user.index')->withErrors('Utilisateur non trouvé.');
-        }
-        
-        $user->fill($request->all());
-        $user->save();
-
-        return redirect()->route('user.show', $id)->with('success', 'Informations mises à jour avec succès.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    public function destroy(string $id) {}
 
     /**
      * Méthode pour afficher le formulaire d'oubli de mot de passe
      * @return \Illuminate\View\View La vue du formulaire d'oubli de mot de passe.
      */
-    public function forgot() {
+    public function forgot()
+    {
         return view('user.forgot');
     }
 
@@ -121,7 +81,8 @@ class UserController extends Controller
      * @param Request $request Les données du formulaire contenant l'adresse email.
      * @return \Illuminate\Http\RedirectResponse Redirige vers la page de connexion avec un message de succès.
      */
-    public function email(Request $request){
+    public function email(Request $request)
+    {
         //Validation des données du formulaire
         $request->validate([
             'email' => 'required|email|exists:users',
@@ -139,7 +100,7 @@ class UserController extends Controller
         $to_email = $request->email;
         $body = "<a href='" . route('user.reset', [$userId, $tempPassword]) . "'>Cliquez ici pour réinitialiser votre mot de passe</a>";
 
-        Mail::send('user.mail', ['name' => $to_name, 'body' => $body], function($message) use ($to_email){
+        Mail::send('user.mail', ['name' => $to_name, 'body' => $body], function ($message) use ($to_email) {
             $message->to($to_email)->subject('Réinitialisation de mot de passe');
         });
         return redirect(route('login'))->with('success', 'Un courriel contenant les instructions a été envoyé à votre adresse email.');
@@ -153,11 +114,12 @@ class UserController extends Controller
      * @param string $token Le token temporaire pour valider la réinitialisation.
      * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse La vue du formulaire ou une redirection en cas d'erreur.
      */
-    public function reset(User $user, $token) {
+    public function reset(User $user, $token)
+    {
         if ($user->temp_password === $token) {
             return view('user.reset');
         }
-        return redirect(route('user.forgot'))->withErrors('Les informations fournies ne sont pas valides.');   
+        return redirect(route('user.forgot'))->withErrors('Les informations fournies ne sont pas valides.');
     }
 
     /**
@@ -169,8 +131,9 @@ class UserController extends Controller
      * @param string $token Le token temporaire pour valider la réinitialisation.
      * @return \Illuminate\Http\RedirectResponse Redirige vers la page de connexion avec un message de succès ou d'erreur.
      */
-    public function resetUpdate(Request $request, User $user, $token) {
-        if($user->temp_password === $token) {
+    public function resetUpdate(Request $request, User $user, $token)
+    {
+        if ($user->temp_password === $token) {
             //Validation des données du formulaire
             $request->validate([
                 'password' => 'required|min:5|confirmed',

@@ -10,7 +10,8 @@
                 <h1 class="font-family-title text-lg">Catalogue des vins</h1>
                 <p>Explorez une vaste sélection de vins directement issus de la SAQ. Recherchez, filtrez selon vos préférences et ajoutez vos découvertes à votre cellier en toute simplicité.</p>
             </header>
-            <details>
+            <details class="mt-md">
+
                 <summary class="text-blue-magenta">Filtres</summary>
                 <!--Formulaire de trie-->
                 <form method="GET" action="{{ route('bottle.index') }}" class="mb-md grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-sm mt-3">
@@ -68,7 +69,9 @@
                 </form>
 
             </details>
-
+            <div class="mt-md">
+                <p><strong>Sélection: </strong>{{$bottles->total()}} bouteilles</p>
+            </div>
             <!-- Grille des produits -->
             <div class="mx-auto grid max-w-2xl grid-cols-1 gap-sm gap-y-sm mt-md md:mx-0 md:max-w-none md:grid-cols-2 xl:grid-cols-3 ">
                 @foreach($bottles as $bottle)
@@ -98,7 +101,7 @@
             </div>
 
             <div class="my-md">
-                {{ $bottles->links() }}
+                {{ $bottles->appends(request()->input())->links() }}
             </div>
         </div>
     </div>
