@@ -16,7 +16,7 @@
             <input type="text" id="cellar_id" value="{{$cellar->id}}" class="hidden">
         </header>
         <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm ">
-            <a href="{{ route('bottle.index') }}" class="bouton mt-0 grow text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille</a>
+           
         <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm">
             <a href="{{ route('bottle.index') }}" class="bouton mt-0 grow text-center">
                 <i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille
