@@ -58,7 +58,7 @@ class AuthController extends Controller
         if (Auth::user()->id != $id) {
             abort(403, 'Vous n\'avez pas les droits pour accéder à cette page.');
         }
-        return view('auth.show', ['user' => $id]);
+        return view('Auth.show', ['user' => $id]);
     }
 
     /**
@@ -71,7 +71,7 @@ class AuthController extends Controller
         if (Auth::user()->id != $id) {
             abort(403, 'Vous n\'avez pas les droits pour accéder à cette page.');
         }
-        return view('auth.edit', ['user' => $id]);
+        return view('Auth.edit', ['user' => $id]);
     }
 
     /**
@@ -107,7 +107,7 @@ class AuthController extends Controller
         $user->fill($request->all());
         $user->save();
 
-        return redirect()->route('auth.show', $id)->with('success', 'Informations mises à jour avec succès.');
+        return redirect()->route('Auth.show', $id)->with('success', 'Informations mises à jour avec succès.');
     }
 
     /**
