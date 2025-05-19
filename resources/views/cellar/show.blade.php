@@ -1,4 +1,4 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 @section('title', 'Mon cellier')
 
 @section('content')
@@ -16,12 +16,7 @@
             <input type="hidden" id="cellar_id" value="{{$cellar->id}}">
         </header>
         <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm ">
-           
-        <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm">
-            <a href="{{ route('bottle.index') }}" class="bouton mt-0 grow text-center">
-                <i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille
-            </a>
-            <button class="bouton alert mt-2 grow" data-action="delete">Supprimer le cellier</button>
+            <a href="{{ route('bottle.index') }}" class="bouton mt-0 grow text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille</a>
         </div>
     </div>
 
@@ -50,11 +45,11 @@
                 <!-- Image -->
                 <div class="flex-shrink-0">
                     @if ($cellarBottle->bottle->image)
-                        <img src="{{ $cellarBottle->bottle->image }}" class="mx-auto sm:mx-0 max-w-[100px] max-h-[150px] object-cover rounded-md" alt="{{ $cellarBottle->bottle->name }}">
+                    <img src="{{ $cellarBottle->bottle->image }}" class="mx-auto sm:mx-0 max-w-[100px] max-h-[150px] object-cover rounded-md" alt="{{ $cellarBottle->bottle->name }}">
                     @else
-                        <div class="bg-gray-100 flex items-center justify-center rounded-md w-[100px] h-[150px]">
-                            <span class="text-gray-400">Aucune image</span>
-                        </div>
+                    <div class="bg-gray-100 flex items-center justify-center rounded-md w-[100px] h-[150px]">
+                        <span class="text-gray-400">Aucune image</span>
+                    </div>
                     @endif
                 </div>
 
