@@ -18,9 +18,14 @@
         <nav class="off-screen-menu z-10 fixed top-0 right-[-10000px] bg-white h-screen w-full flex flex-col text-center text-lg transition-all duration-500 ease-in-out">
             <ul class="mt-[100px] min-w-full">
                 <img src="{{asset('images/logo-maison-des-vins.png')}}" alt="Logo" class="w-[100px] mx-auto mb-sm">
-
                 <li><a href="{{route('bottle.index')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Catalogue des vins</a></li>
                 <div class="border-t border-light-gray/50"></div>
+                @auth
+                @if(auth()->user()->role_id == 1)
+                <li><a href="{{route('user.index')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Tableau de bord</a></li>
+                <div class="border-t border-light-gray/50"></div>
+                @endif
+                @endauth
                 @if (Auth::check())
                 <li><a href="{{route('logout')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Se déconnecter</a></li>
                 <div class="border-t border-light-gray/50"></div>
@@ -35,7 +40,6 @@
                 @if (Auth::check())
                 <li><a href="{{route('cellar.index')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Mes celliers</a></li>
                 <div class="border-t border-light-gray/50"></div>
-
                 @endif
             </ul>
         </nav>
