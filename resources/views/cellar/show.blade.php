@@ -21,7 +21,7 @@
             <a href="{{ route('bottle.index') }}" class="bouton mt-0 grow text-center">
                 <i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille
             </a>
-            <button class="bouton alert mt-0 grow" data-action="delete">Supprimer le cellier</button>
+            <button class="bouton alert mt-2 grow" data-action="delete">Supprimer le cellier</button>
         </div>
     </div>
 
@@ -39,7 +39,7 @@
             <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Décroissant</option>
         </select>
 
-        <button type="submit" class="bouton blue-magenta">Trier</button>
+        <button type="submit" class="bouton blue-magenta text-md font-family-title"> <i class="fa-solid fa-filter mr-base"></i>Filtrer</button>
     </form>
 
     <!-- Bouteilles du cellier -->
