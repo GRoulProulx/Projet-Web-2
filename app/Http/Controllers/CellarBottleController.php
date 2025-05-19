@@ -65,7 +65,7 @@ class CellarBottleController extends Controller
 
     // Étape 6 - Redirection finale
     return redirect()
-        ->route('cellar.show', $cellarBottle->cellar_id)
+        ->route('cellar_bottle.show', $cellarBottle->id)
         ->with('success', 'Bouteille ajoutée au cellier avec succès.');
     }
 
