@@ -90,7 +90,7 @@
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <span class="text-gray-500 text-sm font-medium">Date d'achat:</span>
-                        <p>{{ $cellarBottle->purchase_date ?? '-' }}</p>
+                        <p>@if(!$cellarBottle->purchase_date){{date_format($cellarBottle->created_at, "Y-m-d")}} @else{{$cellarBottle->purchase_date}} @endif</p>
                     </div>
                     <div>
                         <span class="text-gray-500 text-sm font-medium">Conservation:</span>
