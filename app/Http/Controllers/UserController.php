@@ -29,7 +29,7 @@ class UserController extends Controller
      * Méthode pour afficher le formulaire d'inscription
      * @return \Illuminate\View\View La vue du formulaire d'inscription.
      */
-    public function create()
+    public function create() 
     {
         return view('user.create');
     }
@@ -63,7 +63,16 @@ class UserController extends Controller
      * @param string $id L'identifiant de l'utilisateur.
      * @return \Illuminate\Http\RedirectResponse Redirige vers la page de création d'utilisateur avec un message de succès.
      */
-    public function destroy(string $id) {}
+    public function destroy(string $id) {
+        //Récupération de l'utilisateur
+        $user = User::find($id);
+        if ($user) {
+            //Suppression de l'utilisateur
+            $user->delete();
+            return redirect()->route('user.index')->with('success', 'Utilisateur supprimé avec succès.');
+        }
+        return redirect()->route('user.index')->withErrors('Utilisateur non trouvé.');
+    }
 
     /**
      * Méthode pour afficher le formulaire d'oubli de mot de passe
