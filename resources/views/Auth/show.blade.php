@@ -6,9 +6,11 @@
 <section>
     <header class="flex items-center justify-between gap-md mb-sm">
         <h1 class="font-family-title text-lg">Mon profil</h1>
+        @if(!auth()->user()->role_id == 1)
         <div class="flex gap-lg">
             <a href="#" data-action="delete" aria-label="Icone poubelle pour supprimer le profil"><i class="fa-solid fa-trash text-md text-alert"></i></a>
         </div>
+        @endif
     </header>
     <div class="border border-light-gray/30 p-md rounded-md flex flex-col gap-sm md:max-w-3xl mx-auto ">
         <div>

@@ -1,4 +1,4 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 @section('title', 'Mon cellier')
 
 @section('content')
@@ -16,12 +16,7 @@
             <input type="hidden" id="cellar_id" value="{{$cellar->id}}">
         </header>
         <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm ">
-           
-        <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm">
-            <a href="{{ route('bottle.index') }}" class="bouton mt-0 grow text-center">
-                <i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille
-            </a>
-            <button class="bouton alert mt-2 grow" data-action="delete">Supprimer le cellier</button>
+            <a href="{{ route('bottle.index') }}" class="bouton mt-0 grow text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille</a>
         </div>
     </div>
 
@@ -46,15 +41,15 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-sm mb-sm">
         @foreach ($cellarBottles as $cellarBottle)
         <div class="border border-light-gray/20 rounded-lg shadow p-md flex flex-col gap-sm justify-between relative hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
-            <div class="flex flex-col sm:flex-row gap-sm">
+            <a href="{{ route('cellar_bottle.show', $cellarBottle->id) }}" class="flex flex-col sm:flex-row gap-sm">
                 <!-- Image -->
                 <div class="flex-shrink-0">
                     @if ($cellarBottle->bottle->image)
-                        <img src="{{ $cellarBottle->bottle->image }}" class="mx-auto sm:mx-0 max-w-[100px] max-h-[150px] object-cover rounded-md" alt="{{ $cellarBottle->bottle->name }}">
+                    <img src="{{ $cellarBottle->bottle->image }}" class="mx-auto sm:mx-0 max-w-[100px] max-h-[150px] object-cover rounded-md" alt="{{ $cellarBottle->bottle->name }}">
                     @else
-                        <div class="bg-gray-100 flex items-center justify-center rounded-md w-[100px] h-[150px]">
-                            <span class="text-gray-400">Aucune image</span>
-                        </div>
+                    <div class="bg-gray-100 flex items-center justify-center rounded-md w-[100px] h-[150px]">
+                        <span class="text-gray-400">Aucune image</span>
+                    </div>
                     @endif
                 </div>
 
@@ -69,7 +64,7 @@
                         <p>{{ $cellarBottle->bottle->country }}</p>
                     </div>
                 </div>
-            </div>
+            </a>
 
             <!-- Formulaire de consommation -->
             <div class="flex justify-between items-baseline-last flex-wrap gap-sm">
@@ -95,7 +90,7 @@
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <span class="text-gray-500 text-sm font-medium">Date d'achat:</span>
-                        <p>{{ $cellarBottle->purchase_date ?? '-' }}</p>
+                        <p>@if(!$cellarBottle->purchase_date){{date_format($cellarBottle->created_at, "Y-m-d")}} @else{{$cellarBottle->purchase_date}} @endif</p>
                     </div>
                     <div>
                         <span class="text-gray-500 text-sm font-medium">Conservation:</span>

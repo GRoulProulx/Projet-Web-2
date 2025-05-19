@@ -22,22 +22,23 @@
                 </div>
                 <!-- Informations supplémentaires -->
                 <div class="flex flex-col">
-                    <p><span class="font-regular">Date d'achat:</span> {{$cellarBottle->purchase_date}}</p>
+                    <p><span class="font-regular">Date d'achat:</span> @if(!$cellarBottle->purchase_date){{date_format($cellarBottle->created_at, "Y-m-d")}}@else{{$cellarBottle->purchase_date}} @endif</p>
                     <p><span class="font-regular">Garder jusqu'à:</span> {{$cellarBottle->storage_until}}</p>
+                    <label for="quantity"><strong>Quantité dans le cellier:</strong> {{$cellarBottle->quantity}}</label>
                 </div>
                 <!-- Formulaire pour ajouter des bouteilles -->
                 <div class="flex flex-col">
                     <form action="{{ route('cellar_bottle.store') }}" class="form_add_bottle flex flex-col gap-xxs" method="POST">
                         @csrf
                         <div class="flex flex-col">
-                            <label for="quantity"><strong>Quantité dans le cellier:</strong> {{$cellarBottle->quantity}}</label>
+
                             <div class="flex">
                                 <!-- Récupérer bottle_id et cellar_id -->
                                 <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle->id }}">
                                 <input type="hidden" name="cellar_id" value="{{ $cellarBottle->cellars->id }}">
 
                                 <!-- Champ pour la quantité -->
-                                <input aria-label="Ajouter à mon cellier" type="number" name="quantity" id="quantity" value="1" min="1" required class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
+                                <input aria-label="Ajouter à mon cellier" type="number" name="quantity" id="quantity" placeholder="Entrez un nombre" required class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 text-center">
 
                                 <button type="submit" class="bouton py-1 px-3 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Ajouter des bouteilles</button>
                             </div>
