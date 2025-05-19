@@ -35,7 +35,8 @@
                 @if (Auth::check())
                 <li><a href="{{route('cellar.index')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Mes celliers</a></li>
                 <div class="border-t border-light-gray/50"></div>
-
+                <li><a href="{{route('shoppingList.index')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Ma liste d'achat</a></li>
+                <div class="border-t border-light-gray/50"></div>
                 @endif
             </ul>
         </nav>
