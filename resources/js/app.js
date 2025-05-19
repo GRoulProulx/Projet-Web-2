@@ -27,6 +27,7 @@ function onWindowLoad(main) {
         setupDeleteConfirmation();
         saveCellarIdToSession();
         handleSuccessMessage(main);
+        setupUserDeleteConfirmation();
     });
 }
 
@@ -37,7 +38,23 @@ function setupDeleteConfirmation() {
     const deleteButton = document.querySelector('[data-action="delete"]');
     if (deleteButton) {
         deleteButton.addEventListener("click", showModale);
-    }
+    }    
+}
+
+function setupUserDeleteConfirmation() {
+    const deleteButton = document.querySelectorAll('[data-action="deleteUser"]');
+    deleteButton.forEach((btn) => {
+        btn.addEventListener("click", function (event) {
+            const userId = this.getAttribute("data-id");
+            const form = document.getElementById("deleteUserForm");
+            form.action = "/users/" + userId;
+            console.log(form.action);
+            
+            document
+                .querySelector(".modale-container")
+                .classList.remove("hidden");
+        });
+    });
 }
 
 /**

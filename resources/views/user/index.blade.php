@@ -52,8 +52,7 @@
                             </td>
                             <td class="px-sm py-xs whitespace-nowrap">
                                 @if( !$user->role_id == 1 )
-                                {{$user->id}}
-                                <a href="#" data-action="delete" data-id="{{ $user->id }}" aria-label="Icône poubelle pour supprimer l'utilisateur"><i class="fa-solid fa-trash text-md text-alert"></i></a>
+                                <a href="#" data-action="deleteUser" data-id="{{ $user->id }}" aria-label="Icône poubelle pour supprimer l'utilisateur"><i class="fa-solid fa-trash text-md text-alert"></i></a>
                                 @endif
                             </td>
 
@@ -97,7 +96,7 @@
                             <form action="" method="POST" id="deleteUserForm">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="bouton alert mt-0" data-action="delete" data-id="{{ $user->id }}">Supprimer</button>
+                                <button type="submit" class="bouton alert mt-0" data-action="deleteUser" data-id="{{ $user->id }}">Supprimer</button>
                             </form>
                         </div>
                     </div>
