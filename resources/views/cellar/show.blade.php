@@ -41,7 +41,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-sm mb-sm">
         @foreach ($cellarBottles as $cellarBottle)
         <div class="border border-light-gray/20 rounded-lg shadow p-md flex flex-col gap-sm justify-between relative hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
-            <div class="flex flex-col sm:flex-row gap-sm">
+            <a href="{{ route('cellar_bottle.show', $cellarBottle->id) }}" class="flex flex-col sm:flex-row gap-sm">
                 <!-- Image -->
                 <div class="flex-shrink-0">
                     @if ($cellarBottle->bottle->image)
@@ -64,7 +64,7 @@
                         <p>{{ $cellarBottle->bottle->country }}</p>
                     </div>
                 </div>
-            </div>
+            </a>
 
             <!-- Formulaire de consommation -->
             <div class="flex justify-between items-baseline-last flex-wrap gap-sm">
