@@ -21,6 +21,8 @@ class Bottle extends Model
         'country',
         'code_saq',
         'url',
+        'user_id',
+        'is_custom'
     ];
 
     //Définit la relation avec le modèle CellarBottle
@@ -28,5 +30,10 @@ class Bottle extends Model
     public function cellarBottles()
     {
         return $this->hasMany(CellarBottle::class, 'bottle_id');
+    }
+
+      public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
