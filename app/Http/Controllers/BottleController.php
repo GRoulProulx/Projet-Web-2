@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\CellarBottle;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BottleController extends Controller
 {
@@ -17,9 +18,12 @@ class BottleController extends Controller
     
     public function index()
     {
-        $query = Bottle::query();
+        $query = Bottle::query()
+            ->where(function ($q) {
+            $q->where('is_custom', false)->orWhereNull('is_custom');
+        });
 
-        // Filtres
+    // Filtres
         if (request('country')) {
             $query->where('country', request('country'));
         }
@@ -63,17 +67,25 @@ class BottleController extends Controller
                 $query->orderBy('price', 'desc');
                 break;
             default:
-                $query->orderBy('name');
+             $query->orderBy('name');
         }
 
         $bottles = $query->paginate(10);
 
-        // Valeurs uniques pour les filtres
-        $allCountries = Bottle::select('country')->distinct()->orderBy('country')->pluck('country');
-        $allTypes = Bottle::select('type')->distinct()->orderBy('type')->pluck('type');
+        // Filtres dynamiques (sur les bouteilles non personnalisées seulement)
+        $allCountries = Bottle::where(function ($q) {
+            $q->where('is_custom', false)->orWhereNull('is_custom');
+        })
+            ->select('country')->distinct()->orderBy('country')->pluck('country');
+
+            $allTypes = Bottle::where(function ($q) {
+            $q->where('is_custom', false)->orWhereNull('is_custom');
+        })
+            ->select('type')->distinct()->orderBy('type')->pluck('type');
 
         return view('bottle.index', compact('bottles', 'allCountries', 'allTypes'));
     }
+
 
     /**
      * Afficher le formulaire pour créer une bouteille.
@@ -194,4 +206,54 @@ class BottleController extends Controller
         $bottle->delete();
         return redirect()->route('bottle.index')->with('success', 'Bouteille supprimée avec succès.');
     }
+    /**
+     * Créer une bouteille personalisée
+     */
+
+    public function createCustom()
+    {
+        $cellars = auth()->user()->cellars;
+
+        return view('bottle.create-custom', compact('cellars'));
+    }
+
+    public function storeCustom(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|string',
+            'price' => 'nullable|numeric|min:0',
+            'type' => 'nullable|string',
+            'format' => 'nullable|string',
+            'country' => 'nullable|string',
+            'description' => 'nullable|string',
+            'cellar_id' => 'required|exists:cellars,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $bottle = Bottle::create([
+            'user_id' => auth()->id(),
+            'name' => $request->name,
+            'image' => $request->image,
+            'price' => $request->price,
+            'type' => $request->type,
+            'format' => $request->format,
+            'country' => $request->country,
+            'description' => $request->description,
+            'is_custom' => true,
+        ]);
+
+    // Ajouter dans le cellier
+        DB::table('cellar_bottles')->insert([
+            'cellar_id' => $request->cellar_id,
+            'bottle_id' => $bottle->id,
+            'quantity' => $request->quantity,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('cellar.show', $request->cellar_id)
+        ->with('success', 'Bouteille personnalisée ajoutée à votre cellier.');
+    }
+
 }
