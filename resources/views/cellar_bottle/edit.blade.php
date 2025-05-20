@@ -3,25 +3,23 @@
 @section('content')
 
 <section>
-
-    <div class="mx-auto grid max-w-2xl grid-cols-1 gap-sm gap-y-sm mt-md mb-md md:mx-0 md:max-w-none md:grid-cols-2 xl:grid-cols-3 ">
+    <div class="mx-auto max-w-3xl my-md">
         <a href="{{ route('cellar_bottle.show', $cellarBottle->id) }}">
             <article class="flex max-w-full min-h-full flex-col items-start justify-between border border-light-gray/30 rounded-md p-sm hover:border-light-gray/60 transition duration-300 ease-in-out">
-                <figure class="flex gap-x-sm xs:gap-x-xxs s:gap-x-sm text-xs">
+                <figure class="flex flex-col gap-md sm:flex-row gap-x-sm xs:gap-x-xxs s:gap-x-sm">
                     <img src="{{$cellarBottle->bottle->image}}" alt="{{$cellarBottle->bottle->name}}" class="max-w-[111px] max-h-[166px] object-cover">
                     <figcaption class="flex flex-col gap-xxs flex-wrap">
-                        <header>
-                            <h2 class="xs:text-base sm:text-md md:text-lg uppercase">{{$cellarBottle->bottle->name}}</h2>
-                        </header>
-                        <div class="flex gap-xs flex-wrap">
-                            <p>{{$cellarBottle->bottle->type}}</p>
-                            <div class="border-2 border-l border-light-gray"></div>
-                            <p>{{$cellarBottle->bottle->format}}</p>
-                            <div class="border-2 border-l border-light-gray"></div>
-                            <p>{{$cellarBottle->bottle->country}}</p>
-                        </div>
                         <div>
-                            <p>Date d'achat: {{$cellarBottle->purchase_date}}</p>
+                            <header>
+                                <h2 class="xs:text-base sm:text-md md:text-lg uppercase">{{$cellarBottle->bottle->name}}</h2>
+                            </header>
+                            <div class="flex gap-xs flex-wrap">
+                                <p>{{$cellarBottle->bottle->type}}</p>
+                                <div class="border-2 border-l border-light-gray"></div>
+                                <p>{{$cellarBottle->bottle->format}}</p>
+                                <div class="border-2 border-l border-light-gray"></div>
+                                <p>{{$cellarBottle->bottle->country}}</p>
+                            </div>
                         </div>
                     </figcaption>
                 </figure>
@@ -67,7 +65,9 @@
 
         <div class="flex flex-col gap-xxs">
             <label for="price">Prix</label>
-            <input type="number" id="price" name="price" step="0.01" value="{{ old('price', $cellarBottle->price) }}" placeholder="Prix" aria-label="Prix" class="border border-light-gray/30 rounded-md p-xs">
+            <input type="number" id="price" name="price" step="0.01"
+                value="{{ old('price', number_format($cellarBottle->bottle->price, 2, '.', '')) }}"
+                placeholder="Prix" aria-label="Prix" class="border border-light-gray/30 rounded-md p-xs">
             @if($errors->has('price'))
             <div class="border border-alert text-alert rounded-md p-xxs">
                 {{$errors->first('price')}}
@@ -109,10 +109,9 @@
         <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle_id }}">
 
         <button type="submit" class="bouton mt-0">Sauvegarder</button>
-        <!-- <a href="{{ route('cellar.show', $cellarBottle->cellar_id ?? '') }}" class="bouton white mt-0">Annuler</a> -->
 
         <div class="text-center mt-sm">
-            <a href="{{ route('cellar_bottle.show', $cellarBottle->bottle_id ?? '' ) }}" class="link-underline-hover">Annuler</a>
+            <a href="{{ route('cellar_bottle.show', $cellarBottle->id ) }}" class="link-underline-hover">Annuler</a>
         </div>
     </form>
 </section>

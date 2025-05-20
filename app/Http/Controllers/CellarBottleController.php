@@ -9,7 +9,9 @@ use App\Models\Cellar;
 class CellarBottleController extends Controller
 {
     /**
-     * Afficher le formulaire pour ajouter une nouvelle bouteille au cellier.
+     * Affiche le formulaire permettant d'ajouter une nouvelle bouteille à un cellier.
+     *
+     * @return \Illuminate\View\View La vue du formulaire de création de bouteille dans un cellier.
      */
     public function create()
     {
@@ -18,6 +20,13 @@ class CellarBottleController extends Controller
         return view('cellar_bottle.create', compact('bottles'));
     }
 
+    /**
+     * Valide les données du formulaire et ajoute une nouvelle bouteille au cellier.
+     * Si la bouteille existe déjà dans le cellier, met à jour sa quantité et ses informations.
+     *
+     * @param \Illuminate\Http\Request $request Les données du formulaire de création.
+     * @return \Illuminate\Http\RedirectResponse Redirige vers la page du cellier avec un message de succès.
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -51,40 +60,54 @@ class CellarBottleController extends Controller
             'vintage' => $request->vintage,
             'bottle_id' => $request->bottle_id,
             'cellar_id' => $request->cellar_id,
-        ]);
-        
-        // Associer au cellier
-        
-      //  dd('Étape 5: Nouvelle bouteille ajoutée au cellier', $cellarBottle);
-      
+        ]);      
     }
 
     // Étape 6 - Redirection finale
     return redirect()
-        ->route('cellar.show', $cellarBottle->cellar_id)
+        ->route('cellar_bottle.show', $cellarBottle->id)
         ->with('success', 'Bouteille ajoutée au cellier avec succès.');
     }
+
     /**
-     * Afficher les détails d'une bouteille spécifique dans le cellier.
+     * Affiche les détails d'une bouteille spécifique dans un cellier.
+     * Vérifie que la bouteille appartient bien à un cellier de l'utilisateur connecté.
+     *
+     * @param \App\Models\CellarBottle $cellarBottle La bouteille à afficher.
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse La vue des détails de la bouteille ou une redirection en cas d'erreur.
      */
     public function show(CellarBottle $cellarBottle)
     {
+        if (!auth()->user()->cellars->contains('id', $cellarBottle->cellar_id)) {
+            return redirect()->route('cellar.index')->withErrors('Cette bouteille n\'est pas dans votre cellier.');
+        }
         $cellars = Cellar::where('user_id', auth()->id())->with('cellarBottles')->get();
         $cellarId = $cellarBottle->cellar_id;
         return view('cellar_bottle.show', ['cellarBottle' => $cellarBottle, 'cellar' => $cellars, 'cellarId' => $cellarId]);
     }
 
     /**
-     * Afficher le formulaire pour modifier une bouteille dans le cellier.
+     * Affiche le formulaire permettant de modifier une bouteille dans un cellier.
+     * Vérifie que la bouteille appartient bien à un cellier de l'utilisateur connecté.
+     *
+     * @param \App\Models\CellarBottle $cellarBottle La bouteille à modifier.
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse La vue du formulaire de modification ou une redirection en cas d'erreur.
      */
     public function edit(CellarBottle $cellarBottle)
     {
+        if (!auth()->user()->cellars->contains('id', $cellarBottle->cellar_id)) {
+            return redirect()->route('cellar.index')->withErrors('Cette bouteille n\'est pas dans votre cellier.');
+        }
         $cellars = Cellar::where('user_id', auth()->id())->with('cellarBottles')->get();
         return view('cellar_bottle.edit', ['cellarBottle' => $cellarBottle, 'cellars' => $cellars]);
     }
 
     /**
-     * Modifier une bouteille dans le cellier.
+     * Valide les données du formulaire et met à jour une bouteille dans un cellier.
+     *
+     * @param \Illuminate\Http\Request $request Les données du formulaire de modification.
+     * @param \App\Models\CellarBottle $cellarBottle La bouteille à mettre à jour.
+     * @return \Illuminate\Http\RedirectResponse Redirige vers la page des détails de la bouteille avec un message de succès.
      */
     public function update(Request $request, CellarBottle $cellarBottle)
     {
@@ -119,7 +142,10 @@ class CellarBottleController extends Controller
     }
 
     /**
-     * Supprimer une bouteille du cellier.
+     * Supprime une bouteille spécifique d'un cellier.
+     *
+     * @param \App\Models\CellarBottle $cellarBottle La bouteille à supprimer.
+     * @return \Illuminate\Http\RedirectResponse Redirige vers la page du cellier avec un message de succès.
      */
     public function destroy(CellarBottle $cellarBottle)
     {
@@ -129,7 +155,10 @@ class CellarBottleController extends Controller
     }
 
     /**
-     * Marquer une bouteille comme bue.
+     * Réduit la quantité d'une bouteille dans un cellier de 1, marquant ainsi une bouteille comme bue.
+     *
+     * @param \App\Models\CellarBottle $cellarBottle La bouteille à mettre à jour.
+     * @return \Illuminate\Http\RedirectResponse Redirige vers la page du cellier avec un message de succès.
      */
     public function drink(CellarBottle $cellarBottle)
     {

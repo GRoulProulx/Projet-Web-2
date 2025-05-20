@@ -29,7 +29,7 @@
                         <form action="{{ route('cellar_bottle.store') }}" class="form_add_bottle flex flex-col gap-xxs" method="POST">
                             @csrf
                             @if ($bottle)
-                                <input type="hidden" name="bottle_id" value="{{ $bottle->id }}">
+                            <input type="hidden" name="bottle_id" value="{{ $bottle->id }}">
                             @endif
 
                             <div class="flex flex-col gap-xs">
@@ -70,7 +70,7 @@
         <div class="modale fixed inset-0 bg-gray-500/75 transition-opacity">
             <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div class="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
-                    <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <div class="modale-header flex items-start justify-between">
                                 <h2 class="font-family-title text-lg uppercase">Supprimer le vin</h2>
