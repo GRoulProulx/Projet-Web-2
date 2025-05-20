@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('bottle_id')->constrained()->onDelete('cascade');
-            $table->integer('quantity');
             $table->timestamps();
             
             // S'assurer qu'un utilisateur ne peut avoir qu'une seule instance d'un produit dans sa liste d'achat

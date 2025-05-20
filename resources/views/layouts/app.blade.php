@@ -39,9 +39,9 @@
                 <div class="border-t border-light-gray/50"></div>
                 @endif
                 @if (Auth::check())
-                <li><a href="{{route('cellar.index')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover"> <i class="fas fa-book-open mr-2 "></i>Mes celliers</a></li>
+                <li><a href="{{route('cellar.index')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover"> <i class="fas fa-book-open mr-2"></i>Mes celliers</a></li>
                 <div class="border-t border-light-gray/50"></div>
-                <li><a href="{{route('shoppingList.index')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">Ma liste d'achat</a></li>
+                <li><a href="{{route('shoppingList.index')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover"><i class="fa-solid fa-cart-arrow-down mr-2"></i>Ma liste d'achat</a></li>
                 <div class="border-t border-light-gray/50"></div>
                 @endif
             </ul>
@@ -108,8 +108,8 @@
                 </div>
                 @endif
                 <div class="flex flex-col items-center">
-                    <a href="#" aria-label="Rechercher"><i class="fas fa-search"></i></a>
-                    <p class="text-xs">Rechercher</p>
+                    <a href="{{route('shoppingList.index')}}" aria-label="Rechercher"><i class="fa-solid fa-cart-arrow-down"></i></a>
+                    <p class="text-xs">Liste d'achat</p>
                 </div>
             </div>
         </div>

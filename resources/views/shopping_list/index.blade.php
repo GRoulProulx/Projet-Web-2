@@ -17,6 +17,15 @@
                 @forelse($shoppingListItems as $item)
                 <div href="" class="border border-light-gray/20 rounded-md shadow p-md transition-all duration-300 hover:border-light-gray/40">
                     <article>
+                        <div class="flex justify-end">
+                            <form action="{{ route('shoppingList.destroy', $item->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" aria-label="Supprimer">
+                                    <i class="fa-solid fa-trash text-md text-alert cursor-pointer"></i>
+                                </button>
+                            </form>
+                        </div>
                         <figure class="flex flex-col sm:flex-row gap-sm text-sm">
                             <img src="{{ $item->bottle->image }}" alt="{{ $item->bottle->name }}" class="mx-auto sm:mx-0 max-w-[111px] max-h-[166px] object-cover">
                             <figcaption class="flex flex-col gap-md justify-between">
