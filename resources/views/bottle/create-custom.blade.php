@@ -35,11 +35,11 @@
 
         <input type="text" name="format" placeholder="Format" value="{{ old('format') }}" class="border p-xs rounded-md">
         <input type="text" name="country" placeholder="Pays" value="{{ old('country') }}" class="border p-xs rounded-md">
-        
-        <select name="cellar_id" class="border p-xs rounded-md">
+
+        <select name="cellar_id" class="border p-xs rounded-md" id="select_name_cellar">
             <option value="">Sélectionnez un cellier</option>
             @foreach ($cellars as $cellar)
-                <option value="{{ $cellar->id }}">{{ $cellar->name }}</option>
+            <option value="{{ $cellar->id }}">{{ $cellar->name }}</option>
             @endforeach
         </select>
         @error('cellar_id') <div class="text-alert">{{ $message }}</div> @enderror

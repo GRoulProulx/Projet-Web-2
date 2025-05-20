@@ -41,18 +41,26 @@ function setupDeleteConfirmation() {
     }    
 }
 
+/**
+ * Active la boite modale de confirmation pour la suppression d’un utilisateur dans le tableau de bord administrateur 
+ */
 function setupUserDeleteConfirmation() {
-    const deleteButton = document.querySelectorAll('[data-action="deleteUser"]');
-    deleteButton.forEach((btn) => {
+    const deleteButtons = document.querySelectorAll(
+        '[data-action="deleteUser"]'
+    );
+    const form = document.getElementById("deleteUserForm");
+    const userNameSpan = document.getElementById("modalUserName");
+
+    deleteButtons.forEach((btn) => {
         btn.addEventListener("click", function (event) {
-            const userId = this.getAttribute("data-id");
-            const form = document.getElementById("deleteUserForm");
+            showModale();
+            const userId = this.getAttribute("data-id");            
+            const userName = this.getAttribute("data-name");            
             form.action = "/users/" + userId;
-            console.log(form.action);
             
-            document
-                .querySelector(".modale-container")
-                .classList.remove("hidden");
+            if (userNameSpan) {
+                userNameSpan.textContent = userName;
+            }
         });
     });
 }
