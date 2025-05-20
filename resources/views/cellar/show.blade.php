@@ -4,25 +4,22 @@
 @section('content')
 <section class="my_cellar mx-auto">
     <!-- En-tête de la page -->
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-        <header class="flex items-center justify-between gap-md mb-sm">
-            <h1 class="text-lg font-family-title ">
-                Cellier : <span class="color-taupe font-family">{{ $cellar->name }}</span>
+    <div class="flex flex-col md:flex-row md:items-center justify-between mb-sm ">
+        <header class="flex items-center justify-between gap-md mb-sm mr-lg">
+            <h1 class="text-lg font-family-title flex items-baseline gap-xxs flex-nowrap">
+                Cellier: <span class="font-family">{{ $cellar->name }}</span>
             </h1>
-            <div class="flex gap-lg">
+            <div class="flex gap-lg ">
                 <a href="{{route('cellar.edit', $cellar->id)}}" aria-label="Modifier le cellier"><i class="fa-solid fa-pen-to-square text-md"></i></a>
                 <a href="#" data-action="delete" aria-label="Icône poubelle pour supprimer le cellier"><i class="fa-solid fa-trash text-md text-alert"></i></a>
             </div>
             <input type="hidden" id="cellar_id" value="{{$cellar->id}}">
         </header>
-        <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm ">
-            <a href="{{ route('bottle.index') }}" class="bouton mt-0 grow text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille</a>
-            <a href="{{ route('custom-bottles.create') }}" class="bouton white mt-2 grow text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille personnalisée</a>
+        <div class="flex gap-xxs justify-between flex-wrap sm:flex-nowrap mt-sm mb-sm ">
+            <a href="{{ route('bottle.index') }}" class="bouton mt-0 grow md:grow-0 text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille</a>
+            <a href="{{ route('custom-bottles.create') }}" class="bouton white mt-0 grow md:grow-0 text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille personnalisée</a>
         </div>
-        {{-- <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm ">
-            <a href="{{ route('bottle.index') }}" class="bouton white mt-0 grow text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille personnalisée</a>
-        </div>
-    </div> --}}
+    </div>
 
     <!-- Formulaire de tri -->
     <form method="GET" class="mb-md flex gap-sm flex-wrap items-center">
@@ -123,12 +120,13 @@
             <i class="fa-solid fa-circle-arrow-left mr-2.5"></i>Retour à mes celliers
         </a>
     </div>
-    {{--  <div class="text-center mt-md">
+    {{-- <div class="text-center mt-md">
         <a href="{{ route('custom-bottles.create') }}" class="link-underline-hover">
-            Ajouter une bouteille personalisée <i class="fa-solid fa-circle-arrow-right ml-2.5"></i>
-        </a>
+    Ajouter une bouteille personalisée <i class="fa-solid fa-circle-arrow-right ml-2.5"></i>
+    </a>
     </div> --}}
 </section>
+
 
 <!-- Modale -->
 <div class="modale-container hidden relative z-10">
