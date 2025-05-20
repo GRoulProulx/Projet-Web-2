@@ -39,7 +39,6 @@
                                 <div class="text-xs">{{ $user->created_at->format('d/m/Y') }}</div>
                             </td>
                             <td class="px-sm py-xs whitespace-nowrap">
-
                                 @if($user->role_id == 1)
                                 <span class="px-xxs py-xxs inline-flex text-xxs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                     Administrateur
@@ -52,10 +51,11 @@
                             </td>
                             <td class="px-sm py-xs whitespace-nowrap">
                                 @if( !$user->role_id == 1 )
-                                <a href="#" data-action="deleteUser" data-id="{{ $user->id }}" aria-label="Icône poubelle pour supprimer l'utilisateur"><i class="fa-solid fa-trash text-md text-alert"></i></a>
+                                <a href="#" data-action="deleteUser" data-id="{{ $user->id }}" data-name="{{ $user->name }}" aria-label="Icône poubelle pour supprimer l'utilisateur">
+                                    <i class="fa-solid fa-trash text-md text-alert"></i>
+                                </a>
                                 @endif
                             </td>
-
                         </tr>
                         @empty
                         <tr>
@@ -89,14 +89,16 @@
                             <a href=""><i class="fa-solid fa-xmark"></i></a>
                         </div>
                         <div class="modale-body">
-                            <p>Êtes-vous sûr de vouloir supprimer cet usager?</p>
+                            <p>
+                            <p>Êtes-vous sûr de vouloir supprimer <span id="modalUserName"></span>?</p>
+                            </p>
                         </div>
                         <div class="modale-footer flex justify-between items-baseline">
                             <a href="" class="bouton blue-magenta">Annuler</a>
                             <form action="" method="POST" id="deleteUserForm">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="bouton alert mt-0" data-action="deleteUser" data-id="{{ $user->id }}">Supprimer</button>
+                                <button type="submit" class="bouton alert mt-0">Supprimer</button>
                             </form>
                         </div>
                     </div>
