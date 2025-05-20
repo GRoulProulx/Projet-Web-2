@@ -17,8 +17,12 @@
         </header>
         <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm ">
             <a href="{{ route('bottle.index') }}" class="bouton mt-0 grow text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille</a>
+            <a href="{{ route('custom-bottles.create') }}" class="bouton white mt-2 grow text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille personnalisée</a>
         </div>
-    </div>
+        {{-- <div class="flex gap-xxs justify-between flex-wrap mt-sm mb-sm ">
+            <a href="{{ route('bottle.index') }}" class="bouton white mt-0 grow text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille personnalisée</a>
+        </div>
+    </div> --}}
 
     <!-- Formulaire de tri -->
     <form method="GET" class="mb-md flex gap-sm flex-wrap items-center">
@@ -119,6 +123,11 @@
             <i class="fa-solid fa-circle-arrow-left mr-2.5"></i>Retour à mes celliers
         </a>
     </div>
+    {{--  <div class="text-center mt-md">
+        <a href="{{ route('custom-bottles.create') }}" class="link-underline-hover">
+            Ajouter une bouteille personalisée <i class="fa-solid fa-circle-arrow-right ml-2.5"></i>
+        </a>
+    </div> --}}
 </section>
 
 <!-- Modale -->

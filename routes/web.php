@@ -81,3 +81,8 @@ Route::get('/logout', [AuthController::class, 'destroy'])->name('logout');
 
 // Route pour le scraper
 Route::get('/test-scraper', [ScraperController::class, 'index']);
+
+//  Routes pour gérer les bouteilles personalisées 
+Route::get('/custom-bottles/create', [BottleController::class, 'createCustom'])->name('custom-bottles.create');
+Route::post('/custom-bottles/store', [BottleController::class, 'storeCustom'])->name('custom-bottles.store');
+

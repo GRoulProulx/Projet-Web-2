@@ -50,7 +50,11 @@
                     <p><span class="font-regular">Note:</span> {{$cellarBottle->notes}}</p>
                 </div>
                 <!-- Lien SAQ -->
-                <a href="{{$cellarBottle->bottle->url}}" target="_blank" class="link-underline-hover max-w-fit">Commander à la SAQ <i class="fa-solid fa-arrow-up-right-from-square text-taupe"></i></a>
+                @if (!$cellarBottle->bottle->is_custom)
+                    <a href="{{ $cellarBottle->bottle->url }}" target="_blank" class="link-underline-hover max-w-fit">
+                            Commander à la SAQ <i class="fa-solid fa-arrow-up-right-from-square text-taupe"></i>
+                    </a>
+                @endif
             </div>
         </div>
         <!-- Section pour modifier et supprimer -->
