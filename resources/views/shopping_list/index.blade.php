@@ -9,7 +9,7 @@
             <header class="max-w-5xl">
                 <h1 class="font-family-title text-lg">Liste d'achat</h1>
                 <p>Voici votre liste d'achat. C'est ici que vous pourriez organiser vos prochains achats.</p>
-                <p class="mt-sm font-semibold">Total: {{ $shoppingListItems->sum(function($item) { return $item->bottle->price; }) }} $</p>
+                <p class="mt-sm font-semibold">Total: {{ number_format($shoppingListItems->sum(function($item) { return $item->bottle->price; }), 2, '.', ' ') }} $</p>
             </header>
 
             <!-- Grille des produits -->
