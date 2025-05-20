@@ -37,10 +37,7 @@ class ShoppingListController extends Controller
      */
     public function store(Request $request, Bottle $bottle)
     {
-        $request->validate([
-            'quantity' => 'integer|min:1',
-        ]);
-
+        // Vérifier si la bouteille existe
         $existingItem = auth()->user()->shoppingList()
             ->where('bottle_id', $bottle->id)
             ->first();
@@ -81,24 +78,25 @@ class ShoppingListController extends Controller
      */
     public function update(Request $request, ShoppingList $shoppingList)
     {
-        $request->validate([
-            'quantity' => 'integer|min:1',
-        ]);
-
-        $shoppingList->update([
-            'quantity' => $request->quantity,
-        ]);
-
+    
         return redirect()->with('success', 'Quantité mise à jour avec succès.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ShoppingList $shoppingList)
+    public function destroy($id)
     {
-        $shoppingList->delete();
+        $shoppingListItem = ShoppingList::find($id);
 
-        return redirect()->back()->with('success', 'Bouteille retirée de votre liste d\'achats.');
+        // L'utilisateur ne peut supprimer que ses propres éléments de liste d'achat
+        if ($shoppingListItem->user_id !== Auth::id()) {
+            return redirect()->route('shoppingList.index');
+        }
+        
+        $shoppingListItem->delete();
+
+        return redirect()->route('shoppingList.index')
+            ->with('success', 'L\'élément a été supprimé de votre liste d\'achat.');
     }
 }
