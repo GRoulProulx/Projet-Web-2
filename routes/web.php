@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CellarController;
 use App\Http\Controllers\CellarBottleController;
+use App\Http\Controllers\ShoppingListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,9 @@ Route::get('/edit/cellar-bottle/{cellarBottle}', [CellarBottleController::class,
 Route::put('/edit/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'update'])->name('cellar_bottle.update')->middleware('auth');
 Route::delete('/cellar-bottle/{cellarBottle}', [CellarBottleController::class, 'destroy'])->name('cellar_bottle.destroy')->middleware('auth');
 
+// Routes pour la connextion et l'inscription
+Route::get('/users', [UserController::class, 'index'])->name('user.index');
+
 // Routes pour l'inscription
 Route::get('/register', [UserController::class, 'create'])->name('user.create');
 Route::post('/register', [UserController::class, 'store'])->name('user.store');
@@ -86,3 +90,8 @@ Route::get('/test-scraper', [ScraperController::class, 'index']);
 Route::get('/custom-bottles/create', [BottleController::class, 'createCustom'])->name('custom-bottles.create');
 Route::post('/custom-bottles/store', [BottleController::class, 'storeCustom'])->name('custom-bottles.store');
 
+// Route pour la liste d'achat d'un utilisateur
+Route::get('/shopping-list', [ShoppingListController::class, 'index'])->name('shoppingList.index')->middleware('auth');
+Route::post('/shopping-list/{bottle}', [ShoppingListController::class, 'store'])->name('shoppingList.store')->middleware('auth');
+Route::put('/shopping-list/{bottle}', [ShoppingListController::class, 'update'])->name('shoppingList.update')->middleware('auth');
+Route::delete('/shopping-list/{bottle}', [ShoppingListController::class, 'destroy'])->name('shoppingList.destroy')->middleware('auth');

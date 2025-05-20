@@ -93,6 +93,14 @@
                                     </div>
                                 </div>
                                 <p class="w-fit text-md text-taupe link-underline-hover ">Ajouter au cellier <i class="fa-solid fa-circle-arrow-right text-base"></i></p>
+                                @auth
+                                <form action="{{ route('shoppingList.store', $bottle->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    <button type="submit" class="w-fit text-md text-taupe link-underline-hover cursor-pointer">
+                                        Ajouter à ma liste d'achats <i class="fa-solid fa-cart-plus text-base"></i>
+                                    </button>
+                                </form>
+                                @endauth
                             </figcaption>
                         </figure>
                     </article>
