@@ -8,7 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CellarController;
 use App\Http\Controllers\CellarBottleController;
 use App\Http\Controllers\ShoppingListController;
-
+use Illuminate\Support\Facades\Artisan;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -99,3 +99,7 @@ Route::delete('/shopping-list/{bottle}', [ShoppingListController::class, 'destro
 
 Route::post('/cellars/move-bottle', [CellarController::class, 'moveBottle'])->name('cellar.moveBottle');
 
+// Test pour le storage des images
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+});
