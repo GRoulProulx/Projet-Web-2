@@ -7,7 +7,11 @@
         <a href="{{ route('cellar_bottle.show', $cellarBottle->id) }}">
             <article class="flex max-w-full min-h-full flex-col items-start justify-between border border-light-gray/30 rounded-md p-sm hover:border-light-gray/60 transition duration-300 ease-in-out">
                 <figure class="flex flex-col gap-md sm:flex-row gap-x-sm xs:gap-x-xxs s:gap-x-sm">
-                    <img src="{{$cellarBottle->bottle->image}}" alt="{{$cellarBottle->bottle->name}}" class="max-w-[111px] max-h-[166px] object-cover">
+                    @if($cellarBottle->bottle->is_custom)
+                    <img src="{{  asset($cellarBottle->bottle->image)  }}" alt="Bouteille personnalisée" class="max-w-[111px] max-h-[166px] object-cover mx-auto">
+                    @else
+                    <img src="{{$cellarBottle->bottle->image}}" alt="{{$cellarBottle->bottle->name}}" class="max-w-[111px] max-h-[166px] object-cover mx-auto">
+                    @endif
                     <figcaption class="flex flex-col gap-xxs flex-wrap">
                         <div>
                             <header>
@@ -45,7 +49,7 @@
         </div>
         <div class=" flex flex-col gap-xxs">
             <label for="purchase_date">Date d'achat</label>
-            <input type="date" id="purchase_date" name="purchase_date" value="{{ old('purchase_date', $cellarBottle->purchase_date) }}" class="border border-light-gray/30 rounded-md p-xs">
+            <input type="date" id="purchase_date" name="purchase_date" value="{{ old('purchase_date', $cellarBottle->purchase_date ?? $cellarBottle->created_at->format('Y-m-d')) }}" class="border border-light-gray/30 rounded-md p-xs">
             @if($errors->has('purchase_date'))
             <div class="border border-alert text-alert rounded-md p-xxs">
                 {{$errors->first('purchase_date')}}

@@ -28,6 +28,7 @@ function onWindowLoad(main) {
         saveCellarIdToSession();
         handleSuccessMessage(main);
         setupUserDeleteConfirmation();
+        setupDeleteConfirmationShoppingList();
     });
 }
 
@@ -60,6 +61,30 @@ function setupUserDeleteConfirmation() {
             
             if (userNameSpan) {
                 userNameSpan.textContent = userName;
+            }
+        });
+    });
+}
+
+/**
+ * Affiche la modale de confirmation de suppression d'un item de la liste d'achats
+ */
+function setupDeleteConfirmationShoppingList() {
+    const deleteButtons = document.querySelectorAll(
+        '[data-action="deleteItemShoppingList"]'
+    );
+    const form = document.getElementById("deleteItemShoppingListForm");
+    const itemNameSpan = document.getElementById("modalItemName");
+
+    deleteButtons.forEach((btn) => {
+        btn.addEventListener("click", function (event) {
+            showModale();
+            const itemId = this.getAttribute("data-id");
+            const itemName = this.getAttribute("data-name");
+            form.action = "/shopping-list/" + itemId;
+
+            if (itemNameSpan) {
+                itemNameSpan.textContent = itemName;
             }
         });
     });

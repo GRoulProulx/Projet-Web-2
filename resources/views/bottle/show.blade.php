@@ -32,8 +32,12 @@
                             <input type="hidden" name="bottle_id" value="{{ $bottle->id }}">
                             @endif
 
-                            <div class="flex flex-col gap-xs">
-                                <label for="quantity">Quantité</label>
+                            <div class="flex flex-col gap-xxs">
+                                <label for="quantity">Ajouter à un cellier :</label>
+                                <ul class="text-sm text-gray-600 list-disc list-inside">
+                                    <li>Indiquez la quantité à ajouter</li>
+                                    <li>Choisissez le cellier de destination</li>
+                                </ul>
                                 <input aria-label="Ajouter à mon cellier" type="number" name="quantity" id="quantity" value="1" min="1" required class="border p-xs rounded-md">
                                 <select name="cellar_id" id="select_name_cellar" required class="border p-xs rounded-md">
                                     <option value="">Choisir un cellier</option>

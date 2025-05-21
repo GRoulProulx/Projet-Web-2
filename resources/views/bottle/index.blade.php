@@ -6,9 +6,23 @@
     <div>
         <div class="mx-auto">
             <!-- Grand titre -->
+
             <header class="max-w-5xl">
+                @if(Auth::check())
                 <h1 class="font-family-title text-lg">Catalogue des vins</h1>
-                <p>Explorez une vaste sélection de vins directement issus de la SAQ. Recherchez, filtrez selon vos préférences et ajoutez vos découvertes à votre cellier en toute simplicité.</p>
+                <p>
+                    Bienvenue dans votre espace de découverte! Filtrez, explorez et ajoutez des vins à votre cellier pour enrichir votre collection et suivre vos préférences en toute simplicité.
+                </p>
+                @else
+                <h1 class="font-family-title text-lg">Bienvenue !</h1>
+                <p>
+                    Profitez pleinement de l’application :
+                    <a href="{{ route('login') }}" class="underline underline-offset-3 text-taupe">identifiez-vous</a>
+                    ou
+                    <a href="{{ route('user.create') }}" class="underline underline-offset-3 text-taupe">créez un compte</a>
+                    pour ajouter des vins à votre cellier, gérer vos listes et accéder à toutes les fonctionnalités.
+                </p>
+                @endif
             </header>
             <details class="mt-md">
 
@@ -18,7 +32,7 @@
                     <!--Filtre par pays-->
                     <div>
                         <label for="country">Pays :</label>
-                        <select name="country" id="country" class="w-full border border-light-gray/20 rounded px-1 py-2 text-center ">
+                        <select name="country" id="country" class="w-full border border-light-gray/30 rounded px-1 py-2 text-center ">
                             <option value="" class="field-sizing-content">-- Tous les pays -- </option>
                             @foreach($allCountries as $country)
                             <option value="{{ $country }}" {{ request('country') == $country ? 'selected' : '' }}>{{ $country }}</option>
@@ -29,7 +43,7 @@
                     <!--Filtre par type-->
                     <div>
                         <label for="type">Type :</label>
-                        <select name="type" id="type" class="w-full border border-light-gray/20 rounded px-1 py-2 text-center">
+                        <select name="type" id="type" class="w-full border border-light-gray/30 rounded px-1 py-2 text-center">
                             <option value="">-- Tous les types --</option>
                             @foreach($allTypes as $type)
                             <option value="{{ $type }}" {{ request('type') == $type ? 'selected' : '' }}>{{ $type }}</option>
@@ -37,23 +51,23 @@
                         </select>
                     </div>
 
-                    <div class="flex   gap-3">
+                    <div class="flex gap-3">
                         <div class="w-1/2">
                             <!--Filtre prix minimum-->
                             <label for="min_price">Prix min :</label>
-                            <input type="number" step="0.01" name="min_price" id="min_price" value="{{ request('min_price') }}" class="w-full border border-light-gray/20 rounded px-1 py-2 ">
+                            <input type="number" step="0.01" name="min_price" id="min_price" value="{{ request('min_price') }}" class="w-full border border-light-gray/30 rounded px-1 py-2 ">
                         </div>
                         <!--Filtre prix max-->
                         <div class="w-1/2">
                             <label for="max_price">Prix max :</label>
-                            <input type="number" step="0.01" name="max_price" id="max_price" value="{{ request('max_price') }}" class="w-full border border-light-gray/20 rounded px-1 py-2">
+                            <input type="number" step="0.01" name="max_price" id="max_price" value="{{ request('max_price') }}" class="w-full border border-light-gray/30 rounded px-1 py-2">
                         </div>
                     </div>
 
                     <!-- autres filtres pour tri -->
                     <div class="flex flex-col gap-2">
-                        <label for="sort_by" class="">Filter par :  </label>
-                        <select name="sort_by" id="sort_by" class="border border-light-gray/20 rounded px-1 py-2 mt2 text-center">
+                        <label for="sort_by" class="">Filter par : </label>
+                        <select name="sort_by" id="sort_by" class="border border-light-gray/30 rounded px-1 py-2 mt2 text-center">
                             <option value="">-- Aucun tri --</option>
                             <option value="name_asc" {{ request('sort_by') == 'name_asc' ? 'selected' : '' }}>Nom (A-Z)</option>
                             <option value="name_desc" {{ request('sort_by') == 'name_desc' ? 'selected' : '' }}>Nom (Z-A)</option>
