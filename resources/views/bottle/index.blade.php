@@ -6,10 +6,21 @@
     <div>
         <div class="mx-auto">
             <!-- Grand titre -->
+            @if(Auth::check())
             <header class="max-w-5xl">
                 <h1 class="font-family-title text-lg">Catalogue des vins</h1>
                 <p>Explorez une vaste sélection de vins directement issus de la SAQ. Recherchez, filtrez selon vos préférences et ajoutez vos découvertes à votre cellier en toute simplicité.</p>
+                @else
+                <h1 class="font-family-title text-lg">Bienvenue!</h1>
+                <p>
+                    Profitez pleinement de l’application :
+                    <a href="{{ route('login') }}" class="underline underline-offset-3 text-taupe">identifiez-vous</a>
+                    ou
+                    <a href="{{ route('user.create') }}" class="underline underline-offset-3 text-taupe">créez un compte</a>
+                    pour ajouter des vins à votre cellier, gérer vos listes et accéder à toutes les fonctionnalités.
+                </p>
             </header>
+            @endif
             <details class="mt-md">
 
                 <summary class="text-blue-magenta font-family-title text-md">Filtres</summary>
@@ -52,7 +63,7 @@
 
                     <!-- autres filtres pour tri -->
                     <div class="flex flex-col gap-2">
-                        <label for="sort_by" class="">Filter par :  </label>
+                        <label for="sort_by" class="">Filter par : </label>
                         <select name="sort_by" id="sort_by" class="border border-light-gray/20 rounded px-1 py-2 mt2 text-center">
                             <option value="">-- Aucun tri --</option>
                             <option value="name_asc" {{ request('sort_by') == 'name_asc' ? 'selected' : '' }}>Nom (A-Z)</option>
