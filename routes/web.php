@@ -99,3 +99,5 @@ Route::delete('/shopping-list/{bottle}', [ShoppingListController::class, 'destro
 
 Route::post('/cellars/move-bottle', [CellarController::class, 'moveBottle'])->name('cellar.moveBottle');
 
+
+Route::get('/bottles/search', [BottleController::class, 'search'])->name('search');
