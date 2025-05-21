@@ -221,7 +221,7 @@ class BottleController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'image' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'price' => 'nullable|numeric|min:0',
             'type' => 'nullable|string',
             'format' => 'nullable|string',
@@ -231,10 +231,18 @@ class BottleController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
+        // Traitement de l'image
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('bottles', 'public');
+            $imagePath = 'storage/' . $path;
+        } else {
+            $imagePath = 'images/bouteille-par-defaut.jpg';
+        }
+
         $bottle = Bottle::create([
             'user_id' => auth()->id(),
             'name' => $request->name,
-            'image' => $request->image,
+            'image' =>  $imagePath,
             'price' => $request->price,
             'type' => $request->type,
             'format' => $request->format,

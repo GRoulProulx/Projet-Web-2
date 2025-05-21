@@ -43,15 +43,21 @@
         @foreach ($cellarBottles as $cellarBottle)
         <div class="border border-light-gray/20 rounded-lg shadow p-md flex flex-col gap-sm justify-between relative hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
             <a href="{{ route('cellar_bottle.show', $cellarBottle->id) }}" class="flex flex-col sm:flex-row gap-sm">
+
                 <!-- Image -->
                 <div class="flex-shrink-0">
-                    @if ($cellarBottle->bottle->image)
-                    <img src="{{ $cellarBottle->bottle->image }}" class="mx-auto sm:mx-0 max-w-[100px] max-h-[150px] object-cover rounded-md" alt="{{ $cellarBottle->bottle->name }}">
+                    @php
+                        $image = $cellarBottle->bottle->image;
+                        $isExternal = Str::startsWith($image, ['http://', 'https://']);
+                     @endphp
+
+                    @if ($image)
+                        <img src="{{ $isExternal ? $image : asset($image) }}" alt="{{ $cellarBottle->bottle->name }}"class="mx-auto sm:mx-0 max-w-[100px] max-h-[150px] object-cover rounded-md">
                     @else
                     <div class="bg-gray-100 flex items-center justify-center rounded-md w-[100px] h-[150px]">
                         <span class="text-gray-400">Aucune image</span>
                     </div>
-                    @endif
+                     @endif
                 </div>
 
                 <!-- Informations -->
