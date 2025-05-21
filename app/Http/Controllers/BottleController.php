@@ -70,7 +70,7 @@ class BottleController extends Controller
              $query->orderBy('name');
         }
 
-        $bottles = $query->paginate(10);
+        $bottles = $query->paginate(12);
 
         // Filtres dynamiques (sur les bouteilles non personnalisées seulement)
         $allCountries = Bottle::where(function ($q) {

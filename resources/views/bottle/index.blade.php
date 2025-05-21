@@ -65,9 +65,9 @@
                     </div>
 
                     <!-- autres filtres pour tri -->
-                    <div class="flex flex-col gap-2">
+                    <div>
                         <label for="sort_by" class="">Filter par : </label>
-                        <select name="sort_by" id="sort_by" class="border border-light-gray/30 rounded px-1 py-2 mt2 text-center">
+                        <select name="sort_by" id="sort_by" class="w-full border border-light-gray/30 rounded px-1 py-2 text-center">
                             <option value="">-- Aucun tri --</option>
                             <option value="name_asc" {{ request('sort_by') == 'name_asc' ? 'selected' : '' }}>Nom (A-Z)</option>
                             <option value="name_desc" {{ request('sort_by') == 'name_desc' ? 'selected' : '' }}>Nom (Z-A)</option>
@@ -79,7 +79,7 @@
                             <option value="type_desc" {{ request('sort_by') == 'type_desc' ? 'selected' : '' }}>Type (Z-A)</option>
                         </select>
                     </div>
-                    <button type="submit" class="bouton blue-magenta mt-0 font-family-title text-md"> <i class="fa-solid fa-filter mr-base"></i> Filtrer</button>
+                    <button type="submit" class="bouton blue-magenta mt-0 font-family-title"> <i class="fa-solid fa-filter mr-base"></i> Filtrer</button>
                 </form>
 
             </details>

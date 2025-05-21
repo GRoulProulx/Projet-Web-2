@@ -39,15 +39,15 @@
                             <ul class="text-sm text-gray-600 list-disc list-inside">
                                 <li>Indiquez la quantité à ajouter</li>
                             </ul>
-                            <div class="flex">
+                            <div class="flex flex-col sm:flex-row">
                                 <!-- Récupérer bottle_id et cellar_id -->
                                 <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle->id }}">
                                 <input type="hidden" name="cellar_id" value="{{ $cellarBottle->cellars->id }}">
 
                                 <!-- Champ pour la quantité -->
-                                <input id="quantity" aria-label="Ajouter à mon cellier" type="number" name="quantity" id="quantity" placeholder="Entrez un nombre" required class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 text-center">
+                                <input id="quantity" aria-label="Ajouter à mon cellier" type="number" name="quantity" id="quantity" placeholder="Entrez un nombre" required class="border border-light-gray rounded-t-md rounded-b-none sm:rounded-l-md sm:rounded-r-none py-1 px-3 text-center">
 
-                                <button type="submit" class="bouton py-1 px-3 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Ajouter des bouteilles</button>
+                                <button type="submit" class="bouton py-1 px-3 text-sm rounded-t-none rounded-b-md sm:rounded-r-md sm:rounded-l-none sm:w-auto mt-0 sm:mt-0">Ajouter des bouteilles</button>
                             </div>
                         </div>
                     </form>
