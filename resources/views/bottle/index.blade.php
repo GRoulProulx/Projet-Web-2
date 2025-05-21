@@ -52,7 +52,7 @@
 
                     <!-- autres filtres pour tri -->
                     <div class="flex flex-col gap-2">
-                        <label for="sort_by" class="">Filter par :  </label>
+                        <label for="sort_by" class="">Filter par : </label>
                         <select name="sort_by" id="sort_by" class="border border-light-gray/20 rounded px-1 py-2 mt2 text-center">
                             <option value="">-- Aucun tri --</option>
                             <option value="name_asc" {{ request('sort_by') == 'name_asc' ? 'selected' : '' }}>Nom (A-Z)</option>
@@ -75,7 +75,17 @@
             <!-- Grille des produits -->
             <div class="mx-auto grid max-w-2xl grid-cols-1 gap-sm gap-y-sm mt-md md:mx-0 md:max-w-none md:grid-cols-2 xl:grid-cols-3 ">
                 @foreach($bottles as $bottle)
-                <a href="{{ route('bottle.show', $bottle->id) }}" class="border border-light-gray/20 rounded-md shadow p-md hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
+                <a href="{{ route('bottle.show', $bottle->id) }}" class="border border-light-gray/20 rounded-md shadow p-md hover:shadow-md transition-all duration-300 hover:border-light-gray/40 relative">
+                    @auth
+                    <div class="absolute top-2 right-2">
+                        <form action="{{ route('shoppingList.store', $bottle->id) }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit" class="text-taupe hover:text-blue-magenta transition-colors">
+                                <i class="fa-solid fa-cart-arrow-down text-lg p-sm cursor-pointer"></i>
+                            </button>
+                        </form>
+                    </div>
+                    @endauth
                     <article>
                         <figure class="flex flex-col sm:flex-row gap-sm text-sm">
                             <img src="{{ $bottle->image }}" alt="{{ $bottle->name }}" class="mx-auto sm:mx-0 max-w-[111px] max-h-[166px] object-cover">
@@ -93,14 +103,6 @@
                                     </div>
                                 </div>
                                 <p class="w-fit text-md text-taupe link-underline-hover ">Ajouter au cellier <i class="fa-solid fa-circle-arrow-right text-base"></i></p>
-                                @auth
-                                <form action="{{ route('shoppingList.store', $bottle->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    <button type="submit" class="w-fit text-md text-taupe link-underline-hover cursor-pointer">
-                                        Ajouter à ma liste d'achats <i class="fa-solid fa-cart-plus text-base"></i>
-                                    </button>
-                                </form>
-                                @endauth
                             </figcaption>
                         </figure>
                     </article>
@@ -114,8 +116,5 @@
         </div>
     </div>
 </section>
-
-
-
 
 @endsection
