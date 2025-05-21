@@ -6,8 +6,9 @@
     <div>
         <div class="mx-auto">
             <!-- Grand titre -->
-            @if(Auth::check())
+
             <header class="max-w-5xl">
+                @if(Auth::check())
                 <h1 class="font-family-title text-lg">Catalogue des vins</h1>
                 <p>
                     Bienvenue dans votre espace de découverte! Filtrez, explorez et ajoutez des vins à votre cellier pour enrichir votre collection et suivre vos préférences en toute simplicité.
@@ -21,8 +22,8 @@
                     <a href="{{ route('user.create') }}" class="underline underline-offset-3 text-taupe">créez un compte</a>
                     pour ajouter des vins à votre cellier, gérer vos listes et accéder à toutes les fonctionnalités.
                 </p>
+                @endif
             </header>
-            @endif
             <details class="mt-md">
 
                 <summary class="text-blue-magenta font-family-title text-md">Filtres</summary>
@@ -50,7 +51,7 @@
                         </select>
                     </div>
 
-                    <div class="flex   gap-3">
+                    <div class="flex gap-3">
                         <div class="w-1/2">
                             <!--Filtre prix minimum-->
                             <label for="min_price">Prix min :</label>
