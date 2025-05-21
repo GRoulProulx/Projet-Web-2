@@ -6,7 +6,11 @@
     <article class="mx-auto relative max-w-3xl border border-light-gray/30 rounded-md p-sm">
         <div class="flex gap-sm flex-wrap">
             <!-- Image -->
+            @if($cellarBottle->bottle->is_custom)
+            <img src="{{  asset($cellarBottle->bottle->image)  }}" alt="Bouteille personnalisée" class="max-w-[111px] max-h-[166px] object-cover mx-auto">
+            @else
             <img src="{{$cellarBottle->bottle->image}}" alt="{{$cellarBottle->bottle->name}}" class="max-w-[111px] max-h-[166px] object-cover mx-auto">
+            @endif
             <div class="flex flex-col gap-sm">
                 <!-- Entête -->
                 <header>
@@ -51,9 +55,9 @@
                 </div>
                 <!-- Lien SAQ -->
                 @if (!$cellarBottle->bottle->is_custom)
-                    <a href="{{ $cellarBottle->bottle->url }}" target="_blank" class="link-underline-hover max-w-fit">
-                            Commander à la SAQ <i class="fa-solid fa-arrow-up-right-from-square text-taupe"></i>
-                    </a>
+                <a href="{{ $cellarBottle->bottle->url }}" target="_blank" class="link-underline-hover max-w-fit">
+                    Commander à la SAQ <i class="fa-solid fa-arrow-up-right-from-square text-taupe"></i>
+                </a>
                 @endif
             </div>
         </div>
