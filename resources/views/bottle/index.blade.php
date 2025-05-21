@@ -31,7 +31,7 @@
                     <!--Filtre par pays-->
                     <div>
                         <label for="country">Pays :</label>
-                        <select name="country" id="country" class="w-full border border-light-gray/20 rounded px-1 py-2 text-center ">
+                        <select name="country" id="country" class="w-full border border-light-gray/30 rounded px-1 py-2 text-center ">
                             <option value="" class="field-sizing-content">-- Tous les pays -- </option>
                             @foreach($allCountries as $country)
                             <option value="{{ $country }}" {{ request('country') == $country ? 'selected' : '' }}>{{ $country }}</option>
@@ -42,7 +42,7 @@
                     <!--Filtre par type-->
                     <div>
                         <label for="type">Type :</label>
-                        <select name="type" id="type" class="w-full border border-light-gray/20 rounded px-1 py-2 text-center">
+                        <select name="type" id="type" class="w-full border border-light-gray/30 rounded px-1 py-2 text-center">
                             <option value="">-- Tous les types --</option>
                             @foreach($allTypes as $type)
                             <option value="{{ $type }}" {{ request('type') == $type ? 'selected' : '' }}>{{ $type }}</option>
@@ -54,19 +54,19 @@
                         <div class="w-1/2">
                             <!--Filtre prix minimum-->
                             <label for="min_price">Prix min :</label>
-                            <input type="number" step="0.01" name="min_price" id="min_price" value="{{ request('min_price') }}" class="w-full border border-light-gray/20 rounded px-1 py-2 ">
+                            <input type="number" step="0.01" name="min_price" id="min_price" value="{{ request('min_price') }}" class="w-full border border-light-gray/30 rounded px-1 py-2 ">
                         </div>
                         <!--Filtre prix max-->
                         <div class="w-1/2">
                             <label for="max_price">Prix max :</label>
-                            <input type="number" step="0.01" name="max_price" id="max_price" value="{{ request('max_price') }}" class="w-full border border-light-gray/20 rounded px-1 py-2">
+                            <input type="number" step="0.01" name="max_price" id="max_price" value="{{ request('max_price') }}" class="w-full border border-light-gray/30 rounded px-1 py-2">
                         </div>
                     </div>
 
                     <!-- autres filtres pour tri -->
                     <div class="flex flex-col gap-2">
                         <label for="sort_by" class="">Filter par : </label>
-                        <select name="sort_by" id="sort_by" class="border border-light-gray/20 rounded px-1 py-2 mt2 text-center">
+                        <select name="sort_by" id="sort_by" class="border border-light-gray/30 rounded px-1 py-2 mt2 text-center">
                             <option value="">-- Aucun tri --</option>
                             <option value="name_asc" {{ request('sort_by') == 'name_asc' ? 'selected' : '' }}>Nom (A-Z)</option>
                             <option value="name_desc" {{ request('sort_by') == 'name_desc' ? 'selected' : '' }}>Nom (Z-A)</option>
