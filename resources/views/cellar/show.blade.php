@@ -43,15 +43,21 @@
         @foreach ($cellarBottles as $cellarBottle)
         <div class="border border-light-gray/20 rounded-lg shadow p-md flex flex-col gap-sm justify-between relative hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
             <a href="{{ route('cellar_bottle.show', $cellarBottle->id) }}" class="flex flex-col sm:flex-row gap-sm">
+
                 <!-- Image -->
                 <div class="flex-shrink-0">
-                    @if ($cellarBottle->bottle->image)
-                    <img src="{{ $cellarBottle->bottle->image }}" class="mx-auto sm:mx-0 max-w-[100px] max-h-[150px] object-cover rounded-md" alt="{{ $cellarBottle->bottle->name }}">
+                    @php
+                        $image = $cellarBottle->bottle->image;
+                        $isExternal = Str::startsWith($image, ['http://', 'https://']);
+                     @endphp
+
+                    @if ($image)
+                        <img src="{{ $isExternal ? $image : asset($image) }}" alt="{{ $cellarBottle->bottle->name }}"class="mx-auto sm:mx-0 max-w-[100px] max-h-[150px] object-cover rounded-md">
                     @else
                     <div class="bg-gray-100 flex items-center justify-center rounded-md w-[100px] h-[150px]">
                         <span class="text-gray-400">Aucune image</span>
                     </div>
-                    @endif
+                     @endif
                 </div>
 
                 <!-- Informations -->
@@ -66,6 +72,23 @@
                     </div>
                 </div>
             </a>
+            <!-- Formulaire de deplacement -->
+<form action="{{ route('cellar.moveBottle') }}" method="POST" class="flex items-center gap-2">
+    @csrf
+    <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle_id }}">
+    <input type="hidden" name="from_cellar_id" value="{{ $cellar->id }}">
+    <input type="number" name="quantity" value="1" min="1"  max="{{ $cellarBottle->quantity }}" class="border border-light-gray rounded-md  py-1 px-3 w-20 text-center">
+
+    <select name="to_cellar_id" class="border border-light-gray rounded-md  py-2 px-4 w-auto text-center">
+        <option value="">Vers...</option>
+       @foreach (auth()->user()->cellars->where('id', '!=', $cellar->id) as $otherCellar)
+    <option value="{{ $otherCellar->id }}">{{ $otherCellar->name }}</option>
+@endforeach
+
+    </select>
+
+    <button type="submit" class="bouton py-2 px-3 text-sm rounded-md sm:w-auto mt-0 sm:mt-0">Déplacer</button>
+</form>
 
             <!-- Formulaire de consommation -->
             <div class="flex justify-between items-baseline-last flex-wrap gap-sm">

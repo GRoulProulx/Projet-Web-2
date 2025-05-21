@@ -6,6 +6,7 @@ use App\Models\Cellar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 class CellarController extends Controller
 {
     /**
@@ -142,4 +143,59 @@ class CellarController extends Controller
         // Rediriger vers la liste des celliers
         return redirect()->route('cellar.index')->with('success', 'Cellier supprimé avec succès !');
     }
+
+    /**
+     * Fontion de deplacement des bouteilles  entre celliers de l'usager 
+     * Valide les données provenant du cellier et fait la mise à jour
+     * après le deplacement 
+     */
+
+    public function moveBottle(Request $request)
+    {
+        $validated = $request->validate([
+            'bottle_id' => 'required|exists:bottles,id',
+            'from_cellar_id' => 'required|exists:cellars,id',
+            'to_cellar_id' => 'required|exists:cellars,id|different:from_cellar_id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $from = DB::table('cellar_bottles')
+            ->where('cellar_id', $validated['from_cellar_id'])
+            ->where('bottle_id', $validated['bottle_id'])
+            ->first();
+
+        if (!$from || $from->quantity < $validated['quantity']) {
+            return back()->withErrors(['quantity' => 'Quantité insuffisante dans le cellier de départ.']);
+        }
+
+    // Retirer la quantité du cellier source
+        DB::table('cellar_bottles')
+            ->where('cellar_id', $validated['from_cellar_id'])
+            ->where('bottle_id', $validated['bottle_id'])
+            ->decrement('quantity', $validated['quantity']);
+
+    // Ajouter la quantité au cellier de  destination
+        $existing = DB::table('cellar_bottles')
+            ->where('cellar_id', $validated['to_cellar_id'])
+            ->where('bottle_id', $validated['bottle_id'])
+            ->first();
+
+        if ($existing) {
+            DB::table('cellar_bottles')
+            ->where('cellar_id', $validated['to_cellar_id'])
+            ->where('bottle_id', $validated['bottle_id'])
+            ->increment('quantity', $validated['quantity']);
+        } else {
+            DB::table('cellar_bottles')->insert([
+                'cellar_id' => $validated['to_cellar_id'],
+                'bottle_id' => $validated['bottle_id'],
+                'quantity' => $validated['quantity'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        return back()->with('success', 'Bouteille déplacée avec succès.');
+    }
+
 }
