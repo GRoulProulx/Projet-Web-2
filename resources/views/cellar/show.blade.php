@@ -40,116 +40,132 @@
         </form>
     </details>
 
-        <!-- Bouteilles du cellier -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-sm mb-sm">
-            @foreach ($cellarBottles as $cellarBottle)
-            <div class="border border-light-gray/20 rounded-lg shadow p-md flex flex-col gap-sm justify-between relative hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
-                <a href="{{ route('cellar_bottle.show', $cellarBottle->id) }}" class="flex flex-col sm:flex-row gap-sm">
+    <!-- Bouteilles du cellier -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-sm mb-sm">
+        @foreach ($cellarBottles as $cellarBottle)
+        <div class="border border-light-gray/20 rounded-lg shadow p-md flex flex-col gap-sm justify-between relative hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
+            <a href="{{ route('cellar_bottle.show', $cellarBottle->id) }}" class="flex flex-col sm:flex-row gap-sm">
 
-                    <!-- Image -->
-                    <div class="flex-shrink-0">
-                        @php
-                        $image = $cellarBottle->bottle->image;
-                        $isExternal = Str::startsWith($image, ['http://', 'https://']);
-                        @endphp
+                <!-- Image -->
+                <div class="flex-shrink-0">
+                    @php
+                    $image = $cellarBottle->bottle->image;
+                    $isExternal = Str::startsWith($image, ['http://', 'https://']);
+                    @endphp
 
-                        @if ($image)
-                        <img src="{{ $isExternal ? $image : asset($image) }}" alt="{{ $cellarBottle->bottle->name }}" class="mx-auto sm:mx-0 max-w-[100px] max-h-[150px] object-cover rounded-md">
-                        @else
-                        <div class="bg-gray-100 flex items-center justify-center rounded-md w-[100px] h-[150px]">
-                            <span class="text-gray-400">Aucune image</span>
-                        </div>
-                        @endif
+                    @if ($image)
+                    <img src="{{ $isExternal ? $image : asset($image) }}" alt="{{ $cellarBottle->bottle->name }}" class="mx-auto sm:mx-0 max-w-[100px] max-h-[150px] object-cover rounded-md">
+                    @else
+                    <div class="bg-gray-100 flex items-center justify-center rounded-md w-[100px] h-[150px]">
+                        <span class="text-gray-400">Aucune image</span>
                     </div>
+                    @endif
+                </div>
 
-                    <!-- Informations -->
-                    <div class="flex-grow">
-                        <h2 class="xs:text-base sm:text-base md:text-md uppercase mb-2">{{ $cellarBottle->bottle->name }}</h2>
-                        <div class="flex gap-xs flex-wrap">
-                            <p>{{ $cellarBottle->bottle->type }}</p>
-                            <div class="border-2 border-l border-light-gray"></div>
-                            <p>{{ $cellarBottle->bottle->format }}</p>
-                            <div class="border-2 border-l border-light-gray"></div>
-                            <p>{{ $cellarBottle->bottle->country }}</p>
-                        </div>
+                <!-- Informations -->
+                <div class="flex-grow">
+                    <h2 class="xs:text-base sm:text-base md:text-md uppercase mb-2">{{ $cellarBottle->bottle->name }}</h2>
+                    <div class="flex gap-xs flex-wrap">
+                        <p>{{ $cellarBottle->bottle->type }}</p>
+                        <div class="border-2 border-l border-light-gray"></div>
+                        <p>{{ $cellarBottle->bottle->format }}</p>
+                        <div class="border-2 border-l border-light-gray"></div>
+                        <p>{{ $cellarBottle->bottle->country }}</p>
                     </div>
-                </a>
-                <!-- Formulaire de deplacement -->
-                <form action="{{ route('cellar.moveBottle') }}" method="POST" class="flex items-center gap-2">
+                </div>
+            </a>
+
+
+            <!-- Formulaire de consommation -->
+            <div class="flex justify-between items-baseline-last flex-wrap gap-sm">
+                <form action="{{ route('cellar_bottle.drink', $cellarBottle->id) }}" method="post">
                     @csrf
-                    <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle_id }}">
-                    <input type="hidden" name="from_cellar_id" value="{{ $cellar->id }}">
-                    <input type="number" name="quantity" value="1" min="1" max="{{ $cellarBottle->quantity }}" class="border border-light-gray rounded-md  py-1 px-3 w-20 text-center">
-
-                    <select name="to_cellar_id" class="border border-light-gray rounded-md  py-2 px-4 w-auto text-center">
-                        <option value="">Vers...</option>
-                        @foreach (auth()->user()->cellars->where('id', '!=', $cellar->id) as $otherCellar)
-                        <option value="{{ $otherCellar->id }}">{{ $otherCellar->name }}</option>
-                        @endforeach
-
-                    </select>
-
-                    <button type="submit" class="bouton py-2 px-3 text-sm rounded-md sm:w-auto mt-0 sm:mt-0">Déplacer</button>
+                    @method('PUT')
+                    <div class="flex flex-col">
+                        <label for="quantity{{$cellarBottle->id}}" class="font-regular">Retirer du cellier: </label>
+                        <div class="flex">
+                            <input type="hidden" id="bottle_id" name="bottle_id" value="{{$cellarBottle->bottle->id}}">
+                            <input type="number" id="quantity{{$cellarBottle->id}}" name="quantity" min="1" max="{{$cellarBottle->quantity}}" value="{{$cellarBottle->quantity}}" readonly class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
+                            <button type="submit" class="bouton py-1 px-3 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Boire</button>
+                        </div>
+                    </div>
                 </form>
+                <a href="{{ route('cellar_bottle.show', $cellarBottle->id) }}" class="w-fit text-md text-taupe link-underline-hover">
+                    Détails <i class="fa-solid fa-circle-arrow-right text-base"></i>
+                </a>
+            </div>
 
-                <!-- Formulaire de consommation -->
+            <!-- Informations supplémentaires -->
+            <div class="border-t border-light-gray/30 mt-2 pt-2">
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <span class="text-gray-500 text-sm font-medium">Date d'achat:</span>
+                        <p>@if(!$cellarBottle->purchase_date){{date_format($cellarBottle->created_at, "Y-m-d")}} @else{{$cellarBottle->purchase_date}} @endif</p>
+                    </div>
+                    <div>
+                        <span class="text-gray-500 text-sm font-medium">Conservation:</span>
+                        <p>{{ $cellarBottle->storage_until ?? '-' }}</p>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <span class="text-gray-500 text-sm font-medium">Notes:</span>
+                    <p>{{ $cellarBottle->notes ?? '-' }}</p>
+                </div>
+            </div>
+
+            <div class="border-t border-light-gray/30 mt-2 pt-2">
+
+                <!-- Formulaire de deplacement -->
                 <div class="flex justify-between items-baseline-last flex-wrap gap-sm">
-                    <form action="{{ route('cellar_bottle.drink', $cellarBottle->id) }}" method="post">
+                    <form action="{{ route('cellar.moveBottle') }}" method="POST">
+
                         @csrf
-                        @method('PUT')
                         <div class="flex flex-col">
-                            <label for="quantity{{$cellarBottle->id}}" class="font-regular">Quantité: </label>
+                            <label for="quantity{{$cellarBottle->id}}" class="font-regular">Déplacer vers : </label>
+                            <ul class="text-sm text-gray-600 mb-sm list-disc list-inside">
+                                <li>Indiquez la quantité à déplacer</li>
+                                <li>Choisissez le cellier de destination</li>
+                            </ul>
                             <div class="flex">
-                                <input type="hidden" id="bottle_id" name="bottle_id" value="{{$cellarBottle->bottle->id}}">
-                                <input type="number" id="quantity{{$cellarBottle->id}}" name="quantity" min="1" max="{{$cellarBottle->quantity}}" value="{{$cellarBottle->quantity}}" readonly class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
-                                <button type="submit" class="bouton py-1 px-3 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Boire</button>
+                                <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle_id }}">
+                                <input type="hidden" name="from_cellar_id" value="{{ $cellar->id }}">
+                                <input type="number" name="quantity" value="1" min="1" max="{{ $cellarBottle->quantity }}" class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
+                                <select name="to_cellar_id" required class="border border-light-gray py-1 px-3 text-sm sm:w-auto mt-0 sm:mt-0">
+                                    <option value="">Sélectionner un cellier</option>
+                                    @foreach (auth()->user()->cellars->where('id', '!=', $cellar->id) as $otherCellar)
+                                    <option value="{{ $otherCellar->id }}">{{ $otherCellar->name }}</option>
+                                    @endforeach
+
+                                </select>
+
+                                <button type="submit" class="bouton blue-magenta py-1 px-3 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Déplacer</button>
                             </div>
                         </div>
                     </form>
-                    <a href="{{ route('cellar_bottle.show', $cellarBottle->id) }}" class="w-fit text-md text-taupe link-underline-hover">
-                        Détails <i class="fa-solid fa-circle-arrow-right text-base"></i>
-                    </a>
-                </div>
-
-                <!-- Informations supplémentaires -->
-                <div class="border-t border-light-gray/20 mt-2 pt-2">
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <span class="text-gray-500 text-sm font-medium">Date d'achat:</span>
-                            <p>@if(!$cellarBottle->purchase_date){{date_format($cellarBottle->created_at, "Y-m-d")}} @else{{$cellarBottle->purchase_date}} @endif</p>
-                        </div>
-                        <div>
-                            <span class="text-gray-500 text-sm font-medium">Conservation:</span>
-                            <p>{{ $cellarBottle->storage_until ?? '-' }}</p>
-                        </div>
-                    </div>
-                    <div class="mt-2">
-                        <span class="text-gray-500 text-sm font-medium">Notes:</span>
-                        <p>{{ $cellarBottle->notes ?? '-' }}</p>
-                    </div>
                 </div>
             </div>
-            @endforeach
         </div>
+        @endforeach
+    </div>
 
-        <!-- Message si le cellier est vide -->
-        @if ($cellarBottles->isEmpty())
-        <div class="bg-white border border-light-gray/20 rounded-lg shadow p-8 text-center">
-            <p class="text-lg font-family color-light-gray mb-4">Ce cellier ne contient aucune bouteille.</p>
-        </div>
-        @endif
+    <!-- Message si le cellier est vide -->
+    @if ($cellarBottles->isEmpty())
+    <div class="bg-white border border-light-gray/20 rounded-lg shadow p-8 text-center">
+        <p class="text-lg font-family color-light-gray mb-4">Ce cellier ne contient aucune bouteille.</p>
+    </div>
+    @endif
 
-        <!-- Retour -->
-        <div class="text-center mt-md">
-            <a href="{{ route('cellar.index') }}" class="link-underline-hover">
-                <i class="fa-solid fa-circle-arrow-left mr-2.5"></i>Retour à mes celliers
-            </a>
-        </div>
-        {{-- <div class="text-center mt-md">
-        <a href="{{ route('custom-bottles.create') }}" class="link-underline-hover">
-        Ajouter une bouteille personalisée <i class="fa-solid fa-circle-arrow-right ml-2.5"></i>
+    <!-- Retour -->
+    <div class="text-center mt-md">
+        <a href="{{ route('cellar.index') }}" class="link-underline-hover">
+            <i class="fa-solid fa-circle-arrow-left mr-2.5"></i>Retour à mes celliers
         </a>
-        </div> --}}
+    </div>
+    {{-- <div class="text-center mt-md">
+        <a href="{{ route('custom-bottles.create') }}" class="link-underline-hover">
+    Ajouter une bouteille personalisée <i class="fa-solid fa-circle-arrow-right ml-2.5"></i>
+    </a>
+    </div> --}}
 </section>
 
 
