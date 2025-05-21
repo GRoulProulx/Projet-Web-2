@@ -20,23 +20,27 @@
             <a href="{{ route('custom-bottles.create') }}" class="bouton white mt-0 grow md:grow-0 text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille personnalisée</a>
         </div>
     </div>
-    <details class="my-md">
+    <details class="mt-md">
 
         <summary class="text-blue-magenta font-family-title text-md">Filtres</summary>
         <!-- Formulaire de tri -->
         <form method="GET" class="mb-md grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-sm mt-3">
-            <select name="sort_by" id="sort_by" class="w-full border border-light-gray/30 rounded px-1 py-2 text-center">
-                <option value="name" {{ request('sort_by') === 'name' ? 'selected' : '' }}>Nom</option>
-                <option value="price" {{ request('sort_by') === 'price' ? 'selected' : '' }}>Prix</option>
-                <option value="purchase_date" {{ request('sort_by') === 'purchase_date' ? 'selected' : '' }}>Date d'achat</option>
-            </select>
+            <div>
+                <select name="sort_by" id="sort_by" class="w-full border border-light-gray/30 rounded px-1 py-2 text-center">
+                    <option value="name" {{ request('sort_by') === 'name' ? 'selected' : '' }}>Nom</option>
+                    <option value="price" {{ request('sort_by') === 'price' ? 'selected' : '' }}>Prix</option>
+                    <option value="purchase_date" {{ request('sort_by') === 'purchase_date' ? 'selected' : '' }}>Date d'achat</option>
+                </select>
+            </div>
 
-            <select name="order" class="w-full border border-light-gray/30 rounded px-1 py-2 text-center">
-                <option value="asc" {{ request('order') === 'asc' ? 'selected' : '' }}>Croissant</option>
-                <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Décroissant</option>
-            </select>
+            <div>
+                <select name="order" class="w-full border border-light-gray/30 rounded px-1 py-2 text-center">
+                    <option value="asc" {{ request('order') === 'asc' ? 'selected' : '' }}>Croissant</option>
+                    <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Décroissant</option>
+                </select>
+            </div>
 
-            <button type="submit" class="bouton blue-magenta text-md font-family-title"> <i class="fa-solid fa-filter mr-base"></i>Filtrer</button>
+            <button type="submit" class="bouton blue-magenta mt-0 font-family-title"> <i class="fa-solid fa-filter mr-base"></i>Filtrer</button>
         </form>
     </details>
 
