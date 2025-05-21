@@ -72,6 +72,23 @@
                     </div>
                 </div>
             </a>
+            <!-- Formulaire de deplacement -->
+<form action="{{ route('cellar.moveBottle') }}" method="POST" class="flex items-center gap-2">
+    @csrf
+    <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle_id }}">
+    <input type="hidden" name="from_cellar_id" value="{{ $cellar->id }}">
+    <input type="number" name="quantity" value="1" min="1"  max="{{ $cellarBottle->quantity }}" class="border border-light-gray rounded-md  py-1 px-3 w-20 text-center">
+
+    <select name="to_cellar_id" class="border border-light-gray rounded-md  py-2 px-4 w-auto text-center">
+        <option value="">Vers...</option>
+       @foreach (auth()->user()->cellars->where('id', '!=', $cellar->id) as $otherCellar)
+    <option value="{{ $otherCellar->id }}">{{ $otherCellar->name }}</option>
+@endforeach
+
+    </select>
+
+    <button type="submit" class="bouton py-2 px-3 text-sm rounded-md sm:w-auto mt-0 sm:mt-0">Déplacer</button>
+</form>
 
             <!-- Formulaire de consommation -->
             <div class="flex justify-between items-baseline-last flex-wrap gap-sm">

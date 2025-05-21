@@ -95,3 +95,7 @@ Route::get('/shopping-list', [ShoppingListController::class, 'index'])->name('sh
 Route::post('/shopping-list/{bottle}', [ShoppingListController::class, 'store'])->name('shoppingList.store')->middleware('auth');
 Route::put('/shopping-list/{bottle}', [ShoppingListController::class, 'update'])->name('shoppingList.update')->middleware('auth');
 Route::delete('/shopping-list/{bottle}', [ShoppingListController::class, 'destroy'])->name('shoppingList.destroy')->middleware('auth');
+
+
+Route::post('/cellars/move-bottle', [CellarController::class, 'moveBottle'])->name('cellar.moveBottle');
+
