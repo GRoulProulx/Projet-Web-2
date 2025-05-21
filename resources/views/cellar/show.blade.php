@@ -45,7 +45,7 @@
     </details>
 
     <!-- Bouteilles du cellier -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-sm mb-sm">
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-sm mb-sm">
         @foreach ($cellarBottles as $cellarBottle)
         <div class="border border-light-gray/20 rounded-lg shadow p-md flex flex-col gap-sm justify-between relative hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
             <a href="{{ route('cellar_bottle.show', $cellarBottle->id) }}" class="flex flex-col sm:flex-row gap-sm">
@@ -130,19 +130,17 @@
                                 <li>Indiquez la quantité à déplacer</li>
                                 <li>Choisissez le cellier de destination</li>
                             </ul>
-                            <div class="flex">
+                            <div class="flex flex-col md:flex-row">
                                 <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle_id }}">
                                 <input type="hidden" name="from_cellar_id" value="{{ $cellar->id }}">
-                                <input type="number" name="quantity" value="1" min="1" max="{{ $cellarBottle->quantity }}" class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-20 text-center">
-                                <select name="to_cellar_id" required class="border border-light-gray py-1 px-3 text-sm sm:w-auto mt-0 sm:mt-0">
-                                    <option value="">Sélectionner un cellier</option>
+                                <input type="number" name="quantity" value="1" min="1" max="{{ $cellarBottle->quantity }}" class="border border-light-gray rounded-t-md md:rounded-l-md md:rounded-r-none py-1 px-xxs text-center">
+                                <select name="to_cellar_id" required class="border border-light-gray py-1 px-xs text-sm sm:w-auto mt-0 sm:mt-0">
+                                    <option value="">Choisir un cellier</option>
                                     @foreach (auth()->user()->cellars->where('id', '!=', $cellar->id) as $otherCellar)
                                     <option value="{{ $otherCellar->id }}">{{ $otherCellar->name }}</option>
                                     @endforeach
-
                                 </select>
-
-                                <button type="submit" class="bouton blue-magenta py-1 px-3 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Déplacer</button>
+                                <button type="submit" class="bouton blue-magenta py-1 px-xs text-sm rounded-b-md rounded-t-none md:rounded-r-md md:rounded-l-none sm:w-auto mt-0 sm:mt-0">Déplacer</button>
                             </div>
                         </div>
                     </form>
