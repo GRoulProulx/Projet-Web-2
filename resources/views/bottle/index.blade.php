@@ -9,11 +9,13 @@
             @if(Auth::check())
             <header class="max-w-5xl">
                 <h1 class="font-family-title text-lg">Catalogue des vins</h1>
-                <p>Explorez une vaste sélection de vins directement issus de la SAQ. Recherchez, filtrez selon vos préférences et ajoutez vos découvertes à votre cellier en toute simplicité.</p>
-                @else
-                <h1 class="font-family-title text-lg">Bienvenue!</h1>
                 <p>
-                    Profitez pleinement de l’application :
+                    Bienvenue dans votre espace de découverte! Filtrez, explorez et ajoutez des vins à votre cellier pour enrichir votre collection et suivre vos préférences en toute simplicité.
+                </p>
+                @else
+                <h1 class="font-family-title text-lg">Bienvenue !</h1>
+                <p>
+                    Profitez pleinement de l’application :
                     <a href="{{ route('login') }}" class="underline underline-offset-3 text-taupe">identifiez-vous</a>
                     ou
                     <a href="{{ route('user.create') }}" class="underline underline-offset-3 text-taupe">créez un compte</a>
