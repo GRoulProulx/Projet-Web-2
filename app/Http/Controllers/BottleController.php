@@ -266,7 +266,7 @@ class BottleController extends Controller
     public function search(Request $request)
     {
         if ($request->filled('search')) {
-            $bottles = Bottle::search($request->search)->get();
+            $bottles = Bottle::search($request->search)->paginate(10);
         } else {
             $bottles = Bottle::paginate(10);
         }
