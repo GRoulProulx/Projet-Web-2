@@ -263,5 +263,70 @@ class BottleController extends Controller
         return redirect()->route('cellar.show', $request->cellar_id)
         ->with('success', 'Bouteille personnalisée ajoutée à votre cellier.');
     }
+    public function search(Request $request)
+    {
+        if ($request->filled('search')) {
+            $bottles = Bottle::search($request->search)->get();
+        } else {
+            $bottles = Bottle::paginate(10);
+        }
 
+        $allCountries = Bottle::where(function ($q) {
+            $q->where('is_custom', false)->orWhereNull('is_custom');
+        })
+            ->select('country')->distinct()->orderBy('country')->pluck('country');
+
+        $allTypes = Bottle::where(function ($q) {
+            $q->where('is_custom', false)->orWhereNull('is_custom');
+        })
+            ->select('type')->distinct()->orderBy('type')->pluck('type');
+
+        return view('bottle.index', compact('bottles', 'allCountries', 'allTypes'));
+    }
+    public function searchInCellar(Request $request, $cellar_id)
+    {
+        // Récupération du cellier spécifié
+        $cellar = Cellar::findOrFail($cellar_id);
+
+        if ($request->filled('search')) {
+            $bottleIds = CellarBottle::where('cellar_id', $cellar_id)->pluck('bottle_id');
+            $bottles = Bottle::search($request->search)
+                ->whereIn('id', $bottleIds)
+                ->get();
+
+            // Cercher les bouteilles du cellier
+            $cellarBottles = collect();
+            foreach ($bottles as $bottle) {
+                $cellarBottle = CellarBottle::where('cellar_id', $cellar_id)
+                    ->where('bottle_id', $bottle->id)
+                    ->first();
+
+                if ($cellarBottle) {
+                    // Ajout de la bouteille à l'objet cellarBottle pour la vue
+                    $cellarBottle->bottle = $bottle;
+                    $cellarBottles->push($cellarBottle);
+                }
+            }
+        } else {
+            // Récupération de toutes les bouteilles dans ce cellier
+            $cellarBottles = CellarBottle::where('cellar_id', $cellar_id)
+                ->with('bottle')
+                ->paginate(10);
+        }
+
+        
+        $allCountries = Bottle::where(function ($q) {
+            $q->where('is_custom', false)->orWhereNull('is_custom');
+        })
+            ->select('country')->distinct()->orderBy('country')->pluck('country');
+
+        // Récupération de tous les types de vin disponibles (hors bouteilles personnalisées)
+        $allTypes = Bottle::where(function ($q) {
+            $q->where('is_custom', false)->orWhereNull('is_custom');
+        })
+            ->select('type')->distinct()->orderBy('type')->pluck('type');
+
+        
+        return view('cellar.show', compact('cellar', 'cellarBottles', 'allCountries', 'allTypes'));
+    }
 }
