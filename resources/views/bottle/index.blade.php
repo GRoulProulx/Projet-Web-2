@@ -111,7 +111,9 @@
             </div>
 
             <div class="my-md">
+                @if(method_exists($bottles, 'links'))
                 {{ $bottles->appends(request()->input())->links() }}
+                @endif
             </div>
         </div>
     </div>
