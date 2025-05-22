@@ -35,7 +35,7 @@
                 @else
                 <li><a href="{{route('login')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover"><i class="fa-solid fa-right-to-bracket mr-2"></i> Se connecter</a></li>
                 <div class="border-t border-light-gray/50"></div>
-                <li><a href="{{route('user.create')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover">S'inscrire</a></li>
+                <li><a href="{{route('user.create')}}" class="text-md p-sm text-blue-magenta hover:text-taupe link-underline-hover"><i class="ri-user-add-fill mr-2"></i>S'inscrire</a></li>
                 <div class="border-t border-light-gray/50"></div>
                 @endif
                 @if (Auth::check())

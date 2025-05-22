@@ -18,13 +18,9 @@
                 <div href="" class="border border-light-gray/20 rounded-md shadow p-md transition-all duration-300 hover:border-light-gray/40">
                     <article>
                         <div class="flex justify-end">
-                            <form action="{{ route('shoppingList.destroy', $item->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" aria-label="Supprimer">
-                                    <i class="fa-solid fa-trash text-md text-alert cursor-pointer"></i>
-                                </button>
-                            </form>
+                            <a href="#" data-action="deleteItemShoppingList" data-id="{{ $item->id }}" data-name="{{ $item->name }}" aria-label="Icône poubelle pour supprimer l'utilisateur">
+                                <i class="fa-solid fa-trash text-md text-alert"></i>
+                            </a>
                         </div>
                         <figure class="flex flex-col sm:flex-row gap-sm text-sm">
                             <img src="{{ $item->bottle->image }}" alt="{{ $item->bottle->name }}" class="mx-auto sm:mx-0 max-w-[111px] max-h-[166px] object-cover">
@@ -57,5 +53,35 @@
         </div>
     </div>
 </section>
+<!-- Modale -->
+<div class="modale-container hidden relative z-10">
+    <div class="modale fixed inset-0 bg-gray-500/75 transition-opacity">
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div class="modale-header flex items-start justify-between">
+                            <h2 class="font-family-title text-lg uppercase">Supprimer cette bouteille de la liste d'achat?</h2>
+                            <a href=""><i class="fa-solid fa-xmark"></i></a>
+                        </div>
+                        <div class="modale-body">
+                            <p>
+                            <p>Êtes-vous sûr de vouloir supprimer cette bouteille<span id="modalItemName"></span>?</p>
+                            </p>
+                        </div>
+                        <div class="modale-footer flex justify-between items-baseline">
+                            <a href="" class="bouton blue-magenta">Annuler</a>
+                            <form action="" method="POST" id="deleteItemShoppingListForm">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bouton alert mt-0">Supprimer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection

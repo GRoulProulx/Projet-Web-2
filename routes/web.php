@@ -8,7 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CellarController;
 use App\Http\Controllers\CellarBottleController;
 use App\Http\Controllers\ShoppingListController;
-
+use Illuminate\Support\Facades\Artisan;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -102,3 +102,9 @@ Route::post('/cellars/move-bottle', [CellarController::class, 'moveBottle'])->na
 // Route pour la recherche de bouteilles dans le catalogue et les celliers
 Route::get('/bottles/search', [BottleController::class, 'search'])->name('search');
 Route::get('/cellar/{cellar_id}/search', [BottleController::class, 'searchInCellar'])->name('searchCellar');
+
+// Test pour le storage des images
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+});
+
