@@ -20,8 +20,11 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
+Route::get('/', function () {
+    return view('Auth.create');
+});
+
 // Route pour gérer les bouteilles du catalogue provenant de la SAQ
-Route::get('/', [BottleController::class, 'index'])->name('bottle.index');
 Route::get('/bottles', [BottleController::class, 'index'])->name('bottle.index');
 Route::get('/bottle/{bottle}', [BottleController::class, 'show'])->name('bottle.show');
 Route::get('/create/bottle', [BottleController::class, 'create'])->name('bottle.create')->middleware('auth');

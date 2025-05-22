@@ -23,14 +23,14 @@
 
     <!-- La recherche -->
     <div class="flex flex-col">
-        <form method="GET" action="{{ route('searchCellar', $cellar->id) }}" class="flex">
+        <form method="GET" action="{{ route('searchCellar', $cellar->id) }}" class="searchForm flex">
             @method('GET')
             <input
                 id="search"
                 name="search"
                 type="text"
                 placeholder="Rechercher un vin"
-                class="border border-light-gray rounded-l-md rounded-r-none py-xs px-md w-91 h-12 text-center"
+                class=" grow sm:grow-0 border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-50 text-center"
                 value="{{ request()->get('searchInCellar') }}">
             <button type="submit" class="bouton blue-magenta py-1 px-6 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Recherche</button>
         </form>
@@ -71,8 +71,8 @@
                 <div class="flex-shrink-0">
                     @php
 
-                        $image = $cellarBottle->bottle->image;
-                        $isExternal = Str::startsWith($image, ['http://', 'https://']);
+                    $image = $cellarBottle->bottle->image;
+                    $isExternal = Str::startsWith($image, ['http://', 'https://']);
                     @endphp
 
                     @if ($image)
@@ -163,7 +163,7 @@
                         </div>
                     </form>
                     @endif
-                @endauth
+                    @endauth
                 </div>
             </div>
         </div>
