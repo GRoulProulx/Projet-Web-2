@@ -51,7 +51,7 @@
                             </td>
                             <td class="px-sm py-xs whitespace-nowrap">
                                 @if( !$user->role_id == 1 )
-                                <a href="#" data-action="deleteUser" data-id="{{ $user->id }}" data-name="{{ $user->name }}" aria-label="Icône poubelle pour supprimer l'utilisateur">
+                                <a href="#" data-action="deleteButton" data-id="{{ $user->id }}" data-name="{{ $user->name }}" aria-label="Icône poubelle pour supprimer l'utilisateur">
                                     <i class="fa-solid fa-trash text-md text-alert"></i>
                                 </a>
                                 @endif
@@ -90,12 +90,12 @@
                         </div>
                         <div class="modale-body">
                             <p>
-                            <p>Êtes-vous sûr de vouloir supprimer <span id="modalUserName"></span>?</p>
+                            <p>Êtes-vous sûr de vouloir supprimer <span id="modalName"></span>?</p>
                             </p>
                         </div>
                         <div class="modale-footer flex justify-between items-baseline">
                             <a href="" class="bouton blue-magenta">Annuler</a>
-                            <form action="" method="POST" id="deleteUserForm">
+                            <form action="" method="POST" id="modaleFormUsers">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="bouton alert mt-0">Supprimer</button>

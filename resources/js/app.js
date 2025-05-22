@@ -1,9 +1,8 @@
 import "./bootstrap";
 import { formatWineTitle } from "./formatWineTitles";
 import { showModale } from "./modale";
-import { filterWineCards } from "./search";
 import { hideElementAfterDelay } from "./hideElementAfterDelay";
-
+import { inputDeleteContent } from "./search";
 /**
  * Initialisation générale de l’application
  */
@@ -16,7 +15,6 @@ function init() {
     formatWineTitles();
     setupHamburgerMenu(hamMenu, offScreenMenu);
     setupCellarSelection();
-    setupSearch();
 }
 
 /**
@@ -27,8 +25,8 @@ function onWindowLoad(main) {
         setupDeleteConfirmation();
         saveCellarIdToSession();
         handleSuccessMessage(main);
-        setupUserDeleteConfirmation();
-        setupDeleteConfirmationShoppingList();
+        modaleDeleteConfirmation();
+        inputDeleteContent();
     });
 }
 
@@ -39,52 +37,41 @@ function setupDeleteConfirmation() {
     const deleteButton = document.querySelector('[data-action="delete"]');
     if (deleteButton) {
         deleteButton.addEventListener("click", showModale);
-    }    
+    }
 }
 
 /**
- * Active la boite modale de confirmation pour la suppression d’un utilisateur dans le tableau de bord administrateur 
+ * Active la boite modale de confirmation pour la suppression d’un utilisateur dans le tableau de bord administrateur ou d’un item dans la liste d'achats
  */
-function setupUserDeleteConfirmation() {
+function modaleDeleteConfirmation() {
     const deleteButtons = document.querySelectorAll(
-        '[data-action="deleteUser"]'
+        '[data-action="deleteButton"]'
     );
-    const form = document.getElementById("deleteUserForm");
-    const userNameSpan = document.getElementById("modalUserName");
+    const formUsers = document.getElementById("modaleFormUsers");
+    const formShoppingList = document.getElementById("modaleFormShopopingList");
+    const nameSpan = document.getElementById("modalName");
 
     deleteButtons.forEach((btn) => {
-        btn.addEventListener("click", function (event) {
+        btn.addEventListener("click", function () {
             showModale();
-            const userId = this.getAttribute("data-id");            
-            const userName = this.getAttribute("data-name");            
-            form.action = "/users/" + userId;
-            
-            if (userNameSpan) {
-                userNameSpan.textContent = userName;
+            if (formUsers) {
+                const userId = this.getAttribute("data-id");
+                const userName = this.getAttribute("data-name");
+                formUsers.action = "/users/" + userId;
+
+                if (nameSpan) {
+                    nameSpan.textContent = userName;
+                }
             }
-        });
-    });
-}
 
-/**
- * Affiche la modale de confirmation de suppression d'un item de la liste d'achats
- */
-function setupDeleteConfirmationShoppingList() {
-    const deleteButtons = document.querySelectorAll(
-        '[data-action="deleteItemShoppingList"]'
-    );
-    const form = document.getElementById("deleteItemShoppingListForm");
-    const itemNameSpan = document.getElementById("modalItemName");
+            if (formShoppingList) {
+                const itemId = this.getAttribute("data-id");
+                const itemName = this.getAttribute("data-name");
+                formShoppingList.action = "/shopping-list/" + itemId;
 
-    deleteButtons.forEach((btn) => {
-        btn.addEventListener("click", function (event) {
-            showModale();
-            const itemId = this.getAttribute("data-id");
-            const itemName = this.getAttribute("data-name");
-            form.action = "/shopping-list/" + itemId;
-
-            if (itemNameSpan) {
-                itemNameSpan.textContent = itemName;
+                if (nameSpan) {
+                    nameSpan.textContent = itemName;
+                }
             }
         });
     });
@@ -151,57 +138,6 @@ function setupCellarSelection() {
     }
 }
 
-/**
- * Initialise la recherche (modale + filtre en temps réel)
- */
-function setupSearch() {
-    setupSearchModal();
-    setupSearchFilter();
-}
 
-/**
- * Gère l’ouverture/fermeture de la modale de recherche
- */
-function setupSearchModal() {
-    const searchInput = document.querySelector("#search");
-    const closePopup = document.querySelector(".close-popup");
-    const popup = document.querySelector(".popup");
-    const popupIcon = document.querySelector(".popupIcon");
-
-    if (!searchInput || !closePopup || !popup || !popupIcon) return;
-
-    // Petite fonction utilitaire pour (dé)plier la modale
-    const togglePopup = () => {
-        popupIcon.classList.toggle("active");
-        popup.classList.toggle("active");
-    };
-
-    popupIcon.addEventListener("click", togglePopup);
-    closePopup.addEventListener("click", () => {
-        togglePopup();
-        searchInput.value = "";
-    });
-
-    // Fermeture de la modale avec la touche Entrée
-    searchInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-            e.preventDefault();
-            togglePopup();
-            searchInput.value = "";
-        }
-    });
-}
-
-/**
- * Applique le filtre de recherche sur les cartes de vin
- */
-function setupSearchFilter() {
-    const searchInput = document.querySelector("#search");
-    if (!searchInput) return;
-
-    searchInput.addEventListener("input", (e) => {
-        filterWineCards(e.target.value.toLowerCase());
-    });
-}
 
 init();
