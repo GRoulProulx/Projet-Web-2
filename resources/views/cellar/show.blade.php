@@ -20,6 +20,22 @@
             <a href="{{ route('custom-bottles.create') }}" class="bouton white mt-0 grow md:grow-0 text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille personnalisée</a>
         </div>
     </div>
+
+    <!-- La recherche -->
+    <div class="flex flex-col">
+        <form method="GET" action="{{ route('searchCellar', $cellar->id) }}" class="flex">
+            @method('GET')
+            <input
+                id="search"
+                name="search"
+                type="text"
+                placeholder="Rechercher un vin"
+                class="border border-light-gray rounded-l-md rounded-r-none py-xs px-md w-91 h-12 text-center"
+                value="{{ request()->get('searchInCellar') }}">
+            <button type="submit" class="bouton blue-magenta py-1 px-6 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Recherche</button>
+        </form>
+    </div>
+
     <details class="mt-md">
 
         <summary class="text-blue-magenta font-family-title text-md">Filtres</summary>
@@ -40,6 +56,7 @@
                 </select>
             </div>
 
+
             <button type="submit" class="bouton blue-magenta mt-0 font-family-title"> <i class="fa-solid fa-filter mr-base"></i>Filtrer</button>
         </form>
     </details>
@@ -53,8 +70,9 @@
                 <!-- Image -->
                 <div class="flex-shrink-0">
                     @php
-                    $image = $cellarBottle->bottle->image;
-                    $isExternal = Str::startsWith($image, ['http://', 'https://']);
+
+                        $image = $cellarBottle->bottle->image;
+                        $isExternal = Str::startsWith($image, ['http://', 'https://']);
                     @endphp
 
                     @if ($image)
@@ -78,8 +96,6 @@
                     </div>
                 </div>
             </a>
-
-
             <!-- Formulaire de consommation -->
             <div class="flex justify-between items-baseline-last flex-wrap gap-sm">
                 <form action="{{ route('cellar_bottle.drink', $cellarBottle->id) }}" method="post">
@@ -121,6 +137,8 @@
 
                 <!-- Formulaire de deplacement -->
                 <div class="flex justify-between items-baseline-last flex-wrap gap-sm">
+                    @auth
+                    @if(auth()->user()->cellars->count() > 1)
                     <form action="{{ route('cellar.moveBottle') }}" method="POST">
 
                         @csrf
@@ -144,6 +162,8 @@
                             </div>
                         </div>
                     </form>
+                    @endif
+                @endauth
                 </div>
             </div>
         </div>

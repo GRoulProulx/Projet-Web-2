@@ -24,6 +24,19 @@
                 </p>
                 @endif
             </header>
+            <div class="flex flex-col items-center gap-md p-md">
+                <form method="GET" action="{{ route('search') }}" class="flex">
+                    @method('GET')
+                    <input
+                        id="search"
+                        name="search"
+                        type="text"
+                        placeholder="Rechercher un vin"
+                        class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-50 text-center"
+                        value="{{ request()->get('search') }}">
+                    <button type="submit" class="bouton blue-magenta py-1 px-3 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Recherche</button>
+                </form>
+            </div>
             <details class="mt-md">
 
                 <summary class="text-blue-magenta font-family-title text-md">Filtres</summary>
@@ -68,6 +81,7 @@
                     <div>
                         <label for="sort_by" class="">Filter par : </label>
                         <select name="sort_by" id="sort_by" class="w-full border border-light-gray/30 rounded px-1 py-2 text-center">
+
                             <option value="">-- Aucun tri --</option>
                             <option value="name_asc" {{ request('sort_by') == 'name_asc' ? 'selected' : '' }}>Nom (A-Z)</option>
                             <option value="name_desc" {{ request('sort_by') == 'name_desc' ? 'selected' : '' }}>Nom (Z-A)</option>
@@ -81,15 +95,22 @@
                     </div>
                     <button type="submit" class="bouton blue-magenta mt-0 font-family-title"> <i class="fa-solid fa-filter mr-base"></i> Filtrer</button>
                 </form>
-
             </details>
-            <div class="mt-md">
-                <p><strong>Sélection: </strong>{{$bottles->total()}} bouteilles</p>
-            </div>
+
             <!-- Grille des produits -->
             <div class="mx-auto grid max-w-2xl grid-cols-1 gap-sm gap-y-sm mt-md md:mx-0 md:max-w-none md:grid-cols-2 xl:grid-cols-3 ">
                 @foreach($bottles as $bottle)
-                <a href="{{ route('bottle.show', $bottle->id) }}" class="border border-light-gray/20 rounded-md shadow p-md hover:shadow-md transition-all duration-300 hover:border-light-gray/40">
+                <a href="{{ route('bottle.show', $bottle->id) }}" class="border border-light-gray/20 rounded-md shadow p-md hover:shadow-md transition-all duration-300 hover:border-light-gray/40 relative">
+                    @auth
+                    <div class="absolute top-2 right-2">
+                        <form action="{{ route('shoppingList.store', $bottle->id) }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit" class="text-taupe hover:text-blue-magenta transition-colors">
+                                <i class="fa-solid fa-cart-arrow-down text-lg p-sm cursor-pointer"></i>
+                            </button>
+                        </form>
+                    </div>
+                    @endauth
                     <article>
                         <figure class="flex flex-col sm:flex-row gap-sm text-sm">
                             <img src="{{ $bottle->image }}" alt="{{ $bottle->name }}" class="mx-auto sm:mx-0 max-w-[111px] max-h-[166px] object-cover">
@@ -107,14 +128,6 @@
                                     </div>
                                 </div>
                                 <p class="w-fit text-md text-taupe link-underline-hover ">Ajouter au cellier <i class="fa-solid fa-circle-arrow-right text-base"></i></p>
-                                @auth
-                                <form action="{{ route('shoppingList.store', $bottle->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    <button type="submit" class="w-fit text-md text-taupe link-underline-hover cursor-pointer">
-                                        Ajouter à ma liste d'achats <i class="fa-solid fa-cart-plus text-base"></i>
-                                    </button>
-                                </form>
-                                @endauth
                             </figcaption>
                         </figure>
                     </article>
@@ -123,13 +136,12 @@
             </div>
 
             <div class="my-md">
+                @if(method_exists($bottles, 'links'))
                 {{ $bottles->appends(request()->input())->links() }}
+                @endif
             </div>
         </div>
     </div>
 </section>
-
-
-
 
 @endsection

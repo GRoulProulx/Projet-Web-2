@@ -99,7 +99,12 @@ Route::delete('/shopping-list/{bottle}', [ShoppingListController::class, 'destro
 
 Route::post('/cellars/move-bottle', [CellarController::class, 'moveBottle'])->name('cellar.moveBottle');
 
+// Route pour la recherche de bouteilles dans le catalogue et les celliers
+Route::get('/bottles/search', [BottleController::class, 'search'])->name('search');
+Route::get('/cellar/{cellar_id}/search', [BottleController::class, 'searchInCellar'])->name('searchCellar');
+
 // Test pour le storage des images
 Route::get('/linkstorage', function () {
     Artisan::call('storage:link');
 });
+
