@@ -5,7 +5,7 @@
 <section class="my_cellar mx-auto">
     <!-- En-tête de la page -->
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-sm ">
-        <header class="flex items-center justify-between gap-md mb-sm mr-lg">
+        <header class="flex items-center justify-between gap-md mb-sm mr-0 sm:mr-md">
             <h1 class="text-lg font-family-title flex items-baseline gap-xxs flex-nowrap">
                 Cellier: <span class="font-family">{{ $cellar->name }}</span>
             </h1>
@@ -36,7 +36,7 @@
         </form>
     </div>
 
-    <details class="mt-md">
+    <details class="my-sm">
 
         <summary class="text-blue-magenta font-family-title text-md">Filtres</summary>
         <!-- Formulaire de tri -->
@@ -139,7 +139,7 @@
                 <div class="flex justify-between items-baseline-last flex-wrap gap-sm">
                     @auth
                     @if(auth()->user()->cellars->count() > 1)
-                    <form action="{{ route('cellar.moveBottle') }}" method="POST">
+                    <form action="{{ route('cellar.moveBottle') }}" method="POST" class="grow">
 
                         @csrf
                         <div class="flex flex-col">
@@ -152,7 +152,7 @@
                                 <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle_id }}">
                                 <input type="hidden" name="from_cellar_id" value="{{ $cellar->id }}">
                                 <input type="number" name="quantity" value="1" min="1" max="{{ $cellarBottle->quantity }}" class="border border-light-gray rounded-t-md md:rounded-l-md md:rounded-r-none py-1 px-xxs text-center">
-                                <select name="to_cellar_id" required class="border border-light-gray py-1 px-xs text-sm sm:w-auto mt-0 sm:mt-0">
+                                <select name="to_cellar_id" required class="text-center border border-light-gray py-1 px-xs text-sm sm:w-auto mt-0 sm:mt-0">
                                     <option value="">Choisir un cellier</option>
                                     @foreach (auth()->user()->cellars->where('id', '!=', $cellar->id) as $otherCellar)
                                     <option value="{{ $otherCellar->id }}">{{ $otherCellar->name }}</option>
