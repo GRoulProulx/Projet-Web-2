@@ -11,7 +11,7 @@
     <form method="POST" action="{{ route('custom-bottles.store') }}" enctype="multipart/form-data" class="flex flex-col gap-sm md:max-w-3xl mx-auto">
         @csrf
 
-        <input type="text" name="name" placeholder="Nom" value="{{ old('name') }}" class="border p-xs rounded-md">
+        <input type="text" name="name" placeholder="Nom" value="{{ old('name') }}" class="border p-xs rounded-md" required>
         @error('name') <div class="text-alert">{{ $message }}</div> @enderror
 
         <!-- Image de la bouteille-->
@@ -48,7 +48,7 @@
         @error('quantity') <div class="text-alert">{{ $message }}</div> @enderror
 
         <button type="submit" class="bouton mt-0">Sauvegarder</button>
-        <a href="{{ route('bottle.index') }}" class="bouton white mt-0 text-center">Annuler</a>
+        <a href="{{ route('cellar.show', $cellar->id) }}" class="bouton white mt-0 text-center">Annuler</a>
     </form>
 </section>
 @endsection
