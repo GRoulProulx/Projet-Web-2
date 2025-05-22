@@ -6,7 +6,6 @@
     <div>
         <div class="mx-auto">
             <!-- Grand titre -->
-
             <header class="max-w-5xl">
                 @if(Auth::check())
                 <h1 class="font-family-title text-lg">Catalogue des vins</h1>
@@ -24,7 +23,7 @@
                 </p>
                 @endif
             </header>
-            <div class="flex flex-col items-center gap-md p-md">
+            <div class="flex flex-col md:auto pt-md gap-md">
                 <form method="GET" action="{{ route('search') }}" class="flex">
                     @method('GET')
                     <input
@@ -96,7 +95,10 @@
                     <button type="submit" class="bouton blue-magenta mt-0 font-family-title"> <i class="fa-solid fa-filter mr-base"></i> Filtrer</button>
                 </form>
             </details>
-
+            <div class="mt-md">
+                <p><strong>Sélection: </strong>{{$bottles->total()}} bouteilles</p>
+            </div>
+            
             <!-- Grille des produits -->
             <div class="mx-auto grid max-w-2xl grid-cols-1 gap-sm gap-y-sm mt-md md:mx-0 md:max-w-none md:grid-cols-2 xl:grid-cols-3 ">
                 @foreach($bottles as $bottle)

@@ -57,9 +57,6 @@
     </header>
 
     <main class="grow m-md mb-xxl ">
-        @auth
-        <div class="mb-sm">Bienvenue {{ auth()->user()->name }}</div>
-        @endauth
         @if (session('success'))
         <div class="success-message border border-light-gray/30 p-md rounded-sm mb-sm">
             <div><i class="fa-solid fa-circle-check text-gold mr-xs"></i>{{ session('success') }}</div>
