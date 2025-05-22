@@ -121,6 +121,8 @@
 
                 <!-- Formulaire de deplacement -->
                 <div class="flex justify-between items-baseline-last flex-wrap gap-sm">
+                    @auth
+                    @if(auth()->user()->cellars->count() > 1)
                     <form action="{{ route('cellar.moveBottle') }}" method="POST">
 
                         @csrf
@@ -144,6 +146,8 @@
                             </div>
                         </div>
                     </form>
+                    @endif
+                @endauth
                 </div>
             </div>
         </div>
