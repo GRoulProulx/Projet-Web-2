@@ -18,7 +18,7 @@
                 <div href="" class="border border-light-gray/20 rounded-md shadow p-md transition-all duration-300 hover:border-light-gray/40">
                     <article>
                         <div class="flex justify-end">
-                            <a href="#" data-action="deleteItemShoppingList" data-id="{{ $item->id }}" data-name="{{ $item->name }}" aria-label="Icône poubelle pour supprimer l'utilisateur">
+                            <a href="#" data-action="deleteButton" data-id="{{ $item->id }}" data-name="{{ $item->name }}" aria-label="Icône poubelle pour supprimer l'utilisateur">
                                 <i class="fa-solid fa-trash text-md text-alert"></i>
                             </a>
                         </div>
@@ -66,12 +66,12 @@
                         </div>
                         <div class="modale-body">
                             <p>
-                            <p>Êtes-vous sûr de vouloir supprimer cette bouteille<span id="modalItemName"></span>?</p>
+                            <p>Êtes-vous sûr de vouloir supprimer cette bouteille<span id="modalName"></span>?</p>
                             </p>
                         </div>
                         <div class="modale-footer flex justify-between items-baseline">
                             <a href="" class="bouton blue-magenta">Annuler</a>
-                            <form action="" method="POST" id="deleteItemShoppingListForm">
+                            <form action="" method="POST" id="modaleFormShopopingList">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="bouton alert mt-0">Supprimer</button>

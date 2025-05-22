@@ -27,8 +27,7 @@ function onWindowLoad(main) {
         setupDeleteConfirmation();
         saveCellarIdToSession();
         handleSuccessMessage(main);
-        setupUserDeleteConfirmation();
-        setupDeleteConfirmationShoppingList();
+        modaleDeleteConfirmation();
     });
 }
 
@@ -39,52 +38,41 @@ function setupDeleteConfirmation() {
     const deleteButton = document.querySelector('[data-action="delete"]');
     if (deleteButton) {
         deleteButton.addEventListener("click", showModale);
-    }    
+    }
 }
 
 /**
- * Active la boite modale de confirmation pour la suppression d’un utilisateur dans le tableau de bord administrateur 
+ * Active la boite modale de confirmation pour la suppression d’un utilisateur dans le tableau de bord administrateur ou d’un item dans la liste d'achats
  */
-function setupUserDeleteConfirmation() {
+function modaleDeleteConfirmation() {
     const deleteButtons = document.querySelectorAll(
-        '[data-action="deleteUser"]'
+        '[data-action="deleteButton"]'
     );
-    const form = document.getElementById("deleteUserForm");
-    const userNameSpan = document.getElementById("modalUserName");
+    const formUsers = document.getElementById("modaleFormUsers");
+    const formShoppingList = document.getElementById("modaleFormShopopingList");
+    const nameSpan = document.getElementById("modalName");
 
     deleteButtons.forEach((btn) => {
-        btn.addEventListener("click", function (event) {
+        btn.addEventListener("click", function () {
             showModale();
-            const userId = this.getAttribute("data-id");            
-            const userName = this.getAttribute("data-name");            
-            form.action = "/users/" + userId;
-            
-            if (userNameSpan) {
-                userNameSpan.textContent = userName;
+            if (formUsers) {
+                const userId = this.getAttribute("data-id");
+                const userName = this.getAttribute("data-name");
+                formUsers.action = "/users/" + userId;
+
+                if (nameSpan) {
+                    nameSpan.textContent = userName;
+                }
             }
-        });
-    });
-}
 
-/**
- * Affiche la modale de confirmation de suppression d'un item de la liste d'achats
- */
-function setupDeleteConfirmationShoppingList() {
-    const deleteButtons = document.querySelectorAll(
-        '[data-action="deleteItemShoppingList"]'
-    );
-    const form = document.getElementById("deleteItemShoppingListForm");
-    const itemNameSpan = document.getElementById("modalItemName");
+            if (formShoppingList) {
+                const itemId = this.getAttribute("data-id");
+                const itemName = this.getAttribute("data-name");
+                formShoppingList.action = "/shopping-list/" + itemId;
 
-    deleteButtons.forEach((btn) => {
-        btn.addEventListener("click", function (event) {
-            showModale();
-            const itemId = this.getAttribute("data-id");
-            const itemName = this.getAttribute("data-name");
-            form.action = "/shopping-list/" + itemId;
-
-            if (itemNameSpan) {
-                itemNameSpan.textContent = itemName;
+                if (nameSpan) {
+                    nameSpan.textContent = itemName;
+                }
             }
         });
     });
