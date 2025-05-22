@@ -77,7 +77,7 @@
         <div class=" mx-auto text-md p-md">
             <div class="flex justify-around items-baseline gap-xs">
                 <div class="flex flex-col items-center">
-                    <a href="#"><i class="fas fa-home" aria-label="Accueil"></i></a>
+                    <a href="{{ route('bottle.index') }}"><i class="fas fa-home" aria-label="Accueil"></i></a>
                     <p class="text-xs">Accueil</p>
                 </div>
                 <div class="flex flex-col items-center">
