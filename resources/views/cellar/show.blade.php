@@ -20,7 +20,20 @@
             <a href="{{ route('custom-bottles.create') }}" class="bouton white mt-0 grow md:grow-0 text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille personnalisée</a>
         </div>
     </div>
-
+    <!-- La recherche -->
+    <div class="flex flex-col">
+        <form method="GET" action="{{ route('searchCellar', $cellar->id) }}" class="flex">
+            @method('GET')
+            <input
+                id="search"
+                name="search"
+                type="text"
+                placeholder="Rechercher un vin"
+                class="border border-light-gray rounded-l-md rounded-r-none py-xs px-md w-91 h-12 text-center"
+                value="{{ request()->get('searchInCellar') }}">
+            <button type="submit" class="bouton blue-magenta py-1 px-6 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Recherche</button>
+        </form>
+    </div>
     <!-- Formulaire de tri -->
     <form method="GET" class="mb-md flex gap-sm flex-wrap items-center">
         <label for="sort_by" class="font-medium">Trier par:</label>
@@ -49,15 +62,15 @@
                     @php
                         $image = $cellarBottle->bottle->image;
                         $isExternal = Str::startsWith($image, ['http://', 'https://']);
-                     @endphp
+                    @endphp
 
                     @if ($image)
-                        <img src="{{ $isExternal ? $image : asset($image) }}" alt="{{ $cellarBottle->bottle->name }}"class="mx-auto sm:mx-0 max-w-[100px] max-h-[150px] object-cover rounded-md">
+                    <img src="{{ $isExternal ? $image : asset($image) }}" alt="{{ $cellarBottle->bottle->name }}" class="mx-auto sm:mx-0 max-w-[100px] max-h-[150px] object-cover rounded-md">
                     @else
                     <div class="bg-gray-100 flex items-center justify-center rounded-md w-[100px] h-[150px]">
                         <span class="text-gray-400">Aucune image</span>
                     </div>
-                     @endif
+                    @endif
                 </div>
 
                 <!-- Informations -->
@@ -73,22 +86,22 @@
                 </div>
             </a>
             <!-- Formulaire de deplacement -->
-<form action="{{ route('cellar.moveBottle') }}" method="POST" class="flex items-center gap-2">
-    @csrf
-    <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle_id }}">
-    <input type="hidden" name="from_cellar_id" value="{{ $cellar->id }}">
-    <input type="number" name="quantity" value="1" min="1"  max="{{ $cellarBottle->quantity }}" class="border border-light-gray rounded-md  py-1 px-3 w-20 text-center">
+            <form action="{{ route('cellar.moveBottle') }}" method="POST" class="flex items-center gap-2">
+                @csrf
+                <input type="hidden" name="bottle_id" value="{{ $cellarBottle->bottle_id }}">
+                <input type="hidden" name="from_cellar_id" value="{{ $cellar->id }}">
+                <input type="number" name="quantity" value="1" min="1" max="{{ $cellarBottle->quantity }}" class="border border-light-gray rounded-md  py-1 px-3 w-20 text-center">
 
-    <select name="to_cellar_id" class="border border-light-gray rounded-md  py-2 px-4 w-auto text-center">
-        <option value="">Vers...</option>
-       @foreach (auth()->user()->cellars->where('id', '!=', $cellar->id) as $otherCellar)
-    <option value="{{ $otherCellar->id }}">{{ $otherCellar->name }}</option>
-@endforeach
+                <select name="to_cellar_id" class="border border-light-gray rounded-md  py-2 px-4 w-auto text-center">
+                    <option value="">Vers...</option>
+                    @foreach (auth()->user()->cellars->where('id', '!=', $cellar->id) as $otherCellar)
+                    <option value="{{ $otherCellar->id }}">{{ $otherCellar->name }}</option>
+                    @endforeach
 
-    </select>
+                </select>
 
-    <button type="submit" class="bouton py-2 px-3 text-sm rounded-md sm:w-auto mt-0 sm:mt-0">Déplacer</button>
-</form>
+                <button type="submit" class="bouton py-2 px-3 text-sm rounded-md sm:w-auto mt-0 sm:mt-0">Déplacer</button>
+            </form>
 
             <!-- Formulaire de consommation -->
             <div class="flex justify-between items-baseline-last flex-wrap gap-sm">

@@ -10,6 +10,19 @@
                 <h1 class="font-family-title text-lg">Catalogue des vins</h1>
                 <p>Explorez une vaste sélection de vins directement issus de la SAQ. Recherchez, filtrez selon vos préférences et ajoutez vos découvertes à votre cellier en toute simplicité.</p>
             </header>
+            <div class="flex flex-col items-center gap-md p-md">
+                <form method="GET" action="{{ route('search') }}" class="flex">
+                    @method('GET')
+                    <input
+                        id="search"
+                        name="search"
+                        type="text"
+                        placeholder="Rechercher un vin"
+                        class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-50 text-center"
+                        value="{{ request()->get('search') }}">
+                    <button type="submit" class="bouton blue-magenta py-1 px-3 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Recherche</button>
+                </form>
+            </div>
             <details class="mt-md">
 
                 <summary class="text-blue-magenta font-family-title text-md">Filtres</summary>
@@ -67,11 +80,8 @@
                     </div>
                     <button type="submit" class="bouton blue-magenta mt-0 font-family-title text-md"> <i class="fa-solid fa-filter mr-base"></i> Filtrer</button>
                 </form>
-
             </details>
-            <div class="mt-md">
-                <p><strong>Sélection: </strong>{{$bottles->total()}} bouteilles</p>
-            </div>
+
             <!-- Grille des produits -->
             <div class="mx-auto grid max-w-2xl grid-cols-1 gap-sm gap-y-sm mt-md md:mx-0 md:max-w-none md:grid-cols-2 xl:grid-cols-3 ">
                 @foreach($bottles as $bottle)
