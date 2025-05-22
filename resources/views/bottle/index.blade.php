@@ -24,6 +24,7 @@
                 @endif
             </header>
             <div class="flex flex-col md:auto pt-md gap-md">
+                <!-- La barre de recherche -->
                 <form method="GET" action="{{ route('search') }}" class="searchForm flex">
                     @method('GET')
                     <input
@@ -31,7 +32,7 @@
                         name="search"
                         type="text"
                         placeholder="Rechercher un vin"
-                        class="border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-50 text-center"
+                        class=" grow sm:grow-0 border border-light-gray rounded-l-md rounded-r-none py-1 px-3 w-50 text-center"
                         value="{{ request()->get('search') }}">
                     <button type="submit" class="bouton blue-magenta py-1 px-3 text-sm rounded-r-md rounded-l-none sm:w-auto mt-0 sm:mt-0">Recherche</button>
                 </form>
@@ -98,7 +99,7 @@
             <div class="mt-md">
                 <p><strong>Sélection: </strong>{{$bottles->total()}} bouteilles</p>
             </div>
-            
+
             <!-- Grille des produits -->
             <div class="mx-auto grid max-w-2xl grid-cols-1 gap-sm gap-y-sm mt-md md:mx-0 md:max-w-none md:grid-cols-2 xl:grid-cols-3 ">
                 @foreach($bottles as $bottle)
