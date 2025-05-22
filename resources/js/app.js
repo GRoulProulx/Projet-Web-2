@@ -1,9 +1,8 @@
 import "./bootstrap";
 import { formatWineTitle } from "./formatWineTitles";
 import { showModale } from "./modale";
-import { filterWineCards } from "./search";
 import { hideElementAfterDelay } from "./hideElementAfterDelay";
-
+import { inputDeleteContent } from "./search";
 /**
  * Initialisation générale de l’application
  */
@@ -16,7 +15,6 @@ function init() {
     formatWineTitles();
     setupHamburgerMenu(hamMenu, offScreenMenu);
     setupCellarSelection();
-    setupSearch();
 }
 
 /**
@@ -28,6 +26,7 @@ function onWindowLoad(main) {
         saveCellarIdToSession();
         handleSuccessMessage(main);
         modaleDeleteConfirmation();
+        inputDeleteContent();
     });
 }
 
@@ -139,57 +138,6 @@ function setupCellarSelection() {
     }
 }
 
-/**
- * Initialise la recherche (modale + filtre en temps réel)
- */
-function setupSearch() {
-    setupSearchModal();
-    setupSearchFilter();
-}
 
-/**
- * Gère l’ouverture/fermeture de la modale de recherche
- */
-function setupSearchModal() {
-    const searchInput = document.querySelector("#search");
-    const closePopup = document.querySelector(".close-popup");
-    const popup = document.querySelector(".popup");
-    const popupIcon = document.querySelector(".popupIcon");
-
-    if (!searchInput || !closePopup || !popup || !popupIcon) return;
-
-    // Petite fonction utilitaire pour (dé)plier la modale
-    const togglePopup = () => {
-        popupIcon.classList.toggle("active");
-        popup.classList.toggle("active");
-    };
-
-    popupIcon.addEventListener("click", togglePopup);
-    closePopup.addEventListener("click", () => {
-        togglePopup();
-        searchInput.value = "";
-    });
-
-    // Fermeture de la modale avec la touche Entrée
-    searchInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-            e.preventDefault();
-            togglePopup();
-            searchInput.value = "";
-        }
-    });
-}
-
-/**
- * Applique le filtre de recherche sur les cartes de vin
- */
-function setupSearchFilter() {
-    const searchInput = document.querySelector("#search");
-    if (!searchInput) return;
-
-    searchInput.addEventListener("input", (e) => {
-        filterWineCards(e.target.value.toLowerCase());
-    });
-}
 
 init();

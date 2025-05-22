@@ -24,7 +24,7 @@
                 @endif
             </header>
             <div class="flex flex-col md:auto pt-md gap-md">
-                <form method="GET" action="{{ route('search') }}" class="flex">
+                <form method="GET" action="{{ route('search') }}" class="searchForm flex">
                     @method('GET')
                     <input
                         id="search"
