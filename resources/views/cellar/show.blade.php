@@ -16,7 +16,7 @@
             <input type="hidden" id="cellar_id" value="{{$cellar->id}}">
         </header>
         <div class="flex gap-xxs justify-between flex-wrap sm:flex-nowrap mt-sm mb-sm ">
-            <a href="{{ route('bottle.index') }}" class="bouton mt-0 grow md:grow-0 text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille</a>
+            <a href="{{ route('bottle.index') }}" class="bouton mt-0 grow md:grow-0 text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille de la SAQ</a>
             <a href="{{ route('custom-bottles.create') }}" class="bouton white mt-0 grow md:grow-0 text-center"><i class="fa fa-plus mr-xs" aria-hidden="true"></i>Ajouter une bouteille personnalisée</a>
         </div>
     </div>
