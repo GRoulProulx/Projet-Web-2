@@ -2,7 +2,7 @@
 @section('title', 'Modifier un vin au cellier')
 @section('content')
 
-<section>
+<section class="mb-lg">
     <div class="mx-auto max-w-3xl my-md">
         <a href="{{ route('cellar_bottle.show', $cellarBottle->id) }}">
             <article class="flex max-w-full min-h-full flex-col items-start justify-between border border-light-gray/30 rounded-md p-sm hover:border-light-gray/60 transition duration-300 ease-in-out">
@@ -33,7 +33,7 @@
     <form method="POST" class="flex flex-col gap-sm md:max-w-3xl mx-auto">
         @csrf
         @method('PUT')
-        <div class="flex flex-col gap-xxs">
+        <div class="hidden flex flex-col gap-xxs">
             <label for="cellar_name">Nom du cellier</label>
             <select class="border border-light-gray/30 rounded-md p-xs" required name="cellar_id" id="cellar_name">
                 <option value="">Sélectionner un cellier</option>
