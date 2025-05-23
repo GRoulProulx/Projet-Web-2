@@ -4,7 +4,7 @@
 @section('content')
 <section class="my_cellar mx-auto">
     <!-- En-tête de la page -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between mb-sm ">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between mb-sm ">
         <header class="flex items-center justify-between gap-md mb-sm mr-0 sm:mr-md">
             <h1 class="text-lg font-family-title flex items-baseline gap-xxs flex-nowrap">
                 Cellier: <span class="font-family">{{ $cellar->name }}</span>
